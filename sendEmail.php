@@ -28,7 +28,7 @@
 		<?php
 			//Displaying message to user after their email has been sent
 			echo "<html><h1>Thanks for your message " . $name . "</h1></html>";
-			echo "<html><h3>Send <a href='contact.html'>Another</a><html></h3>";
+			echo "<html><h3>Send <a href='contactForm.php'>Another</a><html></h3>";
 		?>
 	</div>
 	</div>
