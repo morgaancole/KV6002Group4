@@ -1,5 +1,5 @@
  <?php
-  require_once("functions.php");
+  require_once("inc/functions.php");
   echo makePageStart();
   echo makeNav();
 ?>
