@@ -82,7 +82,7 @@ function makeFooter(){
             |
             <a href="#">Services</a>
             |
-            <a href="#">Contact</a>
+            <a href="contactForm.php">Contact</a>
             |
             <a href="#">Staff Login</a>
             </p>
