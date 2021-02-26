@@ -3,7 +3,6 @@
   echo makePageStart();
   echo makeNav();
 ?>
-
   <div style="background-image: url('styles/images/angel.jpg');" class="banner" ></div>
   <div class="about">
     <div class="content">
