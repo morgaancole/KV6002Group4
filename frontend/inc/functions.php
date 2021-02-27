@@ -10,15 +10,10 @@ function makePageStart() {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/style.css">
-<<<<<<< Updated upstream
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-        <title>Henderson Building Contractors</title>
-=======
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <title>Henderson Building Contractors</title>
         <link rel="icon" href="styles/images/logo.png" type="image" sizes="16x16">
->>>>>>> Stashed changes
     </head>
 PAGESTART;
 	$pageStartContent .="\n";
@@ -32,17 +27,16 @@ function makeNav(){
             <label for="check" class="checkbtn">
             <i class="fas fa-bars"></i>
             </label>
-            <label class="logo">Henderson</label>
+            <div class="nav-logo">
+                <img src="styles/images/logo.png">
+            </div>
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Services</a></li>
-                <li><a href="#">Features</a></li>
+                <li><a href="#">Jobs</a></li>
                 <li><a href="contactForm.php">Contact</a></li>
-<<<<<<< Updated upstream
-=======
-                <li><a href="#">Feedback</a></li>
->>>>>>> Stashed changes
+                <li><a href="#">Staff Login</a></li>
             </ul>
       </nav>
 NAVIGATION;
@@ -51,8 +45,6 @@ NAVIGATION;
 	return $makeNav;
 }
 
-<<<<<<< Updated upstream
-=======
 //Function to create main body of page
 function startMain(){
     $mainContent = <<<MAIN
@@ -96,18 +88,18 @@ function makeFooter(){
             </div>
 
             <div>
-            <i class="fa fa-phone"></i>
-            <p>01670 707853</p>
+                <i class="fa fa-phone"></i>
+                <p>01670 707853</p>
             </div>
             <div>
-            <i class="fa fa-envelope"></i>
-            <p><a href="mailto:testaddress@hendersonbuilding.co.uk">test@hendersonbuilding.co.uk</a></p>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:enquiries@hendersonbuilding.co.uk">enquiries@hendersonbuilding.co.uk</a></p>
             </div>
         </div>
         <div class="footer-right">
             <p class="footer-company-about">
             <span>About the company</span>
-            Henderson Building Contractors was formed in 1984 by Bill and Ros Henderson. Operating out of their family home, they carried out private domestic work to the local area.</p>
+                Henderson Building Contractors was formed in 1984 by Bill and Ros Henderson. Operating out of their family home, they carried out private domestic work to the local area.</p>
             <div class="footer-icons">
             <a href="#"><i class="fa fa-facebook"></i></a>
             </div>
@@ -134,5 +126,4 @@ PAGEEND;
     return $pageEndContent;
 }
 
->>>>>>> Stashed changes
 ?>

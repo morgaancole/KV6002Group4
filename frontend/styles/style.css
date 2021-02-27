@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap');
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family:'' montserrat;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
   
 }
 /* custom scroll bar */
@@ -25,19 +25,13 @@
   margin: auto;
   padding: 0 30px;
 }
-<<<<<<< Updated upstream
-.navbar{
-  position: fixed;
-=======
-
 
 /*Title div used throughout site*/
 .title{
-  font-size: large;
+  font-size: x-large;
   text-align: center;
   height: 30%;
   color: #111; 
-  font-family: 'Helvetica Neue', sans-serif; 
   font-weight: bold; 
   letter-spacing: -1px; 
   line-height: 1; 
@@ -47,6 +41,7 @@
   align-items: center;
   flex-flow: column wrap;
   width: 100%;
+  margin: 0;
 }
 
 @media (max-height:800px){
@@ -57,21 +52,24 @@
 /*Nav bar*/
 nav{
   height: 80px;
->>>>>>> Stashed changes
   width: 100%;
   z-index: 20;
   font-family: poppins;
-}
-.logo{
-  color: red;
-  font-size: 35px;
-  line-height: 80px;
-  padding: 0 100px;
-  font-weight: bold;
+  display: inline;
+  overflow:hidden;
+    text-align: center;
 }
 
-.navbar .logo img{
-  height: 120px;
+.nav-logo{
+	left:0;
+	width: 10%;
+	margin: 0;
+	position: relative;
+}
+
+.nav-logo img{
+	height: 100px;
+	position: absolute;
 }
 
 nav ul{
@@ -87,6 +85,7 @@ nav ul li{
 nav ul li a{
   color: black;
   font-size: 17px;
+  font-family: 'Open Sans Condensed', sans-serif;
   padding: 7px 13px;
   border-radius: 3px;
   text-transform: uppercase;
@@ -96,18 +95,10 @@ a.active{
   text-decoration: underline;
   color: red;
 }
-<<<<<<< Updated upstream
-.banner{
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-=======
 
 a:hover{
   background: red;
   transition: .5s;
->>>>>>> Stashed changes
 }
 
 nav ul li:hover{
@@ -164,8 +155,6 @@ nav ul li:hover{
     left: 0;
   }
 }
-<<<<<<< Updated upstream
-=======
 
 
 /*Footer*/
@@ -354,17 +343,21 @@ footer{
 	width:100%;
 	margin:0 auto;
 	position:relative;
-  text-align: center;
+	text-align: center;
+	background:rgb(255,0,0, 0.7);
+	border-radius: 10%;
+}
+
+.container i.fa-phone{
+	font-size: 30px;
+	line-height: 38px;
 }
 
 #contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea, #contact button[type="submit"] { font:400 12px/16px "Open Sans", Helvetica, Arial, sans-serif; }
 
 #contact {
-	background:fade(#F9F9F9,85);
 	padding:25px;
-	margin:80px 0;
-  background-color: silver;
-  
+	margin:80px 0;  
 }
 
 #contact h3 {
@@ -406,14 +399,14 @@ fieldset {
 #contact textarea {
 	height:100px;
 	max-width:100%;
-  resize:none;
+	resize:none;
 }
 
 #contact button[type="submit"] {
 	cursor:pointer;
 	width:100%;
 	border:none;
-	background:#000;
+	background:gray;
 	color:#FFF;
 	margin:0 0 5px;
 	padding:25px 10px;
@@ -422,7 +415,7 @@ fieldset {
 }
 
 #contact button[type="submit"]:hover {
-	background:red;
+	background:darkgray;
 	-webkit-transition:background 0.3s ease-in-out;
 	-moz-transition:background 0.3s ease-in-out;
 	transition:background-color 0.3s ease-in-out;
@@ -455,4 +448,3 @@ label.error{
 input.error{
 	border-color: darkred !important;
 }
->>>>>>> Stashed changes
