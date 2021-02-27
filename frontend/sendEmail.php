@@ -1,5 +1,8 @@
 <?php
-	$input = array();
+  require_once("inc/functions.php");
+  echo makePageStart();
+  echo makeNav();
+
 	$errors = array();
 	
 	//Takes information from the contact form for it to be used by script
@@ -22,15 +25,23 @@
 	
 ?>
 <html>
-<body>
-<div>
-	<div>
+<body body style="background-image: url(styles/images/living.jpg);">
+<h3 class="title">Contact Us</h3>
+  <div class="container">  
 		<?php
 			//Displaying message to user after their email has been sent
-			echo "<html><h1>Thanks for your message " . $name . "</h1></html>";
-			echo "<html><h3>Send <a href='contactForm.php'>Another</a><html></h3>";
+			echo "<h2>Thanks for your message " . $name . "</h2>";
+			echo "<h3>Send <a href='contactForm.php'>Another?</a></h3>";
 		?>
-	</div>
-	</div>
+  </div>
+      
 </body>
 </html>
+
+<?php
+
+echo makeFooter();
+echo endMain();
+echo makePageEnd();
+
+?>

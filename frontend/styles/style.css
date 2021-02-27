@@ -1,16 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap');
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Open Sans Condensed', sans-serif;
+  
 }
-
-body{
-  width: 100%;
-  padding: 0px;
-}
-/*scroll bar */
+/* custom scroll bar */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -24,19 +21,17 @@ body{
   background: rgb(0,123,255,0.3);
 }
 .content{
-  max-width: 100vw;
-  margin: 0;
+  max-width: 1250px;
+  margin: auto;
   padding: 0 30px;
 }
 
-
 /*Title div used throughout site*/
 .title{
-  font-size: large;
+  font-size: x-large;
   text-align: center;
-  height: 30vh;
+  height: 30%;
   color: #111; 
-  font-family: 'Helvetica Neue', sans-serif; 
   font-weight: bold; 
   letter-spacing: -1px; 
   line-height: 1; 
@@ -45,8 +40,8 @@ body{
   display: flex;
   align-items: center;
   flex-flow: column wrap;
-  padding-top: 5%;
   width: 100%;
+  margin: 0;
 }
 
 @media (max-height:800px){
@@ -54,136 +49,138 @@ body{
 	.title { padding-top:40px; 
 }
 
-
 /*Nav bar*/
-.navbar{
-  position: fixed;
+nav{
+  height: 80px;
   width: 100%;
-  z-index: 2;
-  padding: 25px 0;
-  transition: all 0.3s ease;
-}
-.navbar.sticky{
-  background: #A9A9A9;
-  padding: 10px 0;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
-}
-.navbar .content{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  z-index: 20;
+  font-family: poppins;
+  display: inline;
+  overflow:hidden;
+    text-align: center;
 }
 
-.navbar .logo img{
-  height: 120px;
+.nav-logo{
+	left:0;
+	width: 10%;
+	margin: 0;
+	position: relative;
 }
 
-.navbar .logo a{
-  color: #fff;
-  font-size: 30px;
-  font-weight: 600;
-  text-decoration: none;
+.nav-logo img{
+	height: 100px;
+	position: absolute;
 }
-.navbar .menu-list{
-  display: inline-flex;
+
+nav ul{
+  float: right;
+  margin-right: 20px;
+  z-index: 20;
 }
-.menu-list li{
-  list-style: none;
+nav ul li{
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
 }
-.menu-list li a{
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
-  margin-left: 25px;
-  text-decoration: none;
-  transition: all 0.3s ease;
+nav ul li a{
+  color: black;
+  font-size: 17px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
 }
-.menu-list li a:hover{
-  color: red;
+
+a.active{
   text-decoration: underline;
-}
-.banner{
-  height: 70vh;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  color: red;
 }
 
-.icon{
-  color: #fff;
-  font-size: 20px;
+a:hover{
+  background: red;
+  transition: .5s;
+}
+
+nav ul li:hover{
+  font-weight: bold;
+}
+.checkbtn{
+  font-size: 30px;
+  color: red;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
   cursor: pointer;
   display: none;
 }
-.menu-list .cancel-btn{
-  position: absolute;
-  right: 30px;
-  top: 20px;
+#check{
+  display: none;
 }
-.menu-list .cancel-btn img{
-  height: 15px;
-}
-
-@media (max-width: 1230px) {
-  .content{
-    padding: 0 60px;
+@media (max-width: 952px){
+  label.logo{
+    font-size: 30px;
+    padding-left: 50px;
+  }
+  nav ul li a{
+    font-size: 16px;
   }
 }
-@media (max-width: 1100px) {
-  .content{
-    padding: 0 40px;
-  }
-}
-@media (max-width: 900px) {
-  .content{
-    padding: 0 30px;
-  }
-}
-@media (max-width: 868px) {
-  body.disabled{
-    overflow: hidden;
-  }
-  .icon{
+@media (max-width: 858px){
+  .checkbtn{
     display: block;
   }
-  .icon.hide{
-    display: none;
-  }
-  .navbar .menu-list{
+  ul{
     position: fixed;
-    height: 100vh;
     width: 100%;
-    max-width: 400px;
+    height: 100vh;
+    background: gray;
+    top: 80px;
     left: -100%;
-    top: 0px;
-    display: block;
-    padding: 40px 0;
     text-align: center;
-    background: #A9A9A9;
-    transition: all 0.3s ease;
+    transition: all .5s;
   }
-
-  .navbar.show .menu-list{
-    left: 0%;
+  nav ul li{
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
   }
-  .navbar .menu-list li{
-    margin-top: 45px;
+  nav ul li a{
+    font-size: 20px;
   }
-  .navbar .menu-list li a{
-    font-size: 23px;
-    margin-left: -100%;
-    transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  a:hover,a.active{
+    background: none;
+    color: red;
   }
-  .navbar.show .menu-list li a{
-    margin-left: 0px;
-  }
-}
-@media (max-width: 380px) {
-  .navbar .logo a{
-    font-size: 27px;
+  #check:checked ~ ul{
+    left: 0;
   }
 }
 
+/*Jobs Page*/
+.wrap {
+	display: flex;
+	flex-wrap: wrap;
+	flex-flow: row wrap;
+  }
+  
+.wrap .item {
+	width: 30%;
+	display: block;
+	overflow: hidden;
+	height: 100%;
+	padding: 5px;
+	margin:5px;
+	margin-left:10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+	.wrap .item {
+		width: 100%;
+	}
+}
 
 /*Footer*/
 footer{
@@ -366,86 +363,113 @@ footer{
 /*Contact Form*/
 
 /* Style the container/contact section */
-.contact-form {
-  border-radius: 15px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  flex-flow: column wrap;
-  background-color: #c0c0c0;
-  margin: 0;
+.container {
+	max-width:400px;
+	width:100%;
+	margin:0 auto;
+	position:relative;
+	text-align: center;
+	background:rgb(255,0,0, 0.7);
+	border-radius: 10%;
 }
 
-.contact-form form{
-  width: 50%;
+.container i.fa-phone{
+	font-size: 30px;
+	line-height: 38px;
 }
 
-.contact-form input[type=text] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: none;
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea, #contact button[type="submit"] { font:400 12px/16px "Open Sans", Helvetica, Arial, sans-serif; }
+
+#contact {
+	padding:25px;
+	margin:80px 0;  
 }
 
-.contact-form form textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: none;
-
+#contact h3 {
+	color: #000;
+	display: block;
+	font-size: 30px;
+	font-weight: 400;
 }
 
-.contact-form input[type=email]{
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: none;
+#contact h4 {
+	margin:5px 0 15px;
+	display:block;
+	font-size:13px;
 }
 
-.contact-form input[type=submit] {
-  background-color: red;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
+fieldset {
+	border: medium none !important;
+	margin: 0 0 10px;
+	min-width: 100%;
+	padding: 0;
+	width: 100%;
 }
 
-.contact-form input[type=submit]:hover {
-  background-color: #b00404;
+#contact input[type="text"], #contact input[type="email"], #contact input[type="tel"], #contact input[type="url"], #contact textarea {
+	width:100%;
+	border:1px solid #CCC;
+	background:#FFF;
+	margin:0 0 5px;
+	padding:10px;
 }
 
-.contact-icons{
-  position: absolute;
-  bottom:   10%;
+#contact input[type="text"]:hover, #contact input[type="email"]:hover, #contact input[type="tel"]:hover, #contact input[type="url"]:hover, #contact textarea:hover {
+	-webkit-transition:border-color 0.3s ease-in-out;
+	-moz-transition:border-color 0.3s ease-in-out;
+	transition:border-color 0.3s ease-in-out;
+	border:1px solid #AAA;
 }
 
-.contact-icons li{
-  display: inline-block;
+#contact textarea {
+	height:100px;
+	max-width:100%;
+	resize:none;
 }
 
-.contact-icons li i{
-  display: inline-block;
-  color: black;
-  font-size: xx-large;
-  margin: 1px 2px;
-  border: 1px solid black;
-  padding:5px;
-  border-radius: 20%;
-  width: 100%;
+#contact button[type="submit"] {
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:gray;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:25px 10px;
+	font-size:15px;
+	text-transform: uppercase;
 }
 
+#contact button[type="submit"]:hover {
+	background:darkgray;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
 
-@media (max-width: 880px) {
+#contact button[type="submit"]:active { box-shadow:inset 0 1px 3px rgba(0, 0, 0, 0.5); }
 
-  .contact-form form{
-    width: 100%;
-  }
+#contact input:focus, #contact textarea:focus {
+	outline:0;
+	border:1px solid #999;
+}
+::-webkit-input-placeholder {
+ color:#888;
+}
+:-moz-placeholder {
+ color:#888;
+}
+::-moz-placeholder {
+ color:#888;
+}
+:-ms-input-placeholder {
+ color:#888;
+}
 
+label.error{
+	color: darkred;
+	padding-left: 10px;
+	font-weight: bold;
+}
+input.error{
+	border-color: darkred !important;
 }

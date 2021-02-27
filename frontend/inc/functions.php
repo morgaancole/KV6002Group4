@@ -1,5 +1,11 @@
 <?php
 
+function getDatabase(){
+    $dir = 'sqlite:/[YOUR-PATH]/combadd.sqlite';
+    $dbh  = new PDO($dir) or die("cannot open the database");
+   
+}
+
 //Function to create web page
 function makePageStart() {
 
@@ -10,12 +16,11 @@ function makePageStart() {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/style.css">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <title>Henderson Building Contractors</title>
-        <script type="text/javascript" src="inc/stickynav.js"></script>
         <link rel="icon" href="styles/images/logo.png" type="image" sizes="16x16">
     </head>
-    <body>
 PAGESTART;
 	$pageStartContent .="\n";
 	return $pageStartContent;
@@ -23,33 +28,23 @@ PAGESTART;
 
 function makeNav(){
         $makeNav = <<<NAVIGATION
-            <nav class="navbar">
-            <div class="content">
-            <div class="logo">
-                <a href="index.php"><img src="styles/images/logo.png" /></a>
+        <nav>
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+            </label>
+            <div class="nav-logo">
+                <img src="styles/images/logo.png">
             </div>
-            <ul class="menu-list">
-                <div class="icon cancel-btn">
-                <i><img class ="close-btn" src="styles/images/close.png" /></i>
-                </div>
+            <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Services</a></li>
+                <li><a href="jobs.php">Jobs</a></li>
                 <li><a href="contactForm.php">Contact</a></li>
                 <li><a href="#">Staff Login</a></li>
-                
             </ul>
-            <div class="icon menu-btn">
-                <i>
-                <svg viewBox="0 0 100 80" width="40" height="40">
-                        <rect width="100" height="20"></rect>
-                        <rect y="30" width="100" height="20"></rect>
-                        <rect y="60" width="100" height="20"></rect>
-                    </svg>
-                </i>
-            </div>
-            </div>
-        </nav>
+      </nav>
 NAVIGATION;
 
     $makeNav .="\n";
@@ -99,20 +94,20 @@ function makeFooter(){
             </div>
 
             <div>
-            <i class="fa fa-phone"></i>
-            <p>01670 707853</p>
+                <i class="fa fa-phone"></i>
+                <p>01670 707853</p>
             </div>
             <div>
-            <i class="fa fa-envelope"></i>
-            <p><a href="mailto:testaddress@hendersonbuilding.co.uk">test@hendersonbuilding.co.uk</a></p>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:enquiries@hendersonbuilding.co.uk">enquiries@hendersonbuilding.co.uk</a></p>
             </div>
         </div>
         <div class="footer-right">
             <p class="footer-company-about">
             <span>About the company</span>
-            Henderson Building Contractors was formed in 1984 by Bill and Ros Henderson. Operating out of their family home, they carried out private domestic work to the local area.</p>
+                Henderson Building Contractors was formed in 1984 by Bill and Ros Henderson. Operating out of their family home, they carried out private domestic work to the local area.</p>
             <div class="footer-icons">
-            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-facebook-f"></i></a>
             </div>
         </div>
     </footer>
@@ -130,7 +125,6 @@ function endMain(){
 //Function to end document
 function makePageEnd(){
     $pageEndContent = <<<PAGEEND
-    </body>
     </html>
 PAGEEND;
 
