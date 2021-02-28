@@ -1,10 +1,12 @@
 <?php
 
+
 function getDatabase(){
     $dir = 'sqlite:/[YOUR-PATH]/combadd.sqlite';
     $dbh  = new PDO($dir) or die("cannot open the database");
    
 }
+
 
 //Function to create web page
 function makePageStart() {
