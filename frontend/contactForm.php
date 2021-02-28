@@ -4,7 +4,7 @@
   echo makeNav();
 ?>
 
-<body style="background-image: url(styles/images/living.jpg);">
+<body style="background-image: url(styles/images/contact.jpg);">
 <h3 class="title">Contact Us</h3>
   <div class="container">  
     <form id="contact" action="sendEmail.php" method="post">
