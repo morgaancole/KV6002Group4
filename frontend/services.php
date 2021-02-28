@@ -4,8 +4,11 @@
   echo makeNav();
 ?>
 
-<body style="background-image: url(styles/images/jobs.jpg);">
-    <h3 class="title">Join The Team!</h3>
+<body style="background-image: url(styles/images/services.jpg);">
+    <h3 class="title">Our Services
+        <a href="contactForm.php">Contact Us for a quote</a> 
+    </h3>
+    
     <div class="wrap">  
         <div class="item">
             <form id="contact" action="apply.php" method="post">

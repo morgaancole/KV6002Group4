@@ -2,9 +2,11 @@
 
 
 function getDatabase(){
-    $dir = 'sqlite:/[YOUR-PATH]/combadd.sqlite';
-    $dbh  = new PDO($dir) or die("cannot open the database");
+    $dir = 'sqlite:/../DB/henderson.db';
+    $dbConnection  = new PDO($dir) or die("cannot open the database");
    
+
+    return $dbConnection;
 }
 
 
@@ -41,7 +43,7 @@ function makeNav(){
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
+                <li><a href="services.php">Services</a></li>
                 <li><a href="jobs.php">Jobs</a></li>
                 <li><a href="contactForm.php">Contact</a></li>
                 <li><a href="#">Staff Login</a></li>
@@ -77,7 +79,7 @@ function makeFooter(){
             |
             <a href="#">About</a>
             |
-            <a href="#">Services</a>
+            <a href="services.php">Services</a>
             |
             <a href="contactForm.php">Contact</a>
             |
