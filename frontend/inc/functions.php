@@ -18,12 +18,12 @@ function makePageStart() {
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/style.css">
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">      
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <title>Henderson Building Contractors</title>
         <link rel="icon" href="styles/images/logo.png" type="image" sizes="16x16">
+        <script type="text/javascript" src="functions.js"></script>
+        <link rel="stylesheet" href="styles/style.css">      
     </head>
 PAGESTART;
 	$pageStartContent .="\n";

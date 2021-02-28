@@ -11,12 +11,16 @@
     
     <div class="wrap">  
         <div class="item">
-            <form id="contact" action="apply.php" method="post">
-                <h1>Job Title</h1>
-                <fieldset>
-                    <button name="submit" type="submit" id="apply-submit">Apply Here</button>
-                </fieldset>
-            </form>
+            <h2>Impact Damage Repair</h2>
+            <p>We have vast experience dealing with impact damage situations, providing a rapid response to stabilise properties, followed by full reinstatement. Safety and security are paramount in these circumstances and Henderson Building Contractors have the resources to ensure the impacted property is made safe and repaired to its pre-impact condition.</p>
+            <p>Impact Damage repair involves a range of services from start to finish such as:</p>
+            <ul>
+                <li>Emergency Propping Up</li>
+                <li>Emergency Boarding Up</li>
+                <li>Structural Survey</li>
+                <li>Structural Repair</li>
+                <li>Bricklaying</li>
+            </ul>
         </div>
     </div>
 

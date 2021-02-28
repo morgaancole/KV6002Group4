@@ -21,6 +21,11 @@
   background: rgb(0,123,255,0.3);
 }
 
+body{
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 /*Title div used throughout site*/
 .title{
   font-size: x-large;
@@ -156,10 +161,12 @@ nav ul li:hover{
 	display: flex;
 	flex-wrap: wrap;
 	flex-flow: row wrap;
+	width: 100%;
+	padding: 5%;
   }
   
 .wrap .item {
-	width: 30%;
+	width: 31%;
 	display: block;
 	overflow: hidden;
 	height: 100%;
@@ -169,6 +176,21 @@ nav ul li:hover{
 	margin-top: 15px;
 	margin-bottom: 15px;
 	text-align: center;
+	border-radius: 1px;
+	border: solid black;
+	background-color: rgb(0, 0, 255, 0.3);
+}
+
+.wrap .item ul {
+	list-style-type: circle;
+}
+
+.wrap .item form{
+	height: 100%;
+}
+
+#more{
+	display: none;
 }
 
 @media screen and (max-width: 800px) {
