@@ -20,11 +20,6 @@
 ::selection{
   background: rgb(0,123,255,0.3);
 }
-.content{
-  max-width: 1250px;
-  margin: auto;
-  padding: 0 30px;
-}
 
 /*Title div used throughout site*/
 .title{
