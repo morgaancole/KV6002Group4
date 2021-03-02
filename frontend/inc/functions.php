@@ -2,9 +2,8 @@
 
 
 function getDatabase(){
-    $dir = 'sqlite:/../DB/henderson.db';
-    $dbConnection  = new PDO($dir) or die("cannot open the database");
-   
+    $dir = 'sqlite:../DB/henderson.db';
+    $dbConnection  = new PDO($dir) or die("cannot open the database");   
 
     return $dbConnection;
 }
