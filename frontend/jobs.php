@@ -6,9 +6,9 @@
 
 <body style="background-image: url(styles/images/jobs.jpg);">
     <h3 class="title">Join The Team!</h3>
-    <div class="wrap">  
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+    <div class="job-page">  
+        <div class="job-box">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
@@ -19,8 +19,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+        <div class="job-box" id="jobForm">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
@@ -31,8 +31,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+        <div class="job-box" id="jobForm">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
@@ -43,8 +43,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+        <div class="job-box" id="jobForm">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
@@ -55,8 +55,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+        <div class="job-box" id="jobForm">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
@@ -67,8 +67,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+        <div class="job-box" id="jobForm">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
@@ -79,8 +79,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+        <div class="job-box" id="jobForm">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
@@ -91,8 +91,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+        <div class="job-box" id="jobForm">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
@@ -103,8 +103,8 @@
                 </fieldset>
             </form>
         </div>
-        <div class="item" id="jobForm">
-            <form id="contact" action="apply.php" method="post">
+        <div class="job-box" id="jobForm">
+            <form id="jobForm" action="apply.php" method="post">
                 <h2>Job Title</h2>
                 <h2>Wage(p/h): </h2>
                 <h2>Job Description</h2>
