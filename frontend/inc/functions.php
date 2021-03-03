@@ -135,4 +135,61 @@ PAGEEND;
     return $pageEndContent;
 }
 
+//Function which gets Jobs from database
+function getJobs(){
+    $dbConn = getDatabase();
+    $select_stmt = $dbConn->prepare("SELECT 
+                                        job_id AS 'ID',
+                                        job_title AS 'Role',
+                                        job_wage AS 'Wage(Hourly)',
+                                        job_close_date AS 'Closing Date'
+                                        FROM hd_job_vacancies");
+    
+    $select_stmt->execute();
+
+    //Array for results
+    $jobs = array();
+    if ($select_stmt->execute()) {
+        while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+            $jobs[] = $row;
+        }
+    }
+
+    return $jobs;
+}
+
+function makeJobsPage(){
+
+    $jobs = getJobs();
+
+    $jobBox = "";
+
+    foreach ( $jobs as $jobItem ) {
+
+        $jobBox .= "<div class='job-box'>";
+        $jobBox .= "<form id='jobForm' action='apply.php' method='post'>";
+    
+        foreach ( $jobItem as $key => $value ) {
+            if ($key === 'ID'){
+                $jobBox .= "<label style='display:none;' for='$key'>$key</label>
+                        <input style='display:none;' name='$key' type='text' readonly value ='$value'>";
+                        
+            }else{
+                $jobBox .= "<h2>$key : $value</h2>";
+            }
+        }
+    
+        $jobBox .= "<fieldset><button name='submit' type='submit' id='apply-submit'>Apply Here</button></fieldset>";
+        $jobBox .= "</form></div><br>";
+    }
+
+    $jobsPage = <<<JOBS
+                $jobBox
+
+JOBS;
+
+    $jobsPage .="\n";
+    return $jobsPage;
+}
+
 ?>
