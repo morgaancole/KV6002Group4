@@ -220,7 +220,7 @@ function makeFullJob($jobId){
     <body>
     <h3 class="title"></h3>
         <div class="container">  
-        <form id="contact" action="sendEmail.php" method="post">
+        <form id="contact" action="apply.php" method="post">
             
             <div>
                 <h3>$jobTitle</h3>
@@ -233,7 +233,7 @@ function makeFullJob($jobId){
             <br>
             <h2>Applications close: $jobClose</h2>
             <fieldset>
-                <button name="submit" type="submit" id="apply-here" data-submit="...Sending">Apply Here</button>
+                <button name="btn_apply_here" type="submit" id="apply-here" data-submit="...Sending">Apply Here</button>
             </fieldset>
         </form>  
         </div>
