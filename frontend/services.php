@@ -78,10 +78,8 @@
             <br>
             <p>We offer a range of refurbishment services under one roof such as:</p>
             <ul>
-                <li>Groundwork</li>
                 <li>Structural Steelwork</li>
                 <li>Window/Door Replacement</li>
-                <li>Roofing</li>
                 <li>Mechanical and Electrical Services</li>
                 <li>Interior Refurbishment</li>
                 <li>Full Decoration</li>
