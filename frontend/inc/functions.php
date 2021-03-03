@@ -220,8 +220,9 @@ function makeFullJob($jobId){
     <body>
     <h3 class="title"></h3>
         <div class="container">  
-        <form id="contact" action="sendEmail.php" method="post">
-            
+        <form id="contact" action="apply.php" method="post">
+        
+            <input style='display:none;' name='jobId' type='text' readonly value ='$jobId'>
             <div>
                 <h3>$jobTitle</h3>
             </div>
@@ -233,7 +234,7 @@ function makeFullJob($jobId){
             <br>
             <h2>Applications close: $jobClose</h2>
             <fieldset>
-                <button name="submit" type="submit" id="apply-here" data-submit="...Sending">Apply Here</button>
+                <button name="btn_apply_here" type="submit" id="apply-here">Apply Here</button>
             </fieldset>
         </form>  
         </div>
@@ -244,6 +245,70 @@ JOB;
 
     $jobInfo .="\n";
     return $jobInfo;
+
+}
+
+function makeJobForm($jobId){
+    $dbConn = getDatabase();
+    $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies WHERE job_id = :jobId");
+    $select_stmt->bindParam(":jobId", $jobId);
+    $select_stmt->execute();
+
+    $job = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+    $jobTitle = $job['job_title'];
+    
+    $jobForm = <<<FORM
+        <body>
+        <h3 class="title"></h3>
+        <div class="container">  
+        <form id="contact" action="sendEmail.php" method="post" enctype="multipart/form-data">
+        <div>
+            <h3>Apply Here!</h3>
+        </div>
+        <fieldset>
+            <label for="role">Applying For</label>
+            <input name="role" type="text" required id="role" 
+            placeholder="role" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+            autocomplete="role" size="20" maxlength="20" readonly value="$jobTitle">
+        </fieldset>
+        <fieldset>
+            <label for="fName">First Name</label>
+            <input name="fname" type="text" required id="fname" 
+            placeholder="First Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+            autocomplete="first-name" size="20" maxlength="20">
+        </fieldset>
+        <fieldset>
+            <label for="lname">Last Name</label>
+            <input name="name" type="text" required id="lname" 
+            placeholder="Last Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+            autocomplete="last-name" size="20" maxlength="20">
+        </fieldset>
+        <fieldset>
+            <label for="email">Email</label>
+            <input name="email" type="email" required id="email" 
+            placeholder="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email address" 
+            autocomplete="email" size="20" maxlength="40">
+        </fieldset>
+        <fieldset>
+            <label for="number">Contact Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Phone number" maxlength="20" required>
+        </fieldset>
+        <fieldset>
+            <label for="cv">Upload CV</label>
+            <input type="file" name="fileToUpload" id="fileToUpload" accept="application/msword, application/pdf" required>
+        </fieldset>
+        <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Send now</button>
+        </fieldset>
+        </form>  
+    </div>
+    </body>
+
+FORM;
+
+    $jobForm .="\n";
+    return $jobForm;
 
 }
 
