@@ -5,10 +5,13 @@
 ?>
 
 <body style="background-image: url(styles/images/jobs.jpg);">
-    <h3 class="title">Join The Team!</h3>
+    <h3 class="title">Join The Team!
+        <p>Note: All roles are based in the North East</p>
+    </h3>
+    
     
     <div class="job-page">  
-        <?php echo makeJobsPage();?>
+        <?php echo makeJobsPage(1);?>
     </div>
 
 </body>

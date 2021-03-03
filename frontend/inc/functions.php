@@ -74,11 +74,13 @@ function makeFooter(){
             <img src="styles/images/logo.png">
 
             <p class="footer-links">
-            <a href="#">Home</a>
+            <a href="index.php">Home</a>
             |
             <a href="#">About</a>
             |
             <a href="services.php">Services</a>
+            |
+            <a href="jobs.php">Jobs</a>
             |
             <a href="contactForm.php">Contact</a>
             |
@@ -136,14 +138,16 @@ PAGEEND;
 }
 
 //Function which gets Jobs from database
-function getJobs(){
+function getJobs($job){
     $dbConn = getDatabase();
+
     $select_stmt = $dbConn->prepare("SELECT 
                                         job_id AS 'ID',
                                         job_title AS 'Role',
                                         job_wage AS 'Wage(Hourly)',
                                         job_close_date AS 'Closing Date'
                                         FROM hd_job_vacancies");
+    
     
     $select_stmt->execute();
 
@@ -160,26 +164,28 @@ function getJobs(){
 
 function makeJobsPage(){
 
-    $jobs = getJobs();
+    $jobs = getJobs('all');
 
     $jobBox = "";
 
     foreach ( $jobs as $jobItem ) {
 
         $jobBox .= "<div class='job-box'>";
-        $jobBox .= "<form id='jobForm' action='apply.php' method='post'>";
+        $jobBox .= "<form id='jobForm' action='jobPage.php' method='post'>";
     
         foreach ( $jobItem as $key => $value ) {
             if ($key === 'ID'){
                 $jobBox .= "<label style='display:none;' for='$key'>$key</label>
                         <input style='display:none;' name='$key' type='text' readonly value ='$value'>";
                         
-            }else{
+            }else if($key === 'Wage(Hourly)'){
+                $jobBox .= "<h2>$key : £$value</h2>";
+            }else {
                 $jobBox .= "<h2>$key : $value</h2>";
             }
         }
     
-        $jobBox .= "<fieldset><button name='submit' type='submit' id='apply-submit'>Apply Here</button></fieldset>";
+        $jobBox .= "<fieldset><button name='btn_goToJob' type='submit' id='goToJob'>See More</button></fieldset>";
         $jobBox .= "</form></div><br>";
     }
 
@@ -190,6 +196,55 @@ JOBS;
 
     $jobsPage .="\n";
     return $jobsPage;
+}
+
+function makeFullJob($jobId){
+    $jobInfo = getJobs($jobId);
+
+    $dbConn = getDatabase();
+
+    $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies WHERE job_id = :jobId");
+    $select_stmt->bindParam(":jobId", $jobId);
+    $select_stmt->execute();
+
+    $job = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+    $jobId = $job['job_id'];
+    $jobTitle = $job['job_title'];
+    $jobWage = $job['job_wage'];
+    $jobDesc = $job['job_desc'];
+    $jobReq = $job['job_requirements'];
+    $jobClose = $job['job_close_date'];
+
+    $jobInfo = <<<JOB
+    <body>
+    <h3 class="title"></h3>
+        <div class="container">  
+        <form id="contact" action="sendEmail.php" method="post">
+            
+            <div>
+                <h3>$jobTitle</h3>
+            </div>
+            <h2>£$jobWage an hour</h2>
+            <br>
+            <h2>$jobDesc</h2>
+            <br>
+            <h2>Requirements: $jobReq</h2>
+            <br>
+            <h2>Applications close: $jobClose</h2>
+            <fieldset>
+                <button name="submit" type="submit" id="apply-here" data-submit="...Sending">Apply Here</button>
+            </fieldset>
+        </form>  
+        </div>
+            
+    </body>
+
+JOB;
+
+    $jobInfo .="\n";
+    return $jobInfo;
+
 }
 
 ?>
