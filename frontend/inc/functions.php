@@ -311,21 +311,21 @@ FORM;
 }
 
 function storeMessage($name, $email, $phone, $message){
-
+    try {
         $dbConn = getDatabase();
 
-        $insert_stmt = $dbConn->prepare("INSERT INTO hd_enquires(enquiry_name, enquiry_email, contact_number, enquiry_message) VALUES(':uname', ':uemail', ':uphone', ':umessage')");
+        $insert_stmt = $dbConn->prepare("INSERT INTO hd_enquires(enquiry_name, enquiry_email, contact_number, enquiry_message) VALUES(:uname, :uemail, :uphone, :umessage)");
         
-        $insert_stmt->bindValue(':uname', $name, PDO::PARAM_STR);
-        $insert_stmt->bindValue(':uemail', $email, PDO::PARAM_STR);
-        $insert_stmt->bindValue(':uphone', $phone, PDO::PARAM_STR);
-        $insert_stmt->bindValue(':umessage', $message, PDO::PARAM_STR);
+        $insert_stmt->bindValue(':uname', $name);
+        $insert_stmt->bindValue(':uemail', $email);
+        $insert_stmt->bindValue(':uphone', $phone);
+        $insert_stmt->bindValue(':umessage', $message);
         
         $insert_stmt->execute();   
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
         
-        if ($insert_stmt->execute()) {
-            echo "Inserted";
-        }
+    }	
     
 }
 ?>
