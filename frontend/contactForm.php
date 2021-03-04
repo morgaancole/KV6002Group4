@@ -12,7 +12,7 @@
           <i class="fa fa-phone"></i>
           <h3>01670 707853</h3>
       </div>
-      <h4>Contact us today, and get reply with in 24 hours!</h4>
+      <h4>Contact us today, and get reply within 24 hours!</h4>
       <fieldset>
           <input name="name" type="text" required id="name" 
           placeholder="Your Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
@@ -24,7 +24,7 @@
           autocomplete="email" size="20" maxlength="40">
       </fieldset>
       <fieldset>
-         <input type="tel" id="phone" name="phone" placeholder="Phone number (optional)" maxlength="20">
+         <input type="tel" required id="phone" name="phone" placeholder="Phone number" maxlength="20">
       </fieldset>
       <fieldset>
           <input name="subject" type="text" required id="subject" 
@@ -32,15 +32,32 @@
           autocomplete="subject" size="20" maxlength="20">
       </fieldset>
       <fieldset>
-          <textarea name="message" placeholder="How can we help you?" minlength="1" title="Please enter a message"></textarea>
+          <textarea type="text" name="message" id="message" placeholder="How can we help you?" minlength="1" required title="Please enter a message"></textarea>
       </fieldset>
+      <label for="consent">Do you consent to your data being stored in our database?</label>
+      <select name="consent" id="consent">
+        <option value="selectOption">Please Select</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select><br><br>
       <fieldset>
-          <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Send now</button>
+          <button name="submit" type="submit" onclick="validate()" id="contact-submit" data-submit="...Sending">Send now</button>
       </fieldset>
     </form>  
   </div>
       
 </body>
+
+<script>
+
+  function validate(){
+    var ddl = document.getElementById("consent");
+    var selectedValue = ddl.options[ddl.selectedIndex].value;
+        if (selectedValue == "selectOption"){
+        alert("Please select yes or no");
+      }
+    }
+</script>
 
 <?php
 

@@ -8,19 +8,33 @@
 	//Takes information from the contact form for it to be used by script
 	$name = filter_has_var(INPUT_POST, 'name') ? $_POST['name']: null;
 	$email = filter_has_var(INPUT_POST, 'email') ? $_POST['email']: null;	
+	$phone = filter_has_var(INPUT_POST, 'phone') ? $_POST['phone']: null;	
 	$subject = filter_has_var(INPUT_POST, 'subject') ? $_POST['subject']: null;		
 	$message = filter_has_var(INPUT_POST, 'message') ? $_POST['message']: null;
+	$consent = filter_has_var(INPUT_POST, 'consent') ? $_POST['consent']: null;
+
+	//If user consents to their data being stored, calling function to store it
+	//Sends messages regardless
+	if($consent === "yes"){
+		echo storeMessage($name, $email, $phone, $message);
+	}
+
 
 	//Creating variables to use in sending emails
-	$send = "Hi " . $name . "\nThanks for your message!\nHenderson Contractors will be in touch as soon as possible!";
+	$send = "Hi " . $name . "\nThanks for your message!\n\nHenderson Contractors will be in touch as soon as possible!\n";
+	$send .= "\nHere's what you sent:\n";
+	$send .= "\n" . $message;
+
 	$headers = "From: morgan.wheatman@northumbria.ac.uk";
 	$sender = "From: " . $email;
 
 	$name= trim($name);
 	$email = trim($email);	
 	
-	//Using inbuilt PHP function to send emails to the user & the NE Dons email
-	mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $sender);	
+	//Sending to tester
+	mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $sender);
+
+	//Sending to user	
 	mail($email, $subject ,$send, $headers);
 	
 ?>

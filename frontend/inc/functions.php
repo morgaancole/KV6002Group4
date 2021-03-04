@@ -8,7 +8,6 @@ function getDatabase(){
     return $dbConnection;
 }
 
-
 //Function to create web page
 function makePageStart() {
 
@@ -21,7 +20,6 @@ function makePageStart() {
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <title>Henderson Building Contractors</title>
         <link rel="icon" href="styles/images/logo.png" type="image" sizes="16x16">
-        <script type="text/javascript" src="functions.js"></script>
         <link rel="stylesheet" href="styles/style.css">      
     </head>
 PAGESTART;
@@ -312,4 +310,18 @@ FORM;
 
 }
 
+function storeMessage($name, $email, $phone, $message){
+
+        $dbConn = getDatabase();
+
+        $insert_stmt = $dbConn->prepare("INSERT INTO hd_enquiries(name, email, contact_number, message) VALUES(':uname', ':uemail', ':uphone', ':umessage');");
+        
+        $insert_stmt->bindValue(':uname', $name, PDO::PARAM_STR);
+        $insert_stmt->bindValue(':uemail', $email, PDO::PARAM_STR);
+        $insert_stmt->bindValue(':uphone', $phone, PDO::PARAM_STR);
+        $insert_stmt->bindValue(':umessage', $message, PDO::PARAM_STR);
+        
+        $insert_stmt->execute();    
+    
+}
 ?>
