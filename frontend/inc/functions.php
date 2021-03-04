@@ -2,7 +2,7 @@
 
 
 function getDatabase(){
-    $dir = 'sqlite:../DB/henderson.db';
+    $dir = 'sqlite:../DB/hendersonDB.sqlite';
     $dbConnection  = new PDO($dir) or die("cannot open the database");   
 
     return $dbConnection;
@@ -314,14 +314,18 @@ function storeMessage($name, $email, $phone, $message){
 
         $dbConn = getDatabase();
 
-        $insert_stmt = $dbConn->prepare("INSERT INTO hd_enquiries(name, email, contact_number, message) VALUES(':uname', ':uemail', ':uphone', ':umessage');");
+        $insert_stmt = $dbConn->prepare("INSERT INTO hd_enquires(enquiry_name, enquiry_email, contact_number, enquiry_message) VALUES(':uname', ':uemail', ':uphone', ':umessage')");
         
         $insert_stmt->bindValue(':uname', $name, PDO::PARAM_STR);
         $insert_stmt->bindValue(':uemail', $email, PDO::PARAM_STR);
         $insert_stmt->bindValue(':uphone', $phone, PDO::PARAM_STR);
         $insert_stmt->bindValue(':umessage', $message, PDO::PARAM_STR);
         
-        $insert_stmt->execute();    
+        $insert_stmt->execute();   
+        
+        if ($insert_stmt->execute()) {
+            echo "Inserted";
+        }
     
 }
 ?>
