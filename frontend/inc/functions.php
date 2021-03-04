@@ -247,4 +247,87 @@ JOB;
 
 }
 
+function makeJobForm($jobId){
+    $dbConn = getDatabase();
+    $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies WHERE job_id = :jobId");
+    $select_stmt->bindParam(":jobId", $jobId);
+    $select_stmt->execute();
+
+    $job = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+    $jobTitle = $job['job_title'];
+    
+    $jobForm = <<<FORM
+        <body>
+        <h3 class="title"></h3>
+            <div class="container">  
+                <form id="contact" action="sendApplication.php" method="post" enctype="multipart/form-data">
+                <div>
+                    <h3>Apply Here!</h3>
+                </div>
+                <input style='display:none;' name='jobId' type='text' readonly value ='$jobId'>
+                <fieldset>
+                    <label for="role">Applying For</label>
+                    <input name="role" type="text" required id="role" 
+                    placeholder="role" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+                    autocomplete="role" size="20" maxlength="20" readonly value="$jobTitle">
+                </fieldset>
+                <fieldset>
+                    <label for="fName">First Name</label>
+                    <input name="fname" type="text" required id="fname" 
+                    placeholder="First Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+                    autocomplete="first-name" size="20" maxlength="20">
+                </fieldset>
+                <fieldset>
+                    <label for="lname">Last Name</label>
+                    <input name="lname" type="text" required id="lname" 
+                    placeholder="Last Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+                    autocomplete="last-name" size="20" maxlength="20">
+                </fieldset>
+                <fieldset>
+                    <label for="email">Email</label>
+                    <input name="email" type="email" required id="email" 
+                    placeholder="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email address" 
+                    autocomplete="email" size="20" maxlength="40">
+                </fieldset>
+                <fieldset>
+                    <label for="number">Contact Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Phone number" maxlength="20" required>
+                </fieldset>
+                <fieldset>
+                    <label for="cv_file">Upload CV</label>
+                    <input type="file" required id="cv_file" name="cv_file" accept="application/msword, application/pdf">
+                </fieldset>
+                <fieldset>
+                    <button name="btn_app_send" type="submit" id="app-send" data-submit="...Sending">Apply Now</button>
+                </fieldset>
+                </form>  
+            </div>
+    </body>
+
+FORM;
+
+    $jobForm .="\n";
+    return $jobForm;
+
+}
+
+function storeMessage($name, $email, $phone, $message){
+    try {
+        $dbConn = getDatabase();
+
+        $insert_stmt = $dbConn->prepare("INSERT INTO hd_enquires(enquiry_name, enquiry_email, contact_number, enquiry_message) VALUES(:uname, :uemail, :uphone, :umessage)");
+        
+        $insert_stmt->bindValue(':uname', $name);
+        $insert_stmt->bindValue(':uemail', $email);
+        $insert_stmt->bindValue(':uphone', $phone);
+        $insert_stmt->bindValue(':umessage', $message);
+        
+        $insert_stmt->execute();   
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+        
+    }	
+    
+}
 ?>
