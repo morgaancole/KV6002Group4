@@ -179,7 +179,7 @@ function makeJobsPage(){
                         <input style='display:none;' name='$key' type='text' readonly value ='$value'>";
                         
             }else if($key === 'Wage(Hourly)'){
-                $jobBox .= "<h2>$key : £$value</h2>";
+                $jobBox .= "<h2>$key : £$value.00</h2>";
             }else {
                 $jobBox .= "<h2>$key : $value</h2>";
             }
@@ -226,7 +226,7 @@ function makeFullJob($jobId){
             <div>
                 <h3>$jobTitle</h3>
             </div>
-            <h2>£$jobWage an hour</h2>
+            <h2>£$jobWage.00 an hour</h2>
             <br>
             <h2>$jobDesc</h2>
             <br>
