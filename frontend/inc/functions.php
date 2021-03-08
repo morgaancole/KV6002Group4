@@ -279,7 +279,7 @@ function makeJobForm($jobId){
         </fieldset>
         <fieldset>
             <label for="lname">Last Name</label>
-            <input name="name" type="text" required id="lname" 
+            <input name="lname" type="text" required id="lname" 
             placeholder="Last Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
             autocomplete="last-name" size="20" maxlength="20">
         </fieldset>

@@ -6,7 +6,7 @@
 
 
     if(isset($_POST['btn_app_send'])){
-        $jobId = filter_has_var(INPUT_POST, 'jobId') ? $_POST['jobId']: null;
+        $jobId = filter_has_var(INPUT_POST, 'ID') ? $_POST['ID']: null;
         $firstName = filter_has_var(INPUT_POST, 'fname') ? $_POST['fname']: null;
         $lastName = filter_has_var(INPUT_POST, 'lname') ? $_POST['lname']: null;
         $email = filter_has_var(INPUT_POST, 'email') ? $_POST['email']: null;
