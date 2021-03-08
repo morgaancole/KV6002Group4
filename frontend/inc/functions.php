@@ -197,7 +197,7 @@ JOBS;
 }
 
 function makeFullJob($jobId){
-    $jobInfo = getJobs($jobId);
+    //$jobInfo = getJobs($jobId);
 
     $dbConn = getDatabase();
 
@@ -219,8 +219,8 @@ function makeFullJob($jobId){
     <h3 class="title"></h3>
         <div class="container">  
         <form id="contact" action="apply.php" method="post">
-        
-            <input style='display:none;' name='jobId' type='text' readonly value ='$jobId'>
+            
+        <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
             <div>
                 <h3>$jobTitle</h3>
             </div>
