@@ -42,17 +42,17 @@
         }	
         
         if($insert_stmt->execute()){
-            echo "Sorted";
+            echo applicationSubmitted('sent');
         }else{
-            echo "Wrong af";
+            echo applicationSubmitted('failure');
         }
-
+/*
         if (move_uploaded_file($_FILES["cv_file"]["tmp_name"], $targetFile)) {
             echo "The file ". htmlspecialchars( basename( $_FILES["cv_file"]["name"])). " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
             }
-
+*/
     }else{
         //Sends user back to list of job vacancies if they haven't selected a job
         header("Location: jobs.php");

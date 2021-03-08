@@ -260,10 +260,11 @@ function makeJobForm($jobId){
         <body>
         <h3 class="title"></h3>
         <div class="container">  
-        <form id="contact" action="sendEmail.php" method="post" enctype="multipart/form-data">
+        <form id="contact" action="sendApplication.php" method="post" enctype="multipart/form-data">
         <div>
             <h3>Apply Here!</h3>
         </div>
+        <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
         <fieldset>
             <label for="role">Applying For</label>
             <input name="role" type="text" required id="role" 
@@ -294,10 +295,10 @@ function makeJobForm($jobId){
         </fieldset>
         <fieldset>
             <label for="cv">Upload CV</label>
-            <input type="file" name="fileToUpload" id="fileToUpload" accept="application/msword, application/pdf" required>
+            <input type="file" name="cv_file" id="cv_file" accept="application/msword, application/pdf" required>
         </fieldset>
         <fieldset>
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Send now</button>
+            <button name="btn_app_send" type="submit" id="contact-submit" data-submit="...Sending">Send now</button>
         </fieldset>
         </form>  
     </div>
@@ -327,5 +328,32 @@ function storeMessage($name, $email, $phone, $message){
         
     }	
     
+}
+
+function applicationSubmitted($result){
+    if($result === 'sent'){
+        $bodyContent = <<<BODY
+        <body>
+        <h3 class="title">Thanks</h3>
+          <div class="container">  
+                <h2>Thanks for your application!</h2>
+                <p>Your application has been received and we will be in touch when we have more information</p>
+          </div>
+              
+        </body>
+BODY;
+    }else if($result === 'failure'){
+        $bodyContent = <<<BODY
+        <body>
+        <h3 class="title">Oops</h3>
+          <div class="container">  
+                <h2>Sorry, it looks like something went wrong!</h2>
+                <p>Please try again later!</p>
+          </div>         
+        </body>
+BODY;
+    }
+
+    return $bodyContent;
 }
 ?>
