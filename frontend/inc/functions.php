@@ -259,6 +259,7 @@ function makeJobForm($jobId){
     $jobForm = <<<FORM
         <body>
         <h3 class="title"></h3>
+
         <div class="container">  
         <form id="contact" action="sendApplication.php" method="post" enctype="multipart/form-data">
         <div>
@@ -302,6 +303,7 @@ function makeJobForm($jobId){
         </fieldset>
         </form>  
     </div>
+
     </body>
 
 FORM;
@@ -356,4 +358,5 @@ BODY;
 
     return $bodyContent;
 }
+
 ?>

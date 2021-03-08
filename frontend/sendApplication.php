@@ -2,6 +2,7 @@
 
   require_once("inc/functions.php");
   echo makePageStart();
+
   echo makeNav();
 
 
@@ -53,6 +54,7 @@
             echo "Sorry, there was an error uploading your file.";
             }
 */
+
     }else{
         //Sends user back to list of job vacancies if they haven't selected a job
         header("Location: jobs.php");
