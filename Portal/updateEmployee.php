@@ -26,7 +26,7 @@ $staff_last_name = trim($staff_last_name);
 
 
         //Connects to database
-        $myPDO  = new PDO('sqlite:/home/unn_w18011589/public_html/KV6002/DB/hendersonDB.sqlite');  
+        $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
         //SQL update statement to update the content of the database with the changes the user just made
 		$query  = $myPDO->query("UPDATE hd_staff_users 
                     SET staff_first_name = '$staff_first_name', staff_last_name = '$staff_last_name'

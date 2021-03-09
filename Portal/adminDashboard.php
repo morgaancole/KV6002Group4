@@ -156,7 +156,7 @@
                             <div class="summary-single">
                                 <span class="ti-id-badge"></span>
                                 <div>
-                                    <h5>  <?php $myPDO  = new PDO('sqlite:/home/unn_w18011589/public_html/KV6002/DB/hendersonDB.sqlite');  
+                                    <h5>  <?php $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
                                     $query  = $myPDO->query("SELECT count(*)
                                     FROM hd_staff_users");
    while($row = $query->fetch(PDO::FETCH_ASSOC)){ 

@@ -140,7 +140,7 @@ function randomPassword() {
 }
 
 
-$myPDO  = new PDO('sqlite:/home/unn_w18011589/public_html/KV6002/DB/hendersonDB.sqlite');  
+$myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
 
 if(isset($_POST['insert_employee'])){
 
