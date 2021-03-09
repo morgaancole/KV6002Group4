@@ -86,7 +86,7 @@
     }
 
     function makeConnection() {
-        $pdo = new PDO('sqlite:./DB/hendersonDB.sqlite');
+        $pdo = new PDO('sqlite:../DB/hendersonDB.sqlite');
         return $pdo;
     }
 
