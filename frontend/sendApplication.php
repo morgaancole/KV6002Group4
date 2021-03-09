@@ -12,6 +12,7 @@
         $lastName = filter_has_var(INPUT_POST, 'lname') ? $_POST['lname']: null;
         $email = filter_has_var(INPUT_POST, 'email') ? $_POST['email']: null;
         $contact = filter_has_var(INPUT_POST, 'phone') ? $_POST['phone']: null;
+        $role = filter_has_var(INPUT_POST, 'role') ? $_POST['role']: null;
 
         //NEW
         $targetDir = "uploads/";
@@ -44,11 +45,29 @@
         
         if($insert_stmt->execute()){
             echo applicationSubmitted('sent');
+
+            //Creating variables to use in sending emails
+            $send = "Hi " . $firstName . "\nThanks for your application!\n\nHenderson Contractors will be in touch as soon as possible!\n";
+
+            $headers = "From: applications@hendersonbuilding.co.uk";
+
+            $subject = "Thanks for applying to join us";
+
+            //Sending to user	
+            mail($email, $subject ,$send, $headers);
+
+            $subject = "New Applicant for role: " . $role;
+
+            $message = "There has been a new applicant for the role of " . $role . "\n";
+            $message .= "You can view their CV on our datase";
+
+            //Sending to developer
+            mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $headers);
         }else{
             echo applicationSubmitted('failure');
         }
-/*
-        if (move_uploaded_file($_FILES["cv_file"]["tmp_name"], $targetFile)) {
+
+      /*  if (move_uploaded_file($_FILES["cv_file"]["tmp_name"], $targetFile)) {
             echo "The file ". htmlspecialchars( basename( $_FILES["cv_file"]["name"])). " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
