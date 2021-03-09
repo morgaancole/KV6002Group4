@@ -43,7 +43,7 @@ function makeNav(){
                 <li><a href="services.php">Services</a></li>
                 <li><a href="jobs.php">Jobs</a></li>
                 <li><a href="contactForm.php">Contact</a></li>
-                <li><a href="#">Staff Login</a></li>
+                <li><a href="loginForm.php">Staff Login</a></li>
             </ul>
       </nav>
 NAVIGATION;
@@ -82,7 +82,7 @@ function makeFooter(){
             |
             <a href="contactForm.php">Contact</a>
             |
-            <a href="#">Staff Login</a>
+            <a href="loginForm.php">Staff Login</a>
             </p>
 
             <p class="footer-company-name">© 2021, Developed by students of Northumbria University</p>
