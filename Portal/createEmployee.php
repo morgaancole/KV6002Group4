@@ -45,11 +45,18 @@
             </li>
 
             <li>
-                <a href="createEmployee.php">
-                    <span class="ti-settings"></span>
-                    <span>Manage Employees</span>
-                </a>
-            </li>
+                    <a href="createEmployee.php">
+                        <span class="ti-settings"></span>
+                        <span>Create Employee</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="viewEmployees.php">
+                        <span class="ti-settings"></span>
+                        <span>View Employees</span>
+                    </a>
+                </li>
         </ul>
     </div>
 </div>

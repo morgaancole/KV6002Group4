@@ -22,7 +22,7 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-                    <a href="adminDashboard.php">
+                    <a href="userDashboard.php">
                         <span class="ti-home"></span>
                         <span>Home</span>
                     </a>
@@ -44,16 +44,16 @@
                 </li>
 
                 <li>
-                    <a href="createEmployee.php">
-                        <span class="ti-settings"></span>
-                        <span>Create Employee</span>
+                    <a href="">
+                        <span class="ti-book"></span>
+                        <span>Payslip</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="viewEmployees.php">
+                    <a href="">
                         <span class="ti-settings"></span>
-                        <span>View Employees</span>
+                        <span>View Account</span>
                     </a>
                 </li>
 
@@ -77,18 +77,18 @@
         </header>
 
         <main>
-            <h2 class="dash-title">Admin Dashboard</h2>
+            <h2 class="dash-title">Employee Dashboard</h2>
 
             <div class="dash-cards">
                 <div class="card-single">
                     <div class="card-body">
                         <span class="ti-briefcase"></span>
                         <div>
-                            <h5>Manage Employees</h5>
+                            <h5>View Payslip</h5>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="">View all</a>
+                        <a href="">View</a>
                     </div>
                 </div>
 
@@ -156,33 +156,23 @@
                             <div class="summary-single">
                                 <span class="ti-id-badge"></span>
                                 <div>
-                                    <h5>  <?php $myPDO  = new PDO('sqlite:/home/unn_w18011589/public_html/KV6002/DB/hendersonDB.sqlite');  
-                                    $query  = $myPDO->query("SELECT count(*)
-                                    FROM hd_staff_users");
-   while($row = $query->fetch(PDO::FETCH_ASSOC)){ 
-
-    
-                                    echo $row['count(*)'];
-   }
-                                    ?>
-                                    </h5>
-
-                                    <small>Number of staff</small>
+                                <h5>Add</h5>
+                                <small>Add</small>
                                 </div>
                                 </div>
                                 <div class="summary-single">
                                     <span class="ti-calendar"></span>
                                     <div>
-                                        <h5>16</h5>
-                                        <small>Number of timesheets</small>
+                                        <h5>Add</h5>
+                                        <small>Add</small>
                                     </div>
                                 </div>
 
                                 <div class="summary-single">
                                     <span class="ti-calendar"></span>
                                     <div>
-                                        <h5>12</h5>
-                                        <small>Number of vehicle logs</small>
+                                        <h5>Add</h5>
+                                        <small>Add</small>
                                     </div>
                                 </div>
 
