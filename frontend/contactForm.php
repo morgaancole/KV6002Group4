@@ -41,7 +41,7 @@
         <option value="no">No</option>
       </select><br><br>
       <fieldset>
-          <button name="submit" type="submit" onclick="validate()" id="contact-submit" data-submit="...Sending">Send now</button>
+          <button name="btn_contact" type="submit" onclick="validate()" id="contact-submit" data-submit="...Sending">Send now</button>
       </fieldset>
     </form>  
   </div>
