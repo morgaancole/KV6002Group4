@@ -296,7 +296,7 @@ function makeJobForm($jobId){
         </fieldset>
         <fieldset>
             <label for="cv">Upload CV</label>
-            <input type="file" name="cv_file" id="cv_file" accept="application/msword, application/pdf" required>
+            <input type="file" name="cv_file" id="cv_file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
         </fieldset>
         <fieldset>
             <button name="btn_app_send" type="submit" id="contact-submit" data-submit="...Sending">Send now</button>
