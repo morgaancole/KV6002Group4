@@ -5,8 +5,9 @@
 
   echo makeNav();
 
-
     if(isset($_POST['btn_app_send'])){
+        $errors = array();
+
         $jobId = filter_has_var(INPUT_POST, 'ID') ? $_POST['ID']: null;
         $firstName = filter_has_var(INPUT_POST, 'fname') ? $_POST['fname']: null;
         $lastName = filter_has_var(INPUT_POST, 'lname') ? $_POST['lname']: null;
@@ -14,7 +15,6 @@
         $contact = filter_has_var(INPUT_POST, 'phone') ? $_POST['phone']: null;
         $role = filter_has_var(INPUT_POST, 'role') ? $_POST['role']: null;
 
-        //NEW
         $targetDir = "uploads/";
         $targetFile = $targetDir . basename($_FILES["cv_file"]["name"]);
 
@@ -22,64 +22,41 @@
 
         $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . basename($_FILES["cv_file"]["name"]);       
 
-        try {
-            $dbConn = getDatabase();
-    
-            $insert_stmt = $dbConn->prepare("INSERT INTO hd_job_applicants(applicant_fname, applicant_lname, applicant_email, applicant_contact, applicant_cv, job_id) 
-                                            VALUES(:ufname, :ulname, :uemail, :ucontact, :ucv, :ujobid)");
-            
-            $insert_stmt->bindValue(':ufname', $firstName, PDO::PARAM_STR);
-            $insert_stmt->bindValue(':ulname', $lastName, PDO::PARAM_STR);
-            $insert_stmt->bindValue(':uemail', $email, PDO::PARAM_STR);
-            $insert_stmt->bindValue(':ucontact', $contact, PDO::PARAM_INT);
-            $insert_stmt->bindValue(':ucv', $fullPath, PDO::PARAM_STR);
-            $insert_stmt->bindValue(':ujobid', $jobId, PDO::PARAM_INT);
-            
-            $insert_stmt->execute();   
+        //Trimming input
+        $firstName = trim($firstName);
+        $lastName = trim($lastName);
+        $email = trim($email);
+        $contact = trim($contact);
+        $role = trim($role);
 
-
-        }catch (Exception $e) {
-            echo "There was a problem: " . $e->getMessage();
-            
-        }	
-        
-        if($insert_stmt->execute()){
-            echo applicationSubmitted('sent');
-
-            //Creating variables to use in sending emails
-            $send = "Hi " . $firstName . "\nThanks for your application!\n\nHenderson Contractors will be in touch as soon as possible!\n";
-
-            $headers = "From: applications@hendersonbuilding.co.uk";
-
-            $subject = "Thanks for applying to join us";
-
-            //Sending to user	
-            mail($email, $subject ,$send, $headers);
-
-            $subject = "New Applicant for role: " . $role;
-
-            $message = "There has been a new applicant for the role of " . $role . "\n";
-            $message .= "You can view their CV on our datase";
-
-            //Sending to developer
-            mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $headers);
+        //Checking if fields are empty (also checked on client-side)
+        if(empty($jobId)){
+            $errors[] = "Job ID empty";
+            header("Location: jobs.php");
+        }else if (empty($firstName)){
+            $errors[] = "First name empty";
+            header("Location: jobs.php");
+        }else if (empty($lastName)){
+            $errors[] = "Last name empty";
+            header("Location: jobs.php");
+        }else if (empty($email)){
+            $errors[] = "Email empty";
+            header("Location: jobs.php");
+        }else if (empty($contact)){
+            $errors[] = "Contact empty";
+            header("Location: jobs.php");
+        }else if (empty($role)){
+            $errors[] = "Role empty";
+            header("Location: jobs.php");
         }else{
-            echo applicationSubmitted('failure');
+            //Using protected function to hide database structure
+            echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
         }
-
-      /*  if (move_uploaded_file($_FILES["cv_file"]["tmp_name"], $targetFile)) {
-            echo "The file ". htmlspecialchars( basename( $_FILES["cv_file"]["name"])). " has been uploaded.";
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-            }
-*/
 
     }else{
         //Sends user back to list of job vacancies if they haven't selected a job
         header("Location: jobs.php");
     }
-
-
 
 echo makeFooter();
 echo endMain();

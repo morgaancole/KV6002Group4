@@ -332,6 +332,55 @@ function storeMessage($name, $email, $phone, $message){
     
 }
 
+function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath){
+            
+        try {
+            $dbConn = getDatabase();
+    
+            $insert_stmt = $dbConn->prepare("INSERT INTO hd_job_applicants(applicant_fname, applicant_lname, applicant_email, applicant_contact, applicant_cv, job_id) 
+                                            VALUES(:ufname, :ulname, :uemail, :ucontact, :ucv, :ujobid)");
+            
+            $insert_stmt->bindValue(':ufname', $firstName, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':ulname', $lastName, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':uemail', $email, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':ucontact', $contact, PDO::PARAM_INT);
+            $insert_stmt->bindValue(':ucv', $fullPath, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':ujobid', $jobId, PDO::PARAM_INT);
+            
+            $insert_stmt->execute();   
+
+
+        }catch (Exception $e) {
+            echo "There was a problem: " . $e->getMessage();
+            
+        }	
+        
+        if($insert_stmt->execute()){
+            echo applicationSubmitted('sent');
+
+            //Creating variables to use in sending emails
+            $send = "Hi " . $firstName . "\nThanks for your application!\n\nHenderson Contractors will be in touch as soon as possible!\n";
+
+            $headers = "From: applications@hendersonbuilding.co.uk";
+
+            $subject = "Thanks for applying to join us";
+
+            //Sending to user	
+            mail($email, $subject ,$send, $headers);
+
+            $subject = "New Applicant for role: " . $role;
+
+            $message = "There has been a new applicant for the role of " . $role . "\n";
+            $message .= "You can view their CV on our datase";
+
+            //Sending to developer
+            mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $headers);
+        }else{
+            echo applicationSubmitted('failure');
+        }
+
+}
+
 function applicationSubmitted($result){
     if($result === 'sent'){
         $bodyContent = <<<BODY
