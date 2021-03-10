@@ -7,26 +7,41 @@
 <body>
   
   <div class="title">Henderson Building Contractors</div>
+      <div class="container">
+        <form id="contact" method="post" action="loginAction.php" name="signin-form">
+            
+              <div>
+                  <label>Email</label>
+                  <input 
+                      type="email"
+                      name="txt_email"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                      title="Invalid email address" 
+                      autocomplete="email" 
+                      size="20" 
+                      maxlength="40"
+                      placeholder="Email" 
+                      required 
+                      id="email"/>
+              </div>
+            
+              <div>
+                  <label>Password</label>
+                  <input 
+                      type="password"
+                      name="txt_password"
+                      autocomplete="password"
+                      placeholder="Password"
+                      size="20"  
+                      maxlength="40"
+                      required
+                      id="password"/>
+              </div>          
       
-      <form method="post" action="loginAction.php" name="signin-form">
-          
-            <div>
-                <label>Email</label>
-                <input type="text" name="txt_email"  required />
-            </div>
-          
-            <div>
-                <label>Password</label>
-                <input type="password" name="txt_password" required />
-            </div>          
-    
-            <button type="submit" name="btn_login" value="login">Log In</button>
-      </form>
-
+              <button type="submit" name="btn_login" value="login">Log In</button>
+        </form>
+      </div>
 </body>
-
-
-
 
 <?php
 echo makeFooter();
