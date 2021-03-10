@@ -14,29 +14,59 @@
 		$message = filter_has_var(INPUT_POST, 'message') ? $_POST['message']: null;
 		$consent = filter_has_var(INPUT_POST, 'consent') ? $_POST['consent']: null;
 
-		//If user consents to their data being stored, calling function to store it
-		//Sends messages regardless
-		if($consent === "yes"){
-			echo storeMessage($name, $email, $phone, $message);
+		//Trimming inputs from user
+		$name = trim($name);
+		$email = trim($email);
+		$phone = trim($phone);
+		$subject = trim($subject);
+		$message = trim($message);
+		$consent = trim($consent);
+
+		//Checking if fields are empty before starting process
+		if(empty($name)){
+            $errors[] = "Name empty";
+            header("Location: contactForm.php");
+        }else if (empty($email)){
+            $errors[] = "Email empty";
+            header("Location: contactForm.php");
+        }else if (empty($phone)){
+            $errors[] = "Phone empty";
+            header("Location: contactForm.php");
+        }else if (empty($subject)){
+            $errors[] = "Subject empty";
+            header("Location: contactForm.php");
+        }else if (empty($message)){
+            $errors[] = "Message empty";
+            header("Location: contactForm.php");
+        }else if (empty($consent)){
+            $errors[] = "Consent empty";
+            header("Location: contactForm.php");
+        }else{
+
+			//If user consents to their data being stored, calling function to store it
+			//Sends messages regardless
+			if($consent === "yes"){
+				echo storeMessage($name, $email, $phone, $message);
+			}
+
+
+			//Creating variables to use in sending emails
+			$send = "Hi " . $name . "\nThanks for your message!\n\nHenderson Contractors will be in touch as soon as possible!\n";
+			$send .= "\nHere's what you sent:\n";
+			$send .= "\n" . $message;
+
+			$headers = "From: morgan.wheatman@northumbria.ac.uk";
+			$sender = "From: " . $email;
+
+			$name= trim($name);
+			$email = trim($email);	
+			
+			//Sending to tester
+			mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $sender);
+
+			//Sending to user	
+			mail($email, $subject ,$send, $headers);
 		}
-
-
-		//Creating variables to use in sending emails
-		$send = "Hi " . $name . "\nThanks for your message!\n\nHenderson Contractors will be in touch as soon as possible!\n";
-		$send .= "\nHere's what you sent:\n";
-		$send .= "\n" . $message;
-
-		$headers = "From: morgan.wheatman@northumbria.ac.uk";
-		$sender = "From: " . $email;
-
-		$name= trim($name);
-		$email = trim($email);	
-		
-		//Sending to tester
-		mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $sender);
-
-		//Sending to user	
-		mail($email, $subject ,$send, $headers);
 	}else{
 		header("Location: contactForm.php");
 	}
