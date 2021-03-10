@@ -2,12 +2,11 @@
 
 
 function getDatabase(){
-    $dir = 'sqlite:../DB/henderson.db';
+    $dir = 'sqlite:../DB/hendersonDB.sqlite';
     $dbConnection  = new PDO($dir) or die("cannot open the database");   
 
     return $dbConnection;
 }
-
 
 //Function to create web page
 function makePageStart() {
@@ -21,7 +20,6 @@ function makePageStart() {
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <title>Henderson Building Contractors</title>
         <link rel="icon" href="styles/images/logo.png" type="image" sizes="16x16">
-        <script type="text/javascript" src="functions.js"></script>
         <link rel="stylesheet" href="styles/style.css">      
     </head>
 PAGESTART;
@@ -45,7 +43,7 @@ function makeNav(){
                 <li><a href="services.php">Services</a></li>
                 <li><a href="jobs.php">Jobs</a></li>
                 <li><a href="contactForm.php">Contact</a></li>
-                <li><a href="#">Staff Login</a></li>
+                <li><a href="loginForm.php">Staff Login</a></li>
             </ul>
       </nav>
 NAVIGATION;
@@ -84,7 +82,7 @@ function makeFooter(){
             |
             <a href="contactForm.php">Contact</a>
             |
-            <a href="#">Staff Login</a>
+            <a href="loginForm.php">Staff Login</a>
             </p>
 
             <p class="footer-company-name">© 2021, Developed by students of Northumbria University</p>
@@ -179,7 +177,7 @@ function makeJobsPage(){
                         <input style='display:none;' name='$key' type='text' readonly value ='$value'>";
                         
             }else if($key === 'Wage(Hourly)'){
-                $jobBox .= "<h2>$key : £$value</h2>";
+                $jobBox .= "<h2>$key : £$value.00</h2>";
             }else {
                 $jobBox .= "<h2>$key : $value</h2>";
             }
@@ -199,7 +197,7 @@ JOBS;
 }
 
 function makeFullJob($jobId){
-    $jobInfo = getJobs($jobId);
+    //$jobInfo = getJobs($jobId);
 
     $dbConn = getDatabase();
 
@@ -222,10 +220,11 @@ function makeFullJob($jobId){
         <div class="container">  
         <form id="contact" action="apply.php" method="post">
             
+        <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
             <div>
                 <h3>$jobTitle</h3>
             </div>
-            <h2>£$jobWage an hour</h2>
+            <h2>£$jobWage.00 an hour</h2>
             <br>
             <h2>$jobDesc</h2>
             <br>
@@ -233,7 +232,7 @@ function makeFullJob($jobId){
             <br>
             <h2>Applications close: $jobClose</h2>
             <fieldset>
-                <button name="btn_apply_here" type="submit" id="apply-here" data-submit="...Sending">Apply Here</button>
+                <button name="btn_apply_here" type="submit" id="apply-here">Apply Here</button>
             </fieldset>
         </form>  
         </div>
@@ -260,49 +259,51 @@ function makeJobForm($jobId){
     $jobForm = <<<FORM
         <body>
         <h3 class="title"></h3>
-            <div class="container">  
-                <form id="contact" action="sendApplication.php" method="post" enctype="multipart/form-data">
-                <div>
-                    <h3>Apply Here!</h3>
-                </div>
-                <input style='display:none;' name='jobId' type='text' readonly value ='$jobId'>
-                <fieldset>
-                    <label for="role">Applying For</label>
-                    <input name="role" type="text" required id="role" 
-                    placeholder="role" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
-                    autocomplete="role" size="20" maxlength="20" readonly value="$jobTitle">
-                </fieldset>
-                <fieldset>
-                    <label for="fName">First Name</label>
-                    <input name="fname" type="text" required id="fname" 
-                    placeholder="First Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
-                    autocomplete="first-name" size="20" maxlength="20">
-                </fieldset>
-                <fieldset>
-                    <label for="lname">Last Name</label>
-                    <input name="lname" type="text" required id="lname" 
-                    placeholder="Last Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
-                    autocomplete="last-name" size="20" maxlength="20">
-                </fieldset>
-                <fieldset>
-                    <label for="email">Email</label>
-                    <input name="email" type="email" required id="email" 
-                    placeholder="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email address" 
-                    autocomplete="email" size="20" maxlength="40">
-                </fieldset>
-                <fieldset>
-                    <label for="number">Contact Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Phone number" maxlength="20" required>
-                </fieldset>
-                <fieldset>
-                    <label for="cv_file">Upload CV</label>
-                    <input type="file" required id="cv_file" name="cv_file" accept="application/msword, application/pdf">
-                </fieldset>
-                <fieldset>
-                    <button name="btn_app_send" type="submit" id="app-send" data-submit="...Sending">Apply Now</button>
-                </fieldset>
-                </form>  
-            </div>
+
+        <div class="container">  
+        <form id="contact" action="sendApplication.php" method="post" enctype="multipart/form-data">
+        <div>
+            <h3>Apply Here!</h3>
+        </div>
+        <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
+        <fieldset>
+            <label for="role">Applying For</label>
+            <input name="role" type="text" required id="role" 
+            placeholder="role" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+            autocomplete="role" size="20" maxlength="20" readonly value="$jobTitle">
+        </fieldset>
+        <fieldset>
+            <label for="fName">First Name</label>
+            <input name="fname" type="text" required id="fname" 
+            placeholder="First Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+            autocomplete="first-name" size="20" maxlength="20">
+        </fieldset>
+        <fieldset>
+            <label for="lname">Last Name</label>
+            <input name="lname" type="text" required id="lname" 
+            placeholder="Last Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+            autocomplete="last-name" size="20" maxlength="20">
+        </fieldset>
+        <fieldset>
+            <label for="email">Email</label>
+            <input name="email" type="email" required id="email" 
+            placeholder="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email address" 
+            autocomplete="email" size="20" maxlength="40">
+        </fieldset>
+        <fieldset>
+            <label for="number">Contact Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Phone number" maxlength="20" required>
+        </fieldset>
+        <fieldset>
+            <label for="cv">Upload CV</label>
+            <input type="file" name="cv_file" id="cv_file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+        </fieldset>
+        <fieldset>
+            <button name="btn_app_send" type="submit" id="contact-submit" data-submit="...Sending">Send now</button>
+        </fieldset>
+        </form>  
+    </div>
+
     </body>
 
 FORM;
@@ -330,4 +331,81 @@ function storeMessage($name, $email, $phone, $message){
     }	
     
 }
+
+function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath){
+            
+        try {
+            $dbConn = getDatabase();
+    
+            $insert_stmt = $dbConn->prepare("INSERT INTO hd_job_applicants(applicant_fname, applicant_lname, applicant_email, applicant_contact, applicant_cv, job_id) 
+                                            VALUES(:ufname, :ulname, :uemail, :ucontact, :ucv, :ujobid)");
+            
+            $insert_stmt->bindValue(':ufname', $firstName, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':ulname', $lastName, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':uemail', $email, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':ucontact', $contact, PDO::PARAM_INT);
+            $insert_stmt->bindValue(':ucv', $fullPath, PDO::PARAM_STR);
+            $insert_stmt->bindValue(':ujobid', $jobId, PDO::PARAM_INT);
+            
+            $insert_stmt->execute();   
+
+
+        }catch (Exception $e) {
+            echo "There was a problem: " . $e->getMessage();
+            
+        }	
+        
+        if($insert_stmt->execute()){
+            echo applicationSubmitted('sent');
+
+            //Creating variables to use in sending emails
+            $send = "Hi " . $firstName . "\nThanks for your application!\n\nHenderson Contractors will be in touch as soon as possible!\n";
+
+            $headers = "From: applications@hendersonbuilding.co.uk";
+
+            $subject = "Thanks for applying to join us";
+
+            //Sending to user	
+            mail($email, $subject ,$send, $headers);
+
+            $subject = "New Applicant for role: " . $role;
+
+            $message = "There has been a new applicant for the role of " . $role . "\n";
+            $message .= "You can view their CV on our datase";
+
+            //Sending to developer
+            mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $headers);
+        }else{
+            echo applicationSubmitted('failure');
+        }
+
+}
+
+function applicationSubmitted($result){
+    if($result === 'sent'){
+        $bodyContent = <<<BODY
+        <body>
+        <h3 class="title">Thanks</h3>
+          <div class="container">  
+                <h2>Thanks for your application!</h2>
+                <p>Your application has been received and we will be in touch when we have more information</p>
+          </div>
+              
+        </body>
+BODY;
+    }else if($result === 'failure'){
+        $bodyContent = <<<BODY
+        <body>
+        <h3 class="title">Oops</h3>
+          <div class="container">  
+                <h2>Sorry, it looks like something went wrong!</h2>
+                <p>Please try again later!</p>
+          </div>         
+        </body>
+BODY;
+    }
+
+    return $bodyContent;
+}
+
 ?>

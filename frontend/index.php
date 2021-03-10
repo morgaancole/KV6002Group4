@@ -9,7 +9,7 @@
 
   <div style="background-image: url('styles/images/angel.jpg');" class="banner" ></div>
       <div class="title">Henderson Building Contractors</div>
-      <p>Homepage shit can go here:</p>
+      <p>Homepage:</p>
 
   </body>
 

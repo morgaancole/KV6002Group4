@@ -11,7 +11,7 @@
     
     
     <div class="job-page">  
-        <?php echo makeJobsPage(1);?>
+        <?php echo makeJobsPage();?>
     </div>
 
 </body>

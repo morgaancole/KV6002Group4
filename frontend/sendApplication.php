@@ -3,61 +3,60 @@
   require_once("inc/functions.php");
   echo makePageStart();
 
+  echo makeNav();
 
     if(isset($_POST['btn_app_send'])){
-        $jobId = filter_has_var(INPUT_POST, 'jobId') ? $_POST['jobId']: null;
+        $errors = array();
+
+        $jobId = filter_has_var(INPUT_POST, 'ID') ? $_POST['ID']: null;
         $firstName = filter_has_var(INPUT_POST, 'fname') ? $_POST['fname']: null;
         $lastName = filter_has_var(INPUT_POST, 'lname') ? $_POST['lname']: null;
         $email = filter_has_var(INPUT_POST, 'email') ? $_POST['email']: null;
         $contact = filter_has_var(INPUT_POST, 'phone') ? $_POST['phone']: null;
+        $role = filter_has_var(INPUT_POST, 'role') ? $_POST['role']: null;
 
-        $cv_file = filter_has_var(INPUT_POST, 'cv_file') ? $_POST['cv_file']: null;
+        $targetDir = "uploads/";
+        $targetFile = $targetDir . basename($_FILES["cv_file"]["name"]);
 
+        $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
 
+        $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . basename($_FILES["cv_file"]["name"]);       
 
-        var_dump($_POST);
+        //Trimming input
+        $firstName = trim($firstName);
+        $lastName = trim($lastName);
+        $email = trim($email);
+        $contact = trim($contact);
+        $role = trim($role);
 
-
-    
-        //$cv = filter_has_var(INPUT_POST, 'jobId') ? $_POST['jobId']: null;
-
-        //echo $jobId;
-
-        /*
-             $fileDestination = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads/";
-
-             $targetDir = "/home/unn_w19042409/public_html/project/frontend/uploads/";
-
-            
-             $path = pathinfo($file);
-             $fileName = $path['filename'];
-             $ext = $path['extension'];
-             $tempName = $_FILES['cv_file']['tmp_name'];
-             $pathFilenameExt = $targetDir.$fileName.".".$ext;
-             $fileDestination .= $fileName.".".$ext;
-        
-            echo $fileDestination;
-
-
-             /*
-        // Check if file already exists
-        if (file_exists($pathFilenameExt)) {
-            echo "Sorry, file already exists.";
-            }else{
-                move_uploaded_file($tempName,$pathFilenameExt);
-                echo "Congratulations! File Uploaded Successfully.";
-            }
+        //Checking if fields are empty (also checked on client-side)
+        if(empty($jobId)){
+            $errors[] = "Job ID empty";
+            header("Location: jobs.php");
+        }else if (empty($firstName)){
+            $errors[] = "First name empty";
+            header("Location: jobs.php");
+        }else if (empty($lastName)){
+            $errors[] = "Last name empty";
+            header("Location: jobs.php");
+        }else if (empty($email)){
+            $errors[] = "Email empty";
+            header("Location: jobs.php");
+        }else if (empty($contact)){
+            $errors[] = "Contact empty";
+            header("Location: jobs.php");
+        }else if (empty($role)){
+            $errors[] = "Role empty";
+            header("Location: jobs.php");
+        }else{
+            //Using protected function to hide database structure
+            echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
         }
-        */
-
-
 
     }else{
         //Sends user back to list of job vacancies if they haven't selected a job
         header("Location: jobs.php");
     }
-
-
 
 echo makeFooter();
 echo endMain();
