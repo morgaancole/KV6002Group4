@@ -4,7 +4,20 @@
   echo makeNav();
 ?>
 
-<h1>Test</h1>
+
+<body body style="background-image: url(styles/images/living.jpg);">
+<h3 class="title">404 Not Found</h3>
+  <div class="container">  
+    <h3>It looks like you got a bit lost</h3>
+    <h3>Return <a href='index.php'>Home?</a></h3>
+    <h3>View <a href='services.php'>Services?</a></h3>
+    <h3>View <a href='jobs.php'>Jobs?</a></h3>
+    <h3><a href='jobs.php'>Contact Us?</a></h3>
+    <h3>Staff <a href='jobs.php'>Login</a></h3>
+  </div>
+      
+</body>
+
 
 <?php
 echo makeFooter();

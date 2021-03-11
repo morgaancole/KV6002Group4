@@ -22,35 +22,21 @@
 
         $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . basename($_FILES["cv_file"]["name"]);       
 
-        //Trimming input
+        //Trimming input from user
         $firstName = trim($firstName);
         $lastName = trim($lastName);
         $email = trim($email);
         $contact = trim($contact);
         $role = trim($role);
 
+        
         //Checking if fields are empty (also checked on client-side)
-        if(empty($jobId)){
-            $errors[] = "Job ID empty";
-            header("Location: jobs.php");
-        }else if (empty($firstName)){
-            $errors[] = "First name empty";
-            header("Location: jobs.php");
-        }else if (empty($lastName)){
-            $errors[] = "Last name empty";
-            header("Location: jobs.php");
-        }else if (empty($email)){
-            $errors[] = "Email empty";
-            header("Location: jobs.php");
-        }else if (empty($contact)){
-            $errors[] = "Contact empty";
-            header("Location: jobs.php");
-        }else if (empty($role)){
-            $errors[] = "Role empty";
-            header("Location: jobs.php");
-        }else{
-            //Using protected function to hide database structure
+
+        if (!empty($jobId)  && !empty($firstName)  && !empty($lastName) && !empty($email) && !empty($contact) && !empty($role)) {
             echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
+        }else{
+            $errors[] = "Something was left empty";
+            header("Location: jobs.php");
         }
 
     }else{
