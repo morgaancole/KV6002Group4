@@ -4,7 +4,7 @@
   echo makeNav();
 ?>
 
-<body style="background-image: url(styles/images/services.jpg);">
+<body>
     <h3 class="title">Our Services
         <a href="contactForm.php">Contact Us for a quote</a> 
     </h3>
@@ -64,7 +64,6 @@
                 <li>Contents Removal</li>
                 <li>Thermal Fogging</li>
                 <li>Structural Repairs</li>
-                <li>Roofing</li>
                 <li>Bricklaying</li>
                 <li>Structure Safety Survey</li>
             </ul>

@@ -250,23 +250,25 @@ function makeFullJob($jobId){
     <body>
     <h3 class="title"></h3>
         <div class="container">  
-        <form id="contact" action="apply.php" method="post">
-            
-        <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
-            <div>
-                <h3>$jobTitle</h3>
+            <div class="form-container">
+                <form id="jobForm" action="apply.php" method="post">
+                    
+                <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
+                    <div>
+                        <h3>$jobTitle</h3>
+                    </div>
+                    <h2>£$jobWage.00 an hour</h2>
+                    <br>
+                    <h2>$jobDesc</h2>
+                    <br>
+                    <h2>Requirements: $jobReq</h2>
+                    <br>
+                    <h2>Applications close: $jobClose</h2>
+                    <fieldset>
+                        <button name="btn_apply_here" type="submit" id="apply-here">Apply Here</button>
+                    </fieldset>
+                </form> 
             </div>
-            <h2>£$jobWage.00 an hour</h2>
-            <br>
-            <h2>$jobDesc</h2>
-            <br>
-            <h2>Requirements: $jobReq</h2>
-            <br>
-            <h2>Applications close: $jobClose</h2>
-            <fieldset>
-                <button name="btn_apply_here" type="submit" id="apply-here">Apply Here</button>
-            </fieldset>
-        </form>  
         </div>
             
     </body>
@@ -299,52 +301,54 @@ function makeJobForm($jobId){
         <h3 class="title"></h3>
 
         <div class="container">  
-        <form id="jobForm" action="sendApplication.php" method="post" enctype="multipart/form-data">
-        <div>
-            <h3>Apply Here!</h3>
+            <div class="form-container">
+                <form id="jobForm" action="sendApplication.php" method="post" enctype="multipart/form-data">
+                <div>
+                    <h3>Apply Here!</h3>
+                </div>
+                <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
+                <fieldset>
+                    <label for="role">Applying For</label>
+                    <input name="role" type="text" required id="role" 
+                    placeholder="role" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+                    autocomplete="role" size="20" maxlength="20" readonly value="$jobTitle">
+                </fieldset>
+                <fieldset>
+                    <label for="fName">First Name</label>
+                    <input name="fname" type="text" required id="fname" 
+                    placeholder="First Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+                    autocomplete="first-name" size="20" maxlength="20">
+                </fieldset>
+                <fieldset>
+                    <label for="lname">Last Name</label>
+                    <input name="lname" type="text" required id="lname" 
+                    placeholder="Last Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
+                    autocomplete="last-name" size="20" maxlength="20">
+                </fieldset>
+                <fieldset>
+                    <label for="email">Email</label>
+                    <input name="email" type="email" required id="email" 
+                    placeholder="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email address" 
+                    autocomplete="email" size="20" maxlength="40">
+                </fieldset>
+                <fieldset>
+                    <label for="number">Contact Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Phone number" maxlength="20" required>
+                </fieldset>
+                <fieldset>
+                    <label for="cv">Upload CV</label>
+                    <input type="file" name="cv_file" id="cv_file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                </fieldset>
+                <fieldset id="consentText">
+                    <input type="checkbox" id="consentCheck" name="consent" value="consent">
+                    <label for="consent"> I consent to Henderson Building Contractors storing my information for recruiting</label>
+                </fieldset>
+                <fieldset>
+                    <button name="btn_app_send" type="submit" id="btn_app_send" data-submit="...Sending">Send now</button>
+                </fieldset>
+                </form>  
+            </div>
         </div>
-        <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
-        <fieldset>
-            <label for="role">Applying For</label>
-            <input name="role" type="text" required id="role" 
-            placeholder="role" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
-            autocomplete="role" size="20" maxlength="20" readonly value="$jobTitle">
-        </fieldset>
-        <fieldset>
-            <label for="fName">First Name</label>
-            <input name="fname" type="text" required id="fname" 
-            placeholder="First Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
-            autocomplete="first-name" size="20" maxlength="20">
-        </fieldset>
-        <fieldset>
-            <label for="lname">Last Name</label>
-            <input name="lname" type="text" required id="lname" 
-            placeholder="Last Name" pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" title="Only alphabets are allowed" 
-            autocomplete="last-name" size="20" maxlength="20">
-        </fieldset>
-        <fieldset>
-            <label for="email">Email</label>
-            <input name="email" type="email" required id="email" 
-            placeholder="Email Address" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Invalid email address" 
-            autocomplete="email" size="20" maxlength="40">
-        </fieldset>
-        <fieldset>
-            <label for="number">Contact Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="Phone number" maxlength="20" required>
-        </fieldset>
-        <fieldset>
-            <label for="cv">Upload CV</label>
-            <input type="file" name="cv_file" id="cv_file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
-        </fieldset>
-        <fieldset>
-            <input type="checkbox" id="consentCheck" name="consent" value="consent">
-            <label for="consent"> I consent to Henderson Building Contractors storing my information for recruiting</label>
-        </fieldset>
-        <fieldset>
-            <button name="btn_app_send" type="submit" id="btn_app_send" data-submit="...Sending">Send now</button>
-        </fieldset>
-        </form>  
-    </div>
 
     </body>
 

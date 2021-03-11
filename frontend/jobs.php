@@ -4,7 +4,7 @@
   echo makeNav();
 ?>
 
-<body style="background-image: url(styles/images/jobs.jpg);">
+<body>
     <h3 class="title">Join The Team!
         <p>Note: All roles are based in the North East</p>
     </h3>
