@@ -222,10 +222,12 @@ fieldset {
 	padding:25px 10px;
 	font-size:15px;
 	text-transform: uppercase;
+	border-radius: 1px;
+	border: solid #222221;
 }
 
 #jobForm button[type="submit"]:hover {
-	background:#181237;
+	background:#ADADAD;
 	-webkit-transition:background 0.3s ease-in-out;
 	-moz-transition:background 0.3s ease-in-out;
 	transition:background-color 0.3s ease-in-out;
@@ -474,7 +476,6 @@ footer{
 }
 
 /*Contact Form*/
-
 /* Style the container/contact section */
 .container {
 	width:100%;
@@ -657,7 +658,6 @@ input.error{
 
 /*Making footer responsive to different screen sizes*/
 @media (max-width: 880px) {
-
 	.footer-distributed .footer-left,
 	.footer-distributed .footer-center,
 	.footer-distributed .footer-right{
@@ -675,5 +675,12 @@ input.error{
 @media (max-width:650px){
 	.form-container{
 		width: 100%;
+	}
+	#jobForm {
+		padding:25px;
+		margin:80px 0; 
+		background-color: #ADADAD; 
+		width: 80%;
+		display: inline-block; 
 	}
 }
