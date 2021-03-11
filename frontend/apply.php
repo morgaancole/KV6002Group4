@@ -14,8 +14,13 @@
     header("Location: jobs.php");
   }
 
+
 echo makeFooter();
 echo endMain();
 echo makePageEnd();
 
 ?>
+
+<html>
+
+</html>

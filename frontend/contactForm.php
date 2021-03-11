@@ -3,6 +3,7 @@
   echo makePageStart();
   echo makeNav();
 ?>
+<script type="text/javascript" src="contact.js"></script>
 
 <body style="background-image: url(styles/images/contact.jpg);">
 <h3 class="title">Contact Us</h3>
@@ -41,23 +42,12 @@
         <option value="no">No</option>
       </select><br><br>
       <fieldset>
-          <button name="btn_contact" type="submit" onclick="validate()" id="contact-submit" data-submit="...Sending">Send now</button>
+          <button name="btn_contact" type="submit" id="submit" data-submit="...Sending">Send now</button>
       </fieldset>
     </form>  
   </div>
       
 </body>
-
-<script>
-
-  function validate(){
-    var ddl = document.getElementById("consent");
-    var selectedValue = ddl.options[ddl.selectedIndex].value;
-        if (selectedValue == "selectOption"){
-        alert("Please select yes or no");
-      }
-    }
-</script>
 
 <?php
 

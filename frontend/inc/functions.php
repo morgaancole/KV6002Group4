@@ -2,8 +2,13 @@
 
 
 function getDatabase(){
-    $dir = 'sqlite:../DB/hendersonDB.sqlite';
-    $dbConnection  = new PDO($dir) or die("cannot open the database");   
+    try{
+        $dir = 'sqlite:../DB/hendersonDB.sqlite';
+        $dbConnection  = new PDO($dir) or die("cannot open the database");   
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+    }
+
 
     return $dbConnection;
 }
@@ -20,7 +25,7 @@ function makePageStart() {
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <title>Henderson Building Contractors</title>
         <link rel="icon" href="styles/images/logo.png" type="image" sizes="16x16">
-        <link rel="stylesheet" href="styles/style.css">      
+        <link rel="stylesheet" href="styles/style.css">     
     </head>
 PAGESTART;
 	$pageStartContent .="\n";
@@ -137,24 +142,27 @@ PAGEEND;
 
 //Function which gets Jobs from database
 function getJobs($job){
-    $dbConn = getDatabase();
+    try{
+        $dbConn = getDatabase();
 
-    $select_stmt = $dbConn->prepare("SELECT 
-                                        job_id AS 'ID',
-                                        job_title AS 'Role',
-                                        job_wage AS 'Wage(Hourly)',
-                                        job_close_date AS 'Closing Date'
-                                        FROM hd_job_vacancies");
-    
-    
-    $select_stmt->execute();
+        $select_stmt = $dbConn->prepare("SELECT 
+                                            job_id AS 'ID',
+                                            job_title AS 'Role',
+                                            job_wage AS 'Wage(Hourly)',
+                                            job_close_date AS 'Closing Date'
+                                            FROM hd_job_vacancies");
 
-    //Array for results
-    $jobs = array();
-    if ($select_stmt->execute()) {
-        while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
-            $jobs[] = $row;
+        $select_stmt->execute();
+
+        //Array for results
+        $jobs = array();
+        if ($select_stmt->execute()) {
+            while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+                $jobs[] = $row;
+            }
         }
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
     }
 
     return $jobs;
@@ -162,50 +170,74 @@ function getJobs($job){
 
 function makeJobsPage(){
 
-    $jobs = getJobs('all');
-
     $jobBox = "";
 
-    foreach ( $jobs as $jobItem ) {
+    $jobs = getJobs('all');
 
-        $jobBox .= "<div class='job-box'>";
-        $jobBox .= "<form id='jobForm' action='jobPage.php' method='post'>";
-    
-        foreach ( $jobItem as $key => $value ) {
-            if ($key === 'ID'){
-                $jobBox .= "<label style='display:none;' for='$key'>$key</label>
-                        <input style='display:none;' name='$key' type='text' readonly value ='$value'>";
-                        
-            }else if($key === 'Wage(Hourly)'){
-                $jobBox .= "<h2>$key : £$value.00</h2>";
-            }else {
-                $jobBox .= "<h2>$key : $value</h2>";
-            }
-        }
-    
-        $jobBox .= "<fieldset><button name='btn_goToJob' type='submit' id='goToJob'>See More</button></fieldset>";
-        $jobBox .= "</form></div><br>";
-    }
-
-    $jobsPage = <<<JOBS
-                $jobBox
+    //Checks if there are any vacancies before displaying page
+    if(empty($jobs)){
+        $jobsPage = <<<JOBS
+        <div class="no-jobs"> 
+            <div class="job-message">
+                <h2>Sorry</h2>
+                <p>We currently have no vacancies at Henderson.</p>
+                <br>
+                <p>Please keep an eye on this page as we update it whenever we have a new spot</p>
+                <br>
+                <p>Feel free to <a href="contactForm.php">contact us </a>if you have any enquiries</p>
+                <br>
+                <p>Thanks for your interest!</p>
+            </div>
+        </div>
 
 JOBS;
+    //Displays all jobs if there are any available
+    }else{
+
+        foreach ( $jobs as $jobItem ) {
+
+            $jobBox .= "<div class='job-box'>";
+            $jobBox .= "<form id='jobForm' action='jobPage.php' method='post'>";
+        
+            foreach ( $jobItem as $key => $value ) {
+                if ($key === 'ID'){
+                    $jobBox .= "<label style='display:none;' for='$key'>$key</label>
+                            <input style='display:none;' name='$key' type='text' readonly value ='$value'>";
+                            
+                }else if($key === 'Wage(Hourly)'){
+                    $jobBox .= "<h2>$key : £$value.00</h2>";
+                }else {
+                    $jobBox .= "<h2>$key : $value</h2>";
+                }
+            }
+        
+            $jobBox .= "<fieldset><button name='btn_goToJob' type='submit' id='goToJob'>See More</button></fieldset>";
+            $jobBox .= "</form></div><br>";
+        }
+
+        $jobsPage = <<<JOBS
+                    $jobBox
+
+JOBS;
+    }
 
     $jobsPage .="\n";
     return $jobsPage;
 }
 
 function makeFullJob($jobId){
-    //$jobInfo = getJobs($jobId);
+    try{
+        $dbConn = getDatabase();
 
-    $dbConn = getDatabase();
+        $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies WHERE job_id = :jobId");
+        $select_stmt->bindParam(":jobId", $jobId);
+        $select_stmt->execute();
 
-    $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies WHERE job_id = :jobId");
-    $select_stmt->bindParam(":jobId", $jobId);
-    $select_stmt->execute();
-
-    $job = $select_stmt->fetch(PDO::FETCH_ASSOC);
+        $job = $select_stmt->fetch(PDO::FETCH_ASSOC);
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+        
+    }
 
     $jobId = $job['job_id'];
     $jobTitle = $job['job_title'];
@@ -247,21 +279,27 @@ JOB;
 }
 
 function makeJobForm($jobId){
-    $dbConn = getDatabase();
-    $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies WHERE job_id = :jobId");
-    $select_stmt->bindParam(":jobId", $jobId);
-    $select_stmt->execute();
+    try{
+        $dbConn = getDatabase();
+        $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies WHERE job_id = :jobId");
+        $select_stmt->bindParam(":jobId", $jobId);
+        $select_stmt->execute();
 
-    $job = $select_stmt->fetch(PDO::FETCH_ASSOC);
+        $job = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
-    $jobTitle = $job['job_title'];
-    
+        $jobTitle = $job['job_title'];
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+        
+    }
+
     $jobForm = <<<FORM
         <body>
+        <script type="text/javascript" src="jobForm.js"></script>
         <h3 class="title"></h3>
 
         <div class="container">  
-        <form id="contact" action="sendApplication.php" method="post" enctype="multipart/form-data">
+        <form id="jobForm" action="sendApplication.php" method="post" enctype="multipart/form-data">
         <div>
             <h3>Apply Here!</h3>
         </div>
@@ -299,7 +337,11 @@ function makeJobForm($jobId){
             <input type="file" name="cv_file" id="cv_file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
         </fieldset>
         <fieldset>
-            <button name="btn_app_send" type="submit" id="contact-submit" data-submit="...Sending">Send now</button>
+            <input type="checkbox" id="consentCheck" name="consent" value="consent">
+            <label for="consent"> I consent to Henderson Building Contractors storing my information for recruiting</label>
+        </fieldset>
+        <fieldset>
+            <button name="btn_app_send" type="submit" id="btn_app_send" data-submit="...Sending">Send now</button>
         </fieldset>
         </form>  
     </div>
