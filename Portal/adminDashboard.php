@@ -29,24 +29,16 @@
                 </li>
 
                 <li>
-                    <a href="">
+                    <a href="payroll.php">
                         <span class="ti-time"></span>
-                        <span>Timeshet</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="">
-                        <span class="ti-book"></span>
-                        <span>Vehicle Logs</span>
+                        <span>Payroll</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="createEmployee.php">
+                    <a href="position.php">
                         <span class="ti-settings"></span>
-                        <span>Create Employee</span>
+                        <span>Positions</span>
                     </a>
                 </li>
 

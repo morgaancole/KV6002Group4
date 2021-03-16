@@ -30,24 +30,19 @@
             </li>
 
             <li>
-                <a href="">
-                    <span class="ti-time"></span>
-                    <span>Timeshet</span>
-                </a>
+             <a href="payroll.php">
+                <span class="ti-time"></span>
+                <span>Payroll</span>
+             </a>
             </li>
 
 
-            <li>
-                <a href="">
-                    <span class="ti-book"></span>
-                    <span>Vehicle Logs</span>
-                </a>
-            </li>
+
 
             <li>
-                    <a href="createEmployee.php">
+                    <a href="position.php">
                         <span class="ti-settings"></span>
-                        <span>Create Employee</span>
+                        <span>Positions</span>
                     </a>
                 </li>
 
@@ -105,15 +100,36 @@
                 <td>Password:</td>
                 <td><input type="text" name="staff_password" value=<?php echo randomPassword();?> size="60" required /></td>
             </tr>
-
+            <tr>
             <td>Staff address:</td>
                 <td><input type="text" name="staff_address" size="60" required/></td>
             </tr>
-
+            <tr>
             <td>Staff postcode:</td>
                 <td><input type="text" name="staff_postcode" size="60" required/></td>
             </tr>
-        
+            <tr>
+            <td>Role</td>
+            <td>
+            <?php
+    
+            $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
+  
+
+
+        $role =  $myPDO->query("SELECT * from hd_pay_categories ORDER BY pay_desc");
+
+
+          echo "<select name='pay_id'>";
+          while ($row = $role->fetch(PDO::FETCH_ASSOC)){
+              
+ 
+                  echo "<option value='{$row['pay_id']}'>{$row['pay_desc']}</option>";
+              
+              }
+          echo "</select>";?>
+                </td>
+              </tr>
             <tr>
                 <td><input type="submit" name="insert_employee" value="Create Employee"></td>
             </tr>
@@ -150,10 +166,14 @@ $staff_email = $_POST['staff_email'];
 $staff_password = $_POST['staff_password'];
 $staff_address = $_POST['staff_address'];
 $staff_postcode = $_POST['staff_postcode'];
+$pay_id = $_POST['pay_id'];
 
 
-$query  = $myPDO->query("INSERT INTO hd_staff_users(staff_first_name,staff_last_name,staff_email,staff_password,staff_address,staff_postcode) VALUES('$staff_first_name','$staff_last_name','$staff_email','$staff_password','$staff_address','$staff_postcode')");
+
+$query  = $myPDO->query("INSERT INTO hd_staff_users(staff_first_name,staff_last_name,staff_email,staff_password,staff_address,staff_postcode,pay_id) VALUES('$staff_first_name','$staff_last_name','$staff_email','$staff_password','$staff_address','$staff_postcode','$pay_id')");
        
+header("Location: http://unn-w18011589.newnumyspace.co.uk/KV6002/Portal/viewEmployees.php");
+
 }
 
 ?>
