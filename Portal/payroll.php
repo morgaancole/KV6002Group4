@@ -91,6 +91,7 @@
  INNER JOIN hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)");
 
  while($row= $query->fetch(PDO::FETCH_ASSOC)){
+
                       echo "
                         <tr>
                           <td>".$row['staff_first_name']. " ".$row['staff_last_name']."</td>
@@ -106,7 +107,7 @@
                           <td>".number_format($row['deductables'], 2)."</td>
                           <td>".$row['final_income']."</td>
 
-                         <td><a href='editTimesheet.php?timesheetID='#'>Edit</a></td>
+                         <td><a href='editTimesheet.php?timesheetID={$row['timesheet_id']}'>Edit</a></td>
                          <td><a href='deleteTimesheet.php?timesheetID='#'>Delete</a</td>
                          </tr>
                       ";

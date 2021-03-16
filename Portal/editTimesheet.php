@@ -76,26 +76,29 @@
         <div class="timesheetInner">
            
                 <div class="inputsOuter">
-                    <form action="./updateTimesheet.php" method="get">
+                <?php
 
-                    <?php
+
         
         $timesheet_id = filter_has_var(INPUT_GET, 'timesheetID') ? $_GET['timesheetID'] : null; 
 
         $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
         $query  = $myPDO->query("SELECT *
         FROM hd_timesheet_responses
-        WHERE timesheet_id = 1");
+        WHERE timesheet_id =  '$timesheet_id'");
         
         
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
 
-            $process_id = $row['process_id'];
 
-            list($year,$month,$day)=explode("/", $row['Date']);
+            list($day,$month,$year)=explode("/", $row['Date']);
 
 
-echo "
+            echo "  <form action='updateTimesheet.php' method='get'>
+                    <div class='inputsInner'>
+                    <label for='timesheet_id'>timesheetID</label>
+                    <input type='text' name='timesheet_id' id='timesheet_id' value='$timesheet_id' readonly/>
+                    </div>
                     <div class='inputsInner'>
                     <label for='userID'>User ID</label>
                     <input type='text' name='id' id='userID' placeholder='User ID*' value='{$row['staff_id']}' required/>

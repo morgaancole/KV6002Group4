@@ -6,6 +6,7 @@
 <body>
 <?php
 //using the $_GET the correct values from the selected event can be accessed and they are stored with variables
+$timesheet_id = filter_has_var(INPUT_GET, 'timesheet_id') ? $_GET['timesheet_id'] : null;
 $id = filter_has_var(INPUT_GET, 'id') ? $_GET['id'] : null;
 $day = filter_has_var(INPUT_GET, 'day') ? $_GET['day'] : null; 
 $month = filter_has_var(INPUT_GET, 'month') ? $_GET['month'] : null;
@@ -14,7 +15,6 @@ $location = filter_has_var(INPUT_GET, 'location') ? $_GET['location'] : null;
 $hours = filter_has_var(INPUT_GET, 'hours') ? $_GET['hours'] : null; 
 $hoursOvertime = filter_has_var(INPUT_GET, 'hoursOvertime') ? $_GET['hoursOvertime'] : null; 
 $desc = filter_has_var(INPUT_GET, 'desc') ? $_GET['desc'] : null; 
-$process_id = filter_has_var(INPUT_GET, 'process_id') ? $_GET['process_id'] : null;
 
 
 $date = $day . "/" . $month . "/" . $year;
@@ -24,8 +24,8 @@ $date = $day . "/" . $month . "/" . $year;
         $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
         //SQL update statement to update the content of the database with the changes the user just made
 		$query  = $myPDO->query("UPDATE hd_timesheet_responses 
-        SET Date = '$date', location = '$location', hours_worked = '$hours',jobs_completed_desc = '$desc', overtime_worked = '$hoursOvertime', process_id ='$process_id'
-        WHERE timesheet_id = 1");
+        SET Date = '$date', location = '$location', hours_worked = '$hours',jobs_completed_desc = '$desc', overtime_worked = '$hoursOvertime'
+        WHERE timesheet_id = '$timesheet_id'");
 
 if($query) {
     require_once "inc/functions.php";
