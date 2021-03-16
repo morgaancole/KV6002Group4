@@ -5,7 +5,6 @@ echo createPageBody();
 echo createNav();
 ?>
 
-
 <div class="main-content">
 
         <header>
@@ -22,17 +21,21 @@ echo createNav();
         </header>
 
         <main>
-            <h2 class="dash-title">Timesheet form</h2>
+            <h2 class="dash-title">Vehicle log form</h2>
             <p class="italic">Please note all fields marked with an asterisk (*) are required</p>
 
-            <div class="timesheetOuter">
-        <div class="timesheetInner">
-           
+        
+            <div class="vehiclelogouter">
+        <div class="vehicleloginner">
                 <div class="inputsOuter">
-                    <form action="./uploadTimesheet.php" method="post">
+                    <form action="./uploadVehicleLog.php" method="post">
                     <div class="inputsInner">
                     <label for="userID">User ID</label>
                     <input type="text" name="id" id="userID" placeholder="User ID*" required/>
+                    </div>
+                    <div class="inputsInner">
+                    <label for="reg">Vehicle reg</label>
+                    <input type="text" name="reg" id="reg" placeholder="Vehicle reg*" required/>
                     </div>
                     <div class="inputsInner">
                     <label>Date</label>
@@ -43,30 +46,22 @@ echo createNav();
                     </div>
                     </div>
                     <div class="inputsInner">
-                    <label for="siteLocation">Site Location</label>
-                    <input type="text" name="location" id="siteLocation" placeholder="Site Location*" required/>
+                    <label for="currentmilage">Current milage</label>
+                    <input type="text" name="milage" id="currentmilage" placeholder="Current milage*" required/>
                     </div>
                     <div class="inputsInner">
-                    <label for="hoursWorked">Regular hours worked at location</label>
-                    <input type="text" name="hours" id="hoursWorked" placeholder="Regular hours*" maxlength="2" required/>
-                    </div>
-                    <div class="inputsInner">
-                    <label for="hoursWorkedOvertime">Overtime hours worked at location</label>
-                    <input type="text" name="hoursOvertime" id="hoursWorkedOvertime" placeholder="Overtime hours" maxlength="2"/>
-                    </div>
-                    <div class="inputsInner">
-                    <label for="desc">Description of jobs completed</label>
-                    <textarea name="desc" id="desc" placeholder="Please insert details of jobs completed here...*" required></textarea>
+                    <label for="issues">Any issues</label>
+                    <textarea name="issues" id="issues" placeholder="Please insert any issues with the vehicle (add n/a if none)*" required></textarea>
                     </div>
                     <div class="inputsInner">
                     <input type="submit" name="submit" class="submitBtn" />
                 </div>
+                    
                     </form>
                 </div>
-                
         </div>
-
     </div>
+
             
 
 
@@ -74,10 +69,7 @@ echo createNav();
         </main>
     </div>
 
-
-   
-
-
+    
 
 <?php
 
