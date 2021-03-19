@@ -405,6 +405,12 @@ function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role,
             //Creating variables to use in sending emails
             $send = "Hi " . $firstName . "\nThanks for your application!\n\nHenderson Contractors will be in touch as soon as possible!\n";
 
+            //If CV wasn't successfully uploaded, asks applicant to reply to email with CV file
+            if($fullPath == "CV upload unavailable"){
+                $send .= "However, your CV couldn't be uploaded.\n";
+                $send .= "Please could you reply to this email and attach your CV?\n";
+            }
+
             $headers = "From: applications@hendersonbuilding.co.uk";
 
             $subject = "Thanks for applying to join us";
