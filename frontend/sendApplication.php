@@ -1,9 +1,5 @@
 <?php
 
-    ini_set('display_errors', '1');
-    ini_set('display_startup_errors', '1');
-    error_reporting(E_ALL);
-
   require_once("inc/functions.php");
   echo makePageStart();
 
@@ -18,13 +14,7 @@
         $email = filter_has_var(INPUT_POST, 'email') ? $_POST['email']: null;
         $contact = filter_has_var(INPUT_POST, 'phone') ? $_POST['phone']: null;
         $role = filter_has_var(INPUT_POST, 'role') ? $_POST['role']: null;
-
-        $targetDir = "uploads/";
-        $targetFile = $targetDir . basename($_FILES["cv_file"]["name"]);
-
-        $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
-
-        $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . basename($_FILES["cv_file"]["name"]);       
+  
 
         //Trimming input from user
         $firstName = trim($firstName);
@@ -32,9 +22,20 @@
         $email = trim($email);
         $contact = trim($contact);
         $role = trim($role);
+
+        $targetDir = "uploads/";
+
+        //Sanitising file name befpore insert
+        $filename = str_replace(" ", "_", $_FILES['cv_file']['name']);
+
+  
+        $targetFile = $targetDir . $filename;
+
+      //  $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+
+        $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . $filename;  
         
         //Checking if fields are empty (also checked on client-side)
-
         if (!empty($jobId)  && !empty($firstName)  && !empty($lastName) && !empty($email) && !empty($contact) && !empty($role)) {   
            
             //Checks if CV upload worked
