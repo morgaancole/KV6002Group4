@@ -1,5 +1,9 @@
 <?php
 
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+    error_reporting(E_ALL);
+
   require_once("inc/functions.php");
   echo makePageStart();
 
@@ -28,12 +32,21 @@
         $email = trim($email);
         $contact = trim($contact);
         $role = trim($role);
-
         
         //Checking if fields are empty (also checked on client-side)
 
-        if (!empty($jobId)  && !empty($firstName)  && !empty($lastName) && !empty($email) && !empty($contact) && !empty($role)) {
-            echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
+        if (!empty($jobId)  && !empty($firstName)  && !empty($lastName) && !empty($email) && !empty($contact) && !empty($role)) {   
+           
+            //Checks if CV upload worked
+            if (move_uploaded_file($_FILES["cv_file"]["tmp_name"], $targetFile)) {
+
+                echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
+            
+            }else { //If upload failed, sets value in database - can prompt Henderson to contact applicant and request CV
+                $fullPath = "CV upload unavailable";
+                echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
+            }
+
         }else{
             $errors[] = "Something was left empty";
             header("Location: jobs.php");
