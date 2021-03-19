@@ -12,8 +12,8 @@
     <h3>Return <a href='index.php'>Home?</a></h3>
     <h3>View <a href='services.php'>Services?</a></h3>
     <h3>View <a href='jobs.php'>Jobs?</a></h3>
-    <h3><a href='jobs.php'>Contact Us?</a></h3>
-    <h3>Staff <a href='jobs.php'>Login</a></h3>
+    <h3><a href='contactForm.php'>Contact Us?</a></h3>
+    <h3>Staff <a href='loginForm.php'>Login</a></h3>
   </div>
       
 </body>

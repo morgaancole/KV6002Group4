@@ -392,8 +392,6 @@ function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role,
             $insert_stmt->bindValue(':ucontact', $contact, PDO::PARAM_INT);
             $insert_stmt->bindValue(':ucv', $fullPath, PDO::PARAM_STR);
             $insert_stmt->bindValue(':ujobid', $jobId, PDO::PARAM_INT);
-            
-            $insert_stmt->execute();   
 
 
         }catch (Exception $e) {
@@ -431,10 +429,14 @@ function applicationSubmitted($result){
     if($result === 'sent'){
         $bodyContent = <<<BODY
         <body>
-        <h3 class="title">Thanks</h3>
+        <h3 class='title'>Thanks</h3>
           <div class="container">  
-                <h2>Thanks for your application!</h2>
+                <h2 class='title'>Thanks for your application!</h2>
                 <p>Your application has been received and we will be in touch when we have more information</p>
+                <h3>Return <a href='index.php'>Home?</a></h3>
+                <h3>View <a href='services.php'>Services?</a></h3>
+                <h3>View <a href='jobs.php'>Jobs?</a></h3>
+                <h3><a href='contactForm.php'>Contact Us?</a></h3>
           </div>
               
         </body>
