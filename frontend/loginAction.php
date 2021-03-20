@@ -1,9 +1,7 @@
-
-
-
-
-
 <?php
+    
+    ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, THIS
+    session_start(); //start session, THIS
 
     if(ISSET($_POST['btn_login'])){
         $email = filter_has_var(INPUT_POST, 'txt_email') ? $_POST['txt_email']: null;
@@ -13,6 +11,9 @@
         $password = trim($password);
         
         try {
+            
+        unset($_SESSION ['email']); //THIS
+        unset($_SESSION ['logged-in']); //THIS
             
         require_once("inc/functions.php");
                 $dbConn = getDatabase();
@@ -30,6 +31,9 @@
        if ($user) {  
         if($password === $user['staff_password']){
           header('Location: ../Portal/userDashboard.php');
+            
+            $_SESSION['logged-in'] = true;
+            $_SESSION ['email'] = $email;
         }       
         
         else{
@@ -44,6 +48,9 @@
         if ($admin) {  
         if($password === $admin['admin_password']){
           header('Location: ../Portal/adminDashboard.php');
+            
+            $_SESSION['logged-in'] = true;
+            $_SESSION ['email'] = $email;
         }       
             
         else{
