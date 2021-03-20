@@ -32,8 +32,8 @@
         if($password === $user['staff_password']){
           header('Location: ../Portal/userDashboard.php');
             
-            $_SESSION['logged-in'] = true;
-            $_SESSION ['email'] = $email;
+            $_SESSION['logged-in'] = true; //THIS
+            $_SESSION ['email'] = $email; //THIS
         }       
         
         else{
@@ -49,8 +49,8 @@
         if($password === $admin['admin_password']){
           header('Location: ../Portal/adminDashboard.php');
             
-            $_SESSION['logged-in'] = true;
-            $_SESSION ['email'] = $email;
+            $_SESSION['logged-in'] = true; //THIS
+            $_SESSION ['email'] = $email; //THIS
         }       
             
         else{

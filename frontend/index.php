@@ -4,14 +4,14 @@
   echo makeNav();
 ?>
 
-  <body>
-  
 
-  <div style="background-image: url('styles/images/angel.jpg');" class="banner" ></div>
-      <div class="title">Henderson Building Contractors</div>
-      <p>Homepage:</p>
+<body>
+    <h3 class="title">Welcome to Henderson Building Contractors</h3>
+    
+    
+    
 
-  </body>
+</body>
 
 <?php
 echo makeFooter();

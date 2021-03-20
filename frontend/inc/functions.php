@@ -144,6 +144,8 @@ PAGEEND;
     return $pageEndContent;
 }
 
+
+
 //Function which gets Jobs from database
 function getJobs($job){
     try{
