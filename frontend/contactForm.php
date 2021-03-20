@@ -36,7 +36,7 @@
           <fieldset>
               <textarea type="text" name="message" id="message" placeholder="How can we help you?" minlength="1" required title="Please enter a message"></textarea>
           </fieldset>
-          <label for="consent">Do you consent to your data being stored in our database?</label>
+          <label for="consent">Do you consent to your data being stored in our database for future promotional offers?</label>
           <select name="consent" id="consent">
             <option value="selectOption">Please Select</option>
             <option value="yes">Yes</option>

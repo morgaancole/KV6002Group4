@@ -68,51 +68,55 @@
             </div>
     </header>
     <main>
-    <form method="get" action="createEmployee.php">
 
-    <button><i class="fa fa-plus"></i> New user</button>
+    <div class="box-header with-border">
+        <a href="position.php"><i class="fa fa-plus"></i> Back</a>
+    </div>
+
+    <form action="createPosition.php" method="post" enctype="multipart/form-data">
+    
+        <table align="center" width="1000">
+            <tr>
+                <td><h2>Create New Position</h2></td>
+            </tr>
+            
+            <tr>
+                <td>Position Name:</td>
+                <td><input type="text" name="pay_desc" size="60" required/></td>
+            </tr>
+
+            <tr>
+                <td>Hourly Rate:</td>
+                <td><input type="text" name="hourly_rate" size="60" required/></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" name="insert_position" value="Submit"></td>
+            </tr>
+        </table>
     </form>
 
-    <table>
-			<thead>
-				<tr>
-					<th>Staff Id</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-                    <th>Role</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-                
-                $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
-                $query = $myPDO->query("SELECT staff_id, staff_first_name,staff_last_name, pay_desc, hd_staff_users.pay_id
-                FROM hd_staff_users
-                INNER join hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)
-                order by staff_id ");
-
- 					while($row= $query->fetch(PDO::FETCH_ASSOC)){
-				 
-                        echo "
-                        <tr>
-                          <td>".$row['staff_id']."</td>
-                          <td>".$row['staff_first_name']."</td>
-                          <td>".$row['staff_last_name']."</td>
-                          <td>".$row['pay_desc']."</td>
-
-                        
-                          <td><a href='viewEmployee.php?staffID={$row['staff_id']}&payID={$row['pay_id']}'>Edit</a</td>
-                          <td><a href='deleteEmployee.php?staffID={$row['staff_id']}'>Delete</a</td>
-
-                        </tr>
-
-                      ";
-                     }
-                  ?>
-			</tbody>
-		</table>
-        </main>
-        
+    
+    </main>
 </div>
 </body>
 </html>
+        
+
+<?php
+
+$myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
+
+if(isset($_POST['insert_position'])){
+
+$pay_desc = $_POST['pay_desc'];
+$hourly_rate = $_POST['hourly_rate'];
+
+
+$query  = $myPDO->query("INSERT INTO hd_pay_categories(pay_desc,hourly_rate) VALUES('$pay_desc','$hourly_rate')");
+       
+header("Location: position.php");
+die();
+}
+
+?>

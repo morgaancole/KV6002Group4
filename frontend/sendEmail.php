@@ -55,12 +55,12 @@
 	}
 ?>
 
-<body body style="background-image: url(styles/images/living.jpg);">
+<body>
 <h3 class="title">Contact Us</h3>
   <div class="container">  
 		<?php
 			//Displaying message to user after their email has been sent
-			echo "<h2>Thanks for your message " . $name . "</h2>";
+			echo "<h2 class='title'>Thanks for your message " . $name . "</h2>";
 			echo "<h3>Send <a href='contactForm.php'>Another?</a></h3>";
 		?>
   </div>

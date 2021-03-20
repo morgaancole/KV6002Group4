@@ -9,7 +9,6 @@
     <title>Document</title>
 </head>
 <body>
-<body>
 
 <input type="checkbox" id="sidebar-toggle">
 <div class="sidebar">
@@ -36,7 +35,7 @@
              </a>
             </li>
 
-            <li>
+                <li>
                     <a href="position.php">
                         <span class="ti-settings"></span>
                         <span>Positions</span>
@@ -68,51 +67,50 @@
             </div>
     </header>
     <main>
-    <form method="get" action="createEmployee.php">
 
-    <button><i class="fa fa-plus"></i> New user</button>
-    </form>
-
-    <table>
-			<thead>
-				<tr>
-					<th>Staff Id</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-                    <th>Role</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-                
+    <div class="box">
+            <div class="box-header with-border">
+              <a href="createPosition.php"><i class="fa fa-plus"></i>Create New Position</a>
+            </div>
+            <div class="box-body">
+              <table id="example1" class="table table-bordered">
+                <thead>
+                  <th>Position Title</th>
+                  <th>Rate per Hour</th>
+                  <th>Tools</th>
+                </thead>
+                <tbody>
+                  <?php
                 $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
-                $query = $myPDO->query("SELECT staff_id, staff_first_name,staff_last_name, pay_desc, hd_staff_users.pay_id
-                FROM hd_staff_users
-                INNER join hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)
-                order by staff_id ");
+                $query = $myPDO->query("SELECT * FROM hd_pay_categories");
 
- 					while($row= $query->fetch(PDO::FETCH_ASSOC)){
-				 
-                        echo "
+                while($row= $query->fetch(PDO::FETCH_ASSOC)){
+
+                      echo "
                         <tr>
-                          <td>".$row['staff_id']."</td>
-                          <td>".$row['staff_first_name']."</td>
-                          <td>".$row['staff_last_name']."</td>
                           <td>".$row['pay_desc']."</td>
-
+                          <td>".number_format($row['hourly_rate'], 2)."</td>
                         
-                          <td><a href='viewEmployee.php?staffID={$row['staff_id']}&payID={$row['pay_id']}'>Edit</a</td>
-                          <td><a href='deleteEmployee.php?staffID={$row['staff_id']}'>Delete</a</td>
+                          <td><a href='editPosition.php?payID={$row['pay_id']}'>Edit</a</td>
+                          <td><a href='deletePosition.php?payID={$row['pay_id']}'>Delete</a</td>
 
                         </tr>
 
                       ";
-                     }
+                    }
                   ?>
-			</tbody>
-		</table>
-        </main>
-        
+                </tbody>
+              </table>
+            </div>
+    </div>
+
+
+    </main>
 </div>
 </body>
 </html>
+        
+
+
+
+

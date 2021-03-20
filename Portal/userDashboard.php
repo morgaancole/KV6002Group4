@@ -31,7 +31,7 @@
                 <li>
                     <a href="">
                         <span class="ti-time"></span>
-                        <span>Timeshet</span>
+                        <span>Timesheet</span>
                     </a>
                 </li>
 

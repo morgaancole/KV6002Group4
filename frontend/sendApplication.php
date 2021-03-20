@@ -14,13 +14,7 @@
         $email = filter_has_var(INPUT_POST, 'email') ? $_POST['email']: null;
         $contact = filter_has_var(INPUT_POST, 'phone') ? $_POST['phone']: null;
         $role = filter_has_var(INPUT_POST, 'role') ? $_POST['role']: null;
-
-        $targetDir = "uploads/";
-        $targetFile = $targetDir . basename($_FILES["cv_file"]["name"]);
-
-        $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
-
-        $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . basename($_FILES["cv_file"]["name"]);       
+  
 
         //Trimming input from user
         $firstName = trim($firstName);
@@ -29,11 +23,31 @@
         $contact = trim($contact);
         $role = trim($role);
 
+        $targetDir = "uploads/";
+
+        //Sanitising file name befpore insert
+        $filename = str_replace(" ", "_", $_FILES['cv_file']['name']);
+
+  
+        $targetFile = $targetDir . $filename;
+
+      //  $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+
+        $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . $filename;  
         
         //Checking if fields are empty (also checked on client-side)
+        if (!empty($jobId)  && !empty($firstName)  && !empty($lastName) && !empty($email) && !empty($contact) && !empty($role)) {   
+           
+            //Checks if CV upload worked
+            if (move_uploaded_file($_FILES["cv_file"]["tmp_name"], $targetFile)) {
 
-        if (!empty($jobId)  && !empty($firstName)  && !empty($lastName) && !empty($email) && !empty($contact) && !empty($role)) {
-            echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
+                echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
+            
+            }else { //If upload failed, sets value in database - can prompt Henderson to contact applicant and request CV
+                $fullPath = "CV upload unavailable";
+                echo sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath);
+            }
+
         }else{
             $errors[] = "Something was left empty";
             header("Location: jobs.php");

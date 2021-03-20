@@ -4,7 +4,7 @@
     echo makeNav();
 
     if(isset($_POST['btn_goToJob'])){
-            $jobId = filter_has_var(INPUT_POST, 'ID') ? $_POST['ID']: null;
+            $jobId = filter_has_var(INPUT_POST, 'job_id') ? $_POST['job_id']: null;
 
             echo makeFullJob($jobId);
     }else{

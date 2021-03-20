@@ -6,7 +6,7 @@
   //Checks if user came from jobPage
   if(isset($_POST['btn_apply_here'])){
 
-    $jobId = filter_has_var(INPUT_POST, 'ID') ? $_POST['ID']: null;
+    $jobId = filter_has_var(INPUT_POST, 'job_id') ? $_POST['job_id']: null;
 
     echo makeJobForm($jobId);
   }else{

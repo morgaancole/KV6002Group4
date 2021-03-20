@@ -115,7 +115,11 @@ function makeFooter(){
             <span>About the company</span>
                 Henderson Building Contractors was formed in 1984 by Bill and Ros Henderson. Operating out of their family home, they carried out private domestic work to the local area.</p>
             <div class="footer-icons">
-            <a href="#"><i class="fa fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+
             </div>
         </div>
     </footer>
@@ -145,12 +149,7 @@ function getJobs($job){
     try{
         $dbConn = getDatabase();
 
-        $select_stmt = $dbConn->prepare("SELECT 
-                                            job_id AS 'ID',
-                                            job_title AS 'Role',
-                                            job_wage AS 'Wage(Hourly)',
-                                            job_close_date AS 'Closing Date'
-                                            FROM hd_job_vacancies");
+        $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies");
 
         $select_stmt->execute();
 
@@ -197,21 +196,32 @@ JOBS;
         foreach ( $jobs as $jobItem ) {
 
             $jobBox .= "<div class='job-box'>";
-            $jobBox .= "<form id='jobForm' action='jobPage.php' method='post'>";
+            $jobBox .= "<form id='jobForm' action='apply.php' method='post'>";
         
             foreach ( $jobItem as $key => $value ) {
-                if ($key === 'ID'){
-                    $jobBox .= "<label style='display:none;' for='$key'>$key</label>
-                            <input style='display:none;' name='$key' type='text' readonly value ='$value'>";
-                            
-                }else if($key === 'Wage(Hourly)'){
-                    $jobBox .= "<h2>$key : £$value.00</h2>";
-                }else {
-                    $jobBox .= "<h2>$key : $value</h2>";
-                }
+                switch ($key) {
+                    case 'job_id':                        
+                        $jobBox .= "<input style='display:none;' name='$key' type='text' readonly value ='$value'>";
+                        break;
+                    case 'job_title':
+                        $jobBox .= "<h2>Role : $value</h2>";
+                        break;
+                    case 'job_wage':
+                        $jobBox .= "<p><b>Wage(Hourly)</b> : £$value.00</p>";
+                        break;
+                    case 'job_desc':
+                        $jobBox .= "<p>$value</p><br>";
+                        break;
+                    case 'job_requirements':
+                        $jobBox .= "<p><b>Requirements: </b>$value</p><br>";
+                        break;
+                    case 'job_close_date':
+                        $jobBox .= "<p><b>Applications Close: </b>$value</p>";
+                        break;
+                }  
             }
         
-            $jobBox .= "<fieldset><button name='btn_goToJob' type='submit' id='goToJob'>See More</button></fieldset>";
+            $jobBox .= "<fieldset><button name='btn_apply_here' type='submit' id='goToJob'>Apply Here</button></fieldset>";
             $jobBox .= "</form></div><br>";
         }
 
@@ -392,8 +402,6 @@ function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role,
             $insert_stmt->bindValue(':ucontact', $contact, PDO::PARAM_INT);
             $insert_stmt->bindValue(':ucv', $fullPath, PDO::PARAM_STR);
             $insert_stmt->bindValue(':ujobid', $jobId, PDO::PARAM_INT);
-            
-            $insert_stmt->execute();   
 
 
         }catch (Exception $e) {
@@ -406,6 +414,12 @@ function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role,
 
             //Creating variables to use in sending emails
             $send = "Hi " . $firstName . "\nThanks for your application!\n\nHenderson Contractors will be in touch as soon as possible!\n";
+
+            //If CV wasn't successfully uploaded, asks applicant to reply to email with CV file
+            if($fullPath == "CV upload unavailable"){
+                $send .= "However, your CV couldn't be uploaded.\n";
+                $send .= "Please could you reply to this email and attach your CV?\n";
+            }
 
             $headers = "From: applications@hendersonbuilding.co.uk";
 
@@ -431,10 +445,14 @@ function applicationSubmitted($result){
     if($result === 'sent'){
         $bodyContent = <<<BODY
         <body>
-        <h3 class="title">Thanks</h3>
+        <h3 class='title'>Thanks</h3>
           <div class="container">  
-                <h2>Thanks for your application!</h2>
+                <h2 class='title'>Thanks for your application!</h2>
                 <p>Your application has been received and we will be in touch when we have more information</p>
+                <h3>Return <a href='index.php'>Home?</a></h3>
+                <h3>View <a href='services.php'>Services?</a></h3>
+                <h3>View <a href='jobs.php'>Jobs?</a></h3>
+                <h3><a href='contactForm.php'>Contact Us?</a></h3>
           </div>
               
         </body>

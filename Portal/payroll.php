@@ -68,51 +68,57 @@
             </div>
     </header>
     <main>
-    <form method="get" action="createEmployee.php">
+    
+              <table id="example1" class="table table-bordered">
+                <thead>
+                  <th>Employee Name</th>
+                  <th>Employee ID</th>
+                  <th>Hours</th>
+                  <th>Salary</th>
+                  <th>Overtime</th>
+                  <th>Pre tax</th>
+                  <th>Post tax</th>
+                  <th>Deductions</th>
+                  <th>Total Pay</th>
+                  <th>Actions</th>
+                </thead>
+                <tbody>
+                <?php
+ $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
+ $query = $myPDO->query("SELECT * 
+ FROM hd_payslips
+ INNER JOIN hd_staff_users on (hd_payslips.staff_id = hd_staff_users.staff_id)
+ INNER JOIN hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)");
 
-    <button><i class="fa fa-plus"></i> New user</button>
-    </form>
+ while($row= $query->fetch(PDO::FETCH_ASSOC)){
 
-    <table>
-			<thead>
-				<tr>
-					<th>Staff Id</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-                    <th>Role</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-                
-                $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
-                $query = $myPDO->query("SELECT staff_id, staff_first_name,staff_last_name, pay_desc, hd_staff_users.pay_id
-                FROM hd_staff_users
-                INNER join hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)
-                order by staff_id ");
-
- 					while($row= $query->fetch(PDO::FETCH_ASSOC)){
-				 
-                        echo "
+                      echo "
                         <tr>
+                          <td>".$row['staff_first_name']. " ".$row['staff_last_name']."</td>
                           <td>".$row['staff_id']."</td>
-                          <td>".$row['staff_first_name']."</td>
-                          <td>".$row['staff_last_name']."</td>
-                          <td>".$row['pay_desc']."</td>
+                          <td>".$row['hours_worked']."</td>
 
-                        
-                          <td><a href='viewEmployee.php?staffID={$row['staff_id']}&payID={$row['pay_id']}'>Edit</a</td>
-                          <td><a href='deleteEmployee.php?staffID={$row['staff_id']}'>Delete</a</td>
+                          <td>".$row['salary']."</td>
+                          <td>".$row['overtime_worked']."</td>
 
-                        </tr>
+                          <td>".$row['pre_tax_income']."</td>
+                          <td>".$row['post_tax_income']."</td>
 
+                          <td>".number_format($row['deductables'], 2)."</td>
+                          <td>".$row['final_income']."</td>
+
+                         <td><a href='editTimesheet.php?timesheetID={$row['timesheet_id']}'>Edit</a></td>
+                         <td><a href='deleteTimesheet.php?timesheetID='#'>Delete</a</td>
+                         </tr>
                       ";
-                     }
+                    }
+
                   ?>
-			</tbody>
-		</table>
-        </main>
-        
+
+                </tbody>
+              </table>
+    </main>
 </div>
 </body>
 </html>
+        
