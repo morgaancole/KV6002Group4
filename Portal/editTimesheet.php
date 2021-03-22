@@ -44,9 +44,22 @@
                 </li>
 
                 <li>
+                    <a href="vehicleLogs.php">
+                        <span class="ti-settings"></span>
+                        <span>View Vehichle Logs</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="viewEmployees.php">
                         <span class="ti-settings"></span>
                         <span>View Employees</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../frontend/logout.php">
+                        <span>Log Out</span>
                     </a>
                 </li>
         </ul>
@@ -81,6 +94,9 @@
 
         
         $timesheet_id = filter_has_var(INPUT_GET, 'timesheetID') ? $_GET['timesheetID'] : null; 
+        $process_id = filter_has_var(INPUT_GET, 'processID') ? $_GET['processID'] : null; 
+        $payslip_id = filter_has_var(INPUT_GET, 'payslipID') ? $_GET['payslipID'] : null; 
+
 
         $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
         $query  = $myPDO->query("SELECT *
@@ -99,6 +115,12 @@
                     <label for='timesheet_id'>timesheetID</label>
                     <input type='text' name='timesheet_id' id='timesheet_id' value='$timesheet_id' readonly/>
                     </div>
+
+                    <div class='inputsInner'>
+                    <label for='payslip_id'>PayslipID</label>
+                    <input type='text' name='payslip_id' id='payslip_id' value='$payslip_id' readonly/>
+                    </div>
+
                     <div class='inputsInner'>
                     <label for='userID'>User ID</label>
                     <input type='text' name='id' id='userID' placeholder='User ID*' value='{$row['staff_id']}' required/>
@@ -130,7 +152,7 @@
         
                     $rsVenue = $myPDO->query("SELECT process_id, process_desc from hd_payslip_process ORDER BY process_desc");
         
-        
+    
                       echo "<select name='process_id'>";
                       while ($venueRecord = $rsVenue->fetch(PDO::FETCH_ASSOC)) {
                           
