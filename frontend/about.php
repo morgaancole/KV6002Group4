@@ -8,8 +8,7 @@
 <body>
     <h3 class="title">About Henderson Building Contractors</h3>
     
-    <br>
-    <br>
+
     <br>
     <div class="about">
     <p>Henderson Building Contractors was formed in 1984 by Bill and Ros Henderson. Operating out of their family home, they carried out private domestic work to the local area.
