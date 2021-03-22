@@ -8,6 +8,8 @@
 <body>
     <h3 class="title">Welcome to Henderson Building Contractors</h3>
     
+  <img src="images/saw.jpg" alt="Builders" style="width:100%;">
+
     
     
 

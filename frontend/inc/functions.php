@@ -44,7 +44,7 @@ function makeNav(){
             </div>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="about.php">About</a></li>
                 <li><a href="services.php">Services</a></li>
                 <li><a href="jobs.php">Jobs</a></li>
                 <li><a href="contactForm.php">Contact</a></li>
@@ -79,7 +79,7 @@ function makeFooter(){
             <p class="footer-links">
             <a href="index.php">Home</a>
             |
-            <a href="#">About</a>
+            <a href="about.php">About</a>
             |
             <a href="services.php">Services</a>
             |
