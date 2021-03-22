@@ -15,6 +15,8 @@ $location = filter_has_var(INPUT_GET, 'location') ? $_GET['location'] : null;
 $hours = filter_has_var(INPUT_GET, 'hours') ? $_GET['hours'] : null; 
 $hoursOvertime = filter_has_var(INPUT_GET, 'hoursOvertime') ? $_GET['hoursOvertime'] : null; 
 $desc = filter_has_var(INPUT_GET, 'desc') ? $_GET['desc'] : null; 
+$process_id = filter_has_var(INPUT_GET, 'process_id') ? $_GET['process_id'] : null; 
+$payslip_id = filter_has_var(INPUT_GET, 'payslip_id') ? $_GET['payslip_id'] : null; 
 
 
 $date = $day . "/" . $month . "/" . $year;
@@ -26,8 +28,15 @@ $date = $day . "/" . $month . "/" . $year;
 		$query  = $myPDO->query("UPDATE hd_timesheet_responses 
         SET Date = '$date', location = '$location', hours_worked = '$hours',jobs_completed_desc = '$desc', overtime_worked = '$hoursOvertime'
         WHERE timesheet_id = '$timesheet_id'");
+        
+        $query2  = $myPDO->query("UPDATE hd_payslips
+        SET process_id = '$process_id'
+        WHERE payslip_id = '$payslip_id'");
+        
 
-if($query) {
+
+
+if($query && $query2) {
     require_once "inc/functions.php";
     echo makePageStart("Timesheet");
     echo createPageBody();

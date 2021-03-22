@@ -9,7 +9,6 @@
     <title>Document</title>
 </head>
 <body>
-<body>
 
 <input type="checkbox" id="sidebar-toggle">
 <div class="sidebar">
@@ -36,7 +35,7 @@
              </a>
             </li>
 
-            <li>
+                <li>
                     <a href="position.php">
                         <span class="ti-settings"></span>
                         <span>Positions</span>
@@ -68,7 +67,7 @@
 
 <div class="main-content">
 
-<header>
+    <header>
             <div class="search-wrapper">
                 <span class="ti-search"></span>
                 <input type="search" placeholder="Search">
@@ -79,62 +78,52 @@
                 <span class="ti-comment"></span>
                 <div></div>
             </div>
-        </header>
-        <main>
-        <?php
-        
-        $staff_id = filter_has_var(INPUT_GET, 'staffID') ? $_GET['staffID'] : null; 
-        $pay_id = filter_has_var(INPUT_GET, 'payID') ? $_GET['payID'] : null; 
+    </header>
+    <main>
 
-        $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
-        $query  = $myPDO->query("SELECT *
-        FROM hd_staff_users
-        WHERE staff_id = $staff_id");
-        
-        while($row= $query->fetch(PDO::FETCH_ASSOC)){
+    <div class="box">
+            <div class="box-header with-border">
+              <a href="createDeduction.php"><i class="fa fa-plus"></i>Create New Deduction</a>
+            </div>
+            <div class="box-body">
+              <table id="example1" class="table table-bordered">
+                <thead>
+                  <th>Deduction Name</th>
+                  <th>Amount</th>
+                  <th>Tools</th>
+                </thead>
+                <tbody>
+                  <?php
+                $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
+                $query = $myPDO->query("SELECT * FROM hd_deductions");
 
-echo "
-		<h1>Update Position: '{$row['staff_first_name']}' </h1>
-		<form id='UpdateEmployee' action='updateEmployee.php' method='get'>
-			<p>staff_id<input type='text' name='staff_id' value='$staff_id' readonly /></p>
-			<p>staff_first_name<input type='text' name='staff_first_name' size='50' value='{$row['staff_first_name']}' required/></p>
-            <p>staff_last_name<input type='text' name='staff_last_name' value='{$row['staff_last_name']}' required/></p>
-            <p>staff_email<input type='text' name='staff_email' value='{$row['staff_email']}' required/></p>
-            <p>staff_password <input type='text' name='staff_password' value='{$row['staff_password']}' required/> </p>
-            <p>staff_address<input type='text' name='staff_address' value='{$row['staff_address']}' required/></p>
-            <p>staff_postcode<input type='text' name='staff_postcode' value='{$row['staff_postcode']}' required/></p>";
+                while($row= $query->fetch(PDO::FETCH_ASSOC)){
 
-            echo"Role <br>";
-        
-            $rsVenue = $myPDO->query("SELECT pay_id, pay_desc from hd_pay_categories ORDER BY pay_desc");
+                      echo "
+                        <tr>
+                          <td>".$row['deduction_name']."</td>
+                          <td>".number_format($row['deduction_amount'], 2)."</td>
+                        
+                          <td><a href='editDeduction.php?deductionID={$row['deduction_id']}'>Edit</a</td>
+                          <td><a href='deleteDeduction.php?deductionID={$row['deduction_id']}'>Delete</a</td>
 
+                        </tr>
 
-              echo "<select name='pay_id'>";
-              while ($venueRecord = $rsVenue->fetch(PDO::FETCH_ASSOC)) {
-                  
-                  if ($pay_id == $venueRecord['pay_id'] ) {
-                      echo "<option value='{$venueRecord['pay_id']}' selected>
-                      {$venueRecord['pay_desc']}</option>";
-                  }
-                  else { 
-                      echo "<option value='{$venueRecord['pay_id']}'>{$venueRecord['pay_desc']}</option>";
-                  }
-                  }
-              echo "</select> <br>";
+                      ";
+                    }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+    </div>
 
 
-     
-              echo " <p><input type='submit' name='submit' value='Update Employee'></p>
-            </form>
-        ";
-
-        }
-?>
-
-
-
-        </main>
-
+    </main>
 </div>
 </body>
 </html>
+        
+
+
+
+

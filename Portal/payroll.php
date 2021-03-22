@@ -44,9 +44,22 @@
                 </li>
 
                 <li>
+                    <a href="vehicleLogs.php">
+                        <span class="ti-settings"></span>
+                        <span>View Vehichle Logs</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="viewEmployees.php">
                         <span class="ti-settings"></span>
                         <span>View Employees</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../frontend/logout.php">
+                        <span>Log Out</span>
                     </a>
                 </li>
         </ul>
@@ -80,6 +93,7 @@
                   <th>Post tax</th>
                   <th>Deductions</th>
                   <th>Total Pay</th>
+                  <th>Status</th>
                   <th>Actions</th>
                 </thead>
                 <tbody>
@@ -88,7 +102,8 @@
  $query = $myPDO->query("SELECT * 
  FROM hd_payslips
  INNER JOIN hd_staff_users on (hd_payslips.staff_id = hd_staff_users.staff_id)
- INNER JOIN hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)");
+ INNER JOIN hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)
+ INNER JOIN hd_payslip_process on (hd_payslips.process_id = hd_payslip_process.process_id)");
 
  while($row= $query->fetch(PDO::FETCH_ASSOC)){
 
@@ -104,11 +119,17 @@
                           <td>".$row['pre_tax_income']."</td>
                           <td>".$row['post_tax_income']."</td>
 
-                          <td>".number_format($row['deductables'], 2)."</td>
+                          <td>".$row['deductables']."</td>
                           <td>".$row['final_income']."</td>
 
-                         <td><a href='editTimesheet.php?timesheetID={$row['timesheet_id']}'>Edit</a></td>
-                         <td><a href='deleteTimesheet.php?timesheetID='#'>Delete</a</td>
+                          <td>".$row['process_desc']."</td>
+
+
+
+                         <td><a href='editTimesheet.php?timesheetID={$row['timesheet_id']}&processID={$row['process_id']}&payslipID={$row['payslip_id']}'>Edit</a</td>
+
+
+                         <td><a href='deleteTimesheet.php?timesheetID={$row['timesheet_id']}'>Delete</a</td>
                          </tr>
                       ";
                     }

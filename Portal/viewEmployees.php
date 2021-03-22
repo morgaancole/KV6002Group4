@@ -42,11 +42,23 @@
                         <span>Positions</span>
                     </a>
                 </li>
+                <li>
+                    <a href="vehicleLogs.php">
+                        <span class="ti-settings"></span>
+                        <span>View Vehichle Logs</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="viewEmployees.php">
                         <span class="ti-settings"></span>
                         <span>View Employees</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../frontend/logout.php">
+                        <span>Log Out</span>
                     </a>
                 </li>
         </ul>

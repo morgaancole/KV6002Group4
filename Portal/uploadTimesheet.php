@@ -37,6 +37,14 @@ function handleUpload()
     // echo $timesheetID;
 
     $conn = makeConnection();
+
+
+    $stmt = $conn->prepare('SELECT SUM(deduction_amount) AS value_sum FROM hd_deductions');
+    $stmt->execute();
+    
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $deductables = $row['value_sum'];
+
     $stmt = $conn->prepare("INSERT INTO hd_timesheet_responses (timesheet_id, staff_id, Date, location, hours_worked, jobs_completed_desc, overtime_worked)
         VALUES( :tid ,:id, :date, :location, :hoursworked, :desc, :overTime)");
     $params = ["tid" => $timesheetID, "id" => $sanitizedId, "date" => $date, "location" => $sanitizedLocation, "hoursworked" => $sanitizedHours, "desc" => $sanitizedDesc, "overTime" => $sanitizedHoursOver];
@@ -63,10 +71,12 @@ function handleUpload()
 
         $postTax = $preTax * 0.80;
 
+        $final = $postTax - $deductables;
+
         $stmt = $conn->prepare("insert into hd_payslips (staff_id, hours_worked, salary, overtime_worked, pre_tax_income, post_tax_income, deductables,  final_income, process_id, timesheet_id )
          VALUES (:sid, :hours, :sal, :over, :pre, :post, :deductables, :final, :process, :tid)");
         $params = ["sid" => $sanitizedId, "hours" => $sanitizedHours, "sal" => $salaryReg, "over" => $sanitizedHoursOver, "pre" => $preTax,
-            "post" => $postTax, "deductables" => 0, "final" => $postTax, "process" => 1, "tid" => $timesheetID];
+            "post" => $postTax, "deductables" => $deductables, "final" => $final, "process" => 1, "tid" => $timesheetID];
         $result = $stmt->execute($params);
 
         if ($result) {
@@ -75,7 +85,6 @@ function handleUpload()
             echo createPageBody();
 
             $success = <<<UPLOADED
-
             <div class="success_outer">
             <div class="success_inner">
             <img class="success_img" src="img/success.png" alt="success tick">
@@ -83,7 +92,6 @@ function handleUpload()
                 <a href="dash.php"><button>Home</a></button>
                 </div>
             </div>
-
 UPLOADED;
             $success .= "\n";
             echo $success;
