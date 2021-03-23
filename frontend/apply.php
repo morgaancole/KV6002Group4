@@ -1,4 +1,8 @@
 <?php
+/*
+*Page where user can fill in application form and submit CV
+*@author - Morgan Wheatman
+*/
   require_once("inc/functions.php");
   echo makePageStart();
   echo makeNav();

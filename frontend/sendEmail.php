@@ -1,4 +1,8 @@
 <?php
+/*
+*Action file which takes user input from contact form and communicates with backend
+*@author - Morgan Wheatman
+*/
   require_once("inc/functions.php");
   echo makePageStart();
   echo makeNav();

@@ -1,3 +1,6 @@
+/**
+ * @author Morgan Wheatman
+ */
 window.addEventListener('load', function() {
 	'use strict';
 

@@ -1,5 +1,8 @@
 <?php
-
+/*
+*PAction page which takes user input from application form and calls application function
+*@author - Morgan Wheatman
+*/
   require_once("inc/functions.php");
   echo makePageStart();
 
