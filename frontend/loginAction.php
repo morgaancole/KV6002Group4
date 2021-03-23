@@ -30,7 +30,7 @@
         
        if ($user) {  
         if($password === $user['staff_password']){
-          header('Location: ../Portal/userDashboard.php');
+          header('Location: ../Portal/staff_user_dash/group_project/userDashboard.php');
             
             $_SESSION['logged-in'] = true; //THIS
             $_SESSION ['email'] = $email; //THIS
