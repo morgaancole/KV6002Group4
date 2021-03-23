@@ -1,3 +1,10 @@
+<?php
+/*
+*Page for admin users to view applications sent in from frontend
+*@author - Morgan Wheatman
+*/
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <title>View Applicants</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <title>Document</title>
 </head>
@@ -86,7 +94,6 @@
     <table>
 			<thead>
 				<tr>
-					<th>Applicant Id</th>
 					<th>Forename </th>
                     <th>Surname </th>
                     <th>Email </th>
@@ -99,23 +106,16 @@
 			</thead>
 			<tbody>
 				<?php
-                
-                $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
-                $query = $myPDO->query("SELECT hd_job_applicants.applicant_id, 
-                                                hd_job_applicants.applicant_fname, 
-                                                hd_job_applicants.applicant_lname, 
-                                                hd_job_applicants.applicant_email, 
-                                                hd_job_applicants.applicant_contact, 
-                                                hd_job_vacancies.job_title,
-                                                hd_job_applicants.applicant_cv 
-                                                FROM hd_job_applicants
-                                                INNER JOIN hd_job_vacancies on (hd_job_applicants.job_id = hd_job_vacancies.job_id)
-                                        ");
+                    require_once("inc/functions.php");
 
- 					while($row= $query->fetch(PDO::FETCH_ASSOC)){
+                    //Using function from inc file to protect database security
+                    //DB columns have aliases
+                    $applicants = getApplicants();
 
-                            $CvLink = $row['applicant_cv'];
-                            $applicantId = $row['applicant_id'];
+ 					while($row= $applicants->fetch(PDO::FETCH_ASSOC)){
+
+                            $CvLink = $row['CV'];
+                            $applicantId = $row['ID'];
 
                             //HEREDOC Closing Tags must stay at the start of line
                             $CvButton = <<<CV
@@ -132,12 +132,11 @@ ACTION;
                     
                             echo "
                             <tr>
-                            <td>".$row['applicant_id']."</td>
-                            <td>".$row['applicant_fname']."</td>
-                            <td>".$row['applicant_lname']."</td>
-                            <td>".$row['applicant_email']."</td>
-                            <td>".$row['applicant_contact']."</td>
-                            <td>".$row['job_title']."</td>
+                            <td>".$row['FirstName']."</td>
+                            <td>".$row['LastName']."</td>
+                            <td>".$row['Email']."</td>
+                            <td>".$row['Contact']."</td>
+                            <td>".$row['Job']."</td>
                             <td>".$CvButton."</td>
                             <td>".$actionButton."</td>
                             </tr>
