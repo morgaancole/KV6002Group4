@@ -88,11 +88,12 @@
 				<tr>
 					<th>Applicant Id</th>
 					<th>Forename </th>
-                    <th>Surname: </th>
-                    <th>Email: </th>
-                    <th>Phone: </th>
-                    <th>Applying For: </th>
-                    <th>View CV: </th>
+                    <th>Surname </th>
+                    <th>Email </th>
+                    <th>Phone </th>
+                    <th>Applying For </th>
+                    <th>View CV </th>
+                    <th>Action </th>
                     
 				</tr>
 			</thead>
@@ -113,24 +114,35 @@
 
  					while($row= $query->fetch(PDO::FETCH_ASSOC)){
 
-                        $CvLink = $row['applicant_cv'];
+                            $CvLink = $row['applicant_cv'];
+                            $applicantId = $row['applicant_id'];
 
-                        $CvButton = <<<CV
-                        <form action="$CvLink"><input type="submit" value="View CV" /></form>
+                            //HEREDOC Closing Tags must stay at the start of line
+                            $CvButton = <<<CV
+                                <form action="$CvLink"><input type="submit" value="View CV" /></form>
 CV;
-				 
-                        echo "
-                        <tr>
-                          <td>".$row['applicant_id']."</td>
-                          <td>".$row['applicant_fname']."</td>
-                          <td>".$row['applicant_lname']."</td>
-                          <td>".$row['applicant_email']."</td>
-                          <td>".$row['applicant_contact']."</td>
-                          <td>".$row['job_title']."</td>
-                          <td>".$CvButton."</td>
-                        </tr>
 
-                      ";
+                            $actionButton = <<<ACTION
+                            <form action="applicantResponse.php" method="post">
+                                <input type="text" style="display: none" id="applicant_id" name="applicant_id" value="$applicantId">
+                                <input type="submit" name="btn_accept" value="Accept" />
+                                <input type="submit" name="btn_reject" value="Reject" />
+                            </form>
+ACTION;
+                    
+                            echo "
+                            <tr>
+                            <td>".$row['applicant_id']."</td>
+                            <td>".$row['applicant_fname']."</td>
+                            <td>".$row['applicant_lname']."</td>
+                            <td>".$row['applicant_email']."</td>
+                            <td>".$row['applicant_contact']."</td>
+                            <td>".$row['job_title']."</td>
+                            <td>".$CvButton."</td>
+                            <td>".$actionButton."</td>
+                            </tr>
+
+                        ";
                      }
                   ?>
 			</tbody>

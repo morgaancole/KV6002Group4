@@ -1,5 +1,17 @@
 <?php
 
+function getDatabase(){
+    try{
+        $dir = 'sqlite:../DB/hendersonDB.sqlite';
+        $dbConnection  = new PDO($dir) or die("cannot open the database");   
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+    }
+
+
+    return $dbConnection;
+}
+
 function makePageStart($title) {
     $pageStart = <<<PAGESTART
 
