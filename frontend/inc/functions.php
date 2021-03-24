@@ -1,6 +1,6 @@
 <?php
 
-
+//Returns database connection
 function getDatabase(){
     try{
         $dir = 'sqlite:../DB/hendersonDB.sqlite';
@@ -14,6 +14,7 @@ function getDatabase(){
 }
 
 //Function to create web page
+//@author - Morgan Wheatman
 function makePageStart() {
 
 	$pageStartContent = <<<PAGESTART
@@ -32,6 +33,8 @@ PAGESTART;
 	return $pageStartContent;
 }
 
+//Function to make nav menu
+//@author - Morgan Wheatman
 function makeNav(){
         $makeNav = <<<NAVIGATION
         <nav>
@@ -58,6 +61,7 @@ NAVIGATION;
 }
 
 //Function to create main body of page
+//@author - Morgan Wheatman
 function startMain(){
     $mainContent = <<<MAIN
 
@@ -68,7 +72,8 @@ MAIN;
     return $mainContent;
 }
 
-//Function to make a footer(){
+//Function to make a footer
+//@author - Morgan Wheatman
 function makeFooter(){
     $footer = <<<FOOTER
     <footer class="footer-distributed">
@@ -130,11 +135,13 @@ FOOTER;
 }
 
 //Function to end main body of page
+//@author - Morgan Wheatman
 function endMain(){
 	return "</main>\n";
 }
 
 //Function to end document
+//@author - Morgan Wheatman
 function makePageEnd(){
     $pageEndContent = <<<PAGEEND
     </html>
@@ -144,9 +151,8 @@ PAGEEND;
     return $pageEndContent;
 }
 
-
-
 //Function which gets Jobs from database
+//@author - Morgan Wheatman
 function getJobs($job){
     try{
         $dbConn = getDatabase();
@@ -169,6 +175,9 @@ function getJobs($job){
     return $jobs;
 }
 
+//Function which dynamically builds job page
+//Displays message if no jobs are available
+//@author - Morgan Wheatman
 function makeJobsPage(){
 
     $jobBox = "";
@@ -237,61 +246,8 @@ JOBS;
     return $jobsPage;
 }
 
-function makeFullJob($jobId){
-    try{
-        $dbConn = getDatabase();
-
-        $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies WHERE job_id = :jobId");
-        $select_stmt->bindParam(":jobId", $jobId);
-        $select_stmt->execute();
-
-        $job = $select_stmt->fetch(PDO::FETCH_ASSOC);
-    }catch (Exception $e) {
-        echo "There was a problem: " . $e->getMessage();
-        
-    }
-
-    $jobId = $job['job_id'];
-    $jobTitle = $job['job_title'];
-    $jobWage = $job['job_wage'];
-    $jobDesc = $job['job_desc'];
-    $jobReq = $job['job_requirements'];
-    $jobClose = $job['job_close_date'];
-
-    $jobInfo = <<<JOB
-    <body>
-    <h3 class="title"></h3>
-        <div class="container">  
-            <div class="form-container">
-                <form id="jobForm" action="apply.php" method="post">
-                    
-                <input style='display:none;' name='ID' type='text' readonly value ='$jobId'>
-                    <div>
-                        <h3>$jobTitle</h3>
-                    </div>
-                    <h2>£$jobWage.00 an hour</h2>
-                    <br>
-                    <h2>$jobDesc</h2>
-                    <br>
-                    <h2>Requirements: $jobReq</h2>
-                    <br>
-                    <h2>Applications close: $jobClose</h2>
-                    <fieldset>
-                        <button name="btn_apply_here" type="submit" id="apply-here">Apply Here</button>
-                    </fieldset>
-                </form> 
-            </div>
-        </div>
-            
-    </body>
-
-JOB;
-
-    $jobInfo .="\n";
-    return $jobInfo;
-
-}
-
+//Function which dynamically builds form/application for user
+//@author - Morgan Wheatman
 function makeJobForm($jobId){
     try{
         $dbConn = getDatabase();
@@ -371,6 +327,9 @@ FORM;
 
 }
 
+//Function which stores users messasge in database IF they consent
+//Isn't called if user does not consent
+//@author - Morgan Wheatman
 function storeMessage($name, $email, $phone, $message){
     try {
         $dbConn = getDatabase();
@@ -390,6 +349,9 @@ function storeMessage($name, $email, $phone, $message){
     
 }
 
+//Function which sends users/applicants' application
+//Saves applicant CV in uploads folder
+//@author - Morgan Wheatman
 function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role, $fullPath){
             
         try {
@@ -443,6 +405,8 @@ function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role,
 
 }
 
+//Function which displays message for user after submitting an application
+//@author - Morgan Wheatman
 function applicationSubmitted($result){
     if($result === 'sent'){
         $bodyContent = <<<BODY

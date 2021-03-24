@@ -1,4 +1,9 @@
 <?php
+/*
+*Page where user can submit an enquiry
+*Uses external javascript to validate input
+*@author - Morgan Wheatman
+*/
   require_once("inc/functions.php");
   echo makePageStart();
   echo makeNav();

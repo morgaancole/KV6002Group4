@@ -1,4 +1,8 @@
 <?php
+/*
+*Page which users are sent to in the event of a 404 error
+*@author - Morgan Wheatman
+*/
   require_once("inc/functions.php");
   echo makePageStart();
   echo makeNav();

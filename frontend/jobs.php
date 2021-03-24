@@ -1,4 +1,8 @@
 <?php
+/*
+*Page which dynamically displays jobs from database (inc/functions)
+*@author - Morgan Wheatman
+*/
   require_once("inc/functions.php");
   echo makePageStart();
   echo makeNav();
