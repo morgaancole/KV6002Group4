@@ -28,13 +28,18 @@
                 $selectAdmin->execute();
                 $admin = $selectAdmin->fetch(PDO::FETCH_ASSOC);
         
-       if ($user) {  
-        if($password === $user['staff_password']){
-          header('Location: ../Portal/staff_user_dash/group_project/userDashboard.php');
-            
-            $_SESSION['logged-in'] = true; //THIS
+       if ($user) { 
+           
+           $passwordHash = $user['staff_password'];
+
+
+        if(password_verify($password, $passwordHash)){
+        
+            $_SESSION['logged-in'] = 'true'; //THIS
             $_SESSION ['email'] = $email; //THIS
-        }       
+ 
+            header('Location: ../Portal/staff_user_dash/group_project/userDashboard.php');
+        }        
         
         else{
           echo "Failed";       
@@ -47,10 +52,13 @@
             
         if ($admin) {  
         if($password === $admin['admin_password']){
-          header('Location: ../Portal/adminDashboard.php');
             
             $_SESSION['logged-in'] = true; //THIS
             $_SESSION ['email'] = $email; //THIS
+            
+          header('Location: ../Portal/adminDashboard.php');
+            
+            
         }       
             
         else{
