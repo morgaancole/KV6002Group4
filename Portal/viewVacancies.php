@@ -41,7 +41,7 @@ require_once("inc/functions.php");
         </header>
         <main>
             <tbody>
-                
+                <h1 class="mtitle">Vacancies</h1>
                 <div class="vacancy-page">
                     <?php 
                         echo getVacancies();

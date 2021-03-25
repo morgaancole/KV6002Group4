@@ -244,6 +244,7 @@ JOBS;
     foreach ( $applicants as $jobItem ) {  
 
         $applicantBox .= "<div class='applicant-box'>";
+        
 
         foreach ( $jobItem as $key => $value ) {
             switch ($key) {
@@ -364,11 +365,10 @@ function getVacancies(){
 
     $vacancyPage = <<<VACANCIES
         <div class="vacancy-form" id="vacancy">
-            <h1>Vacancies</h1>
 
             <button type="submit" id="show">Create Job</button>
 
-            <div id ="vacform">
+            <div id ="vac-form">
             <form id="new-vacancy" action="newVacancy.php" method="post">
                 <input 
                     name="title" type="text" required id="title" 
@@ -400,11 +400,12 @@ VACANCIES;
 
     //Checks if there are any applicants before displaying page
     if(empty($vacancies)){
-        $vacancyPage = <<<JOBS
+        $vacancyPage .= <<<JOBS
         <div class="no-applicants"> 
             <div class="applicants-message">
-                <h2>No Applicants</h2>
-                <p>There are currently no applications to join us</p>
+                <h2>No Vacancies</h2>
+                <p>There are vacancies</p>
+                <p>Create a vacancy using the above button</p>
                 <br>
             </div>
         </div>

@@ -21,7 +21,7 @@
 
         echo newVacancy($jobTitle, $wage, $description, $requirements, $closeDate);
 
-       // header('Location: viewVacancies.php');
+        header('Location: viewVacancies.php');
         
     }else{//Redirect user if they haven't clicked a vacancy
         header('Location: viewVacancies.php');

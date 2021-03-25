@@ -277,12 +277,17 @@ tbody tr:nth-child(even){
 
 
 /*Applicant page - Morgan*/
+.mtitle{
+    text-align: center;
+}
+
 .applicant-page {
 	display: flex;
 	flex-wrap: wrap;
 	flex-flow: row wrap;
 	width: 100%;
 	padding: 5%;
+    
 }
 
 .applicant-box {
@@ -427,10 +432,36 @@ tbody tr:nth-child(even){
 	transition:background-color 0.3s ease-in-out;
 }
 
-#new-vacancy input[type="text"], input[type="date"],  #new-vacancy textarea, #new-vacancy button[type="submit"] { font:400 12px/16px "Open Sans", Helvetica, Arial, sans-serif; }
+#show{
+	cursor:pointer;
+	width:20%;
+	border:none;
+	background:#ADADAD;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:5px;
+	font-size:1rem;
+	text-transform: uppercase;
+}
+
+#show:hover {
+	background:#222221;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+#new-vacancy input[type="text"], input[type="date"],  #new-vacancy textarea, #new-vacancy button[type="submit"] {
+     border-radius: 10px;
+}
 
 .vacancy-form{
 	width: 100%;
+    text-align: center;
+}
+
+#vac-form{
+    display: none;
 }
 
 #new-vacancy {
@@ -495,7 +526,6 @@ tbody tr:nth-child(even){
 
 #new-vacancy input:focus, #new-vacancy textarea:focus {
 	outline:0;
-	border:1px solid #999;
 }
 
 @media only screen and (max-width: 1200px){

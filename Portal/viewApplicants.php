@@ -38,7 +38,7 @@ require_once("inc/functions.php");
         </header>
         <main>
             <tbody>
-                <h1>Applicants</h1>
+                <h1 class="mtitle">Applicants</h1>
                 <div class="applicant-page">
                     <?php 
                         echo getApplicants();
