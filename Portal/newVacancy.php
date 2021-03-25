@@ -19,9 +19,14 @@
         $requirements = trim($requirements);
         $closeDate = trim($closeDate);
 
-        echo newVacancy($jobTitle, $wage, $description, $requirements, $closeDate);
+        if(!empty($jobTitle) && !empty($wage) && !empty($description) && !empty($requirements) && !empty($closeDate)){
 
-        header('Location: viewVacancies.php');
+            echo newVacancy($jobTitle, $wage, $description, $requirements, $closeDate);
+
+            header('Location: viewVacancies.php');
+        }else{
+            header('Location: viewVacancies.php');
+        }
         
     }else{//Redirect user if they haven't clicked a vacancy
         header('Location: viewVacancies.php');
