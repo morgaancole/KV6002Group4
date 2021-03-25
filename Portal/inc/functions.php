@@ -167,20 +167,21 @@ function adminNav(){
 
                 <li>
                     <a href="viewVacancies.php">
-                        <span class="ti-settings"></span>
+                        <span class="ti-files"></span>
                         <span>View Vacancies</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="viewApplicants.php">
-                        <span class="ti-settings"></span>
+                        <span class="ti-user"></span>
                         <span>View Applicants</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="../frontend/logout.php">
+                        <span class="ti-share"></span>
                         <span>Log Out</span>
                     </a>
                 </li>
@@ -196,8 +197,9 @@ NAV;
     return $nav;
 }
 
-//Function to get applicants from database and display them on admin page
-//@author - Morgan Wheatman
+/*Function to get applicants from database and display them on admin page
+*@author - Morgan Wheatman
+*/
 function getApplicants(){
 
     $dbConn = getDatabase();
@@ -289,9 +291,10 @@ return $applicantPage;
 
 }
 
-//Function to respond to an application appropriately
-//Takes response as a parameter to determine which email to send
-//@author - Morgan Wheatman
+/*Function to respond to an application appropriately
+*Takes response as a parameter to determine which email to send
+*@author - Morgan Wheatman
+*/
 function applicantResponse($response, $applicantId){
 
     try{
@@ -340,6 +343,9 @@ function applicantResponse($response, $applicantId){
 
 }
 
+/*Function to get vacancies from database and display appropriate output
+*@author - Morgan Wheatman
+*/
 function getVacancies(){
     $dbConn = getDatabase();
 
@@ -363,6 +369,7 @@ function getVacancies(){
         }
     }
 
+    //New vacancy form which will be hidden unless toggled by admin
     $vacancyPage = <<<VACANCIES
         <div class="vacancy-form" id="vacancy">
 
@@ -418,6 +425,7 @@ JOBS;
             $vacancyBox .= "<div class='vacancy-box'>";
 
             foreach ( $jobItem as $key => $value ) {
+                //Switch statement to create hashtable of keys
                 switch ($key) {
                     case 'Title':
                         $vacancyBox .= "<h2><b>$value</b></h2>";
@@ -443,10 +451,8 @@ JOBS;
                 
             }
 
-            $vacancyBox .= "</div>";
-            
+            $vacancyBox .= "</div>";       
         }
-
         $vacancyPage .= $vacancyBox;
 
     }
@@ -455,6 +461,9 @@ return $vacancyPage;
 
 }
 
+/*Function to close a vacancy/remove from database on admin request
+*@author - Morgan Wheatman
+*/
 function closeVacancy($jobId){
     try{
         $dbConn = getDatabase();
@@ -471,6 +480,10 @@ function closeVacancy($jobId){
 
 }
 
+/*Function to create a new vacancy and add it to database
+*Takes user input as arguments to store
+*@author - Morgan Wheatman
+*/
 function newVacancy($jobTitle, $wage, $description, $requirements, $closeDate){
     try{
         $dbConn = getDatabase();
