@@ -458,7 +458,7 @@ function closeVacancy($jobId){
     try{
         $dbConn = getDatabase();
 
-        //Removing user data from database
+        //Removing vacancies from database
         $delete_stmt = $dbConn->prepare("DELETE FROM hd_job_vacancies WHERE job_id = :jid");
         $delete_stmt->bindParam(":jid", $jobId);
         $delete_stmt->execute();
@@ -468,6 +468,28 @@ function closeVacancy($jobId){
         
     }
 
+}
+
+function newVacancy($jobTitle, $wage, $description, $requirements, $closeDate){
+    try{
+        $dbConn = getDatabase();
+
+        //Inserting new vacancy
+        $insert_stmt = $dbConn->prepare("INSERT INTO hd_job_vacancies(job_title, job_wage, job_desc, job_requirements, job_close_date) 
+                                            VALUES(:jtitle, :jwage, :jdesc, :jreq, :jcdate)
+                                        ");
+
+        $insert_stmt->bindParam(":jtitle", $jobTitle);
+        $insert_stmt->bindParam(":jwage", $wage);
+        $insert_stmt->bindParam(":jdesc", $description);
+        $insert_stmt->bindParam(":jreq", $requirements);
+        $insert_stmt->bindParam(":jcdate", $closeDate);
+        $insert_stmt->execute();
+
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+        
+    }
 }
 
 ?>

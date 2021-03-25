@@ -19,7 +19,7 @@
         $requirements = trim($requirements);
         $closeDate = trim($closeDate);
 
-        
+        echo newVacancy($jobTitle, $wage, $description, $requirements, $closeDate);
 
        // header('Location: viewVacancies.php');
         
