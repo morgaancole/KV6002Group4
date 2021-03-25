@@ -13,14 +13,17 @@ require_once("inc/functions.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>View Applicants</title>
+    <title>View Vacancies</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <script src="js/vacancies.js"></script>
 </head>
 <body>
 
     <?php 
         echo adminNav(); 
     ?>
+
+    
 
     <div class="main-content">
 
@@ -38,10 +41,10 @@ require_once("inc/functions.php");
         </header>
         <main>
             <tbody>
-                <h1>Applicants</h1>
-                <div class="applicant-page">
+                
+                <div class="vacancy-page">
                     <?php 
-                        echo getApplicants();
+                        echo getVacancies();
                     ?>
                 </div>
             </tbody>

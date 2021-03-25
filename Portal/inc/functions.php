@@ -117,41 +117,191 @@ NAVBAR;
     return $nav;
 }
 
-//Function to get applicants from database and return it for the applicants page
+function adminNav(){
+    $nav = <<<NAV
+    <input type="checkbox" id="sidebar-toggle">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3 class="brand">
+                <span>Hendersons</span>
+            </h3>
+            <label for="sidebar-toggle" class="ti-menu-alt"></label>
+        </div>
+
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="adminDashboard.php">
+                        <span class="ti-home"></span>
+                        <span>Home</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="payroll.php">
+                        <span class="ti-time"></span>
+                        <span>Payroll</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="position.php">
+                        <span class="ti-settings"></span>
+                        <span>Positions</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="vehicleLogs.php">
+                        <span class="ti-settings"></span>
+                        <span>View Vehichle Logs</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="viewEmployees.php">
+                        <span class="ti-settings"></span>
+                        <span>View Employees</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="viewVacancies.php">
+                        <span class="ti-settings"></span>
+                        <span>View Vacancies</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="viewApplicants.php">
+                        <span class="ti-settings"></span>
+                        <span>View Applicants</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../frontend/logout.php">
+                        <span>Log Out</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+NAV;
+
+    $nav .= "\n";
+
+    return $nav;
+}
+
+//Function to get applicants from database and display them on admin page
 //@author - Morgan Wheatman
 function getApplicants(){
+
     $dbConn = getDatabase();
 
-    $select_stmt = $dbConn->prepare("SELECT hd_job_applicants.applicant_id AS 'ID', 
-                        hd_job_applicants.applicant_fname AS 'FirstName', 
-                        hd_job_applicants.applicant_lname AS 'LastName', 
-                        hd_job_applicants.applicant_email AS 'Email', 
-                        hd_job_applicants.applicant_contact AS 'Contact', 
-                        hd_job_vacancies.job_title AS 'Job',
-                        hd_job_applicants.applicant_cv AS 'CV' 
-                        FROM hd_job_applicants
-                        INNER JOIN hd_job_vacancies on (hd_job_applicants.job_id = hd_job_vacancies.job_id)
-                    ");
+    $select_stmt = $dbConn->prepare("SELECT 
+                                        hd_job_applicants.applicant_fname AS 'FirstName', 
+                                        hd_job_applicants.applicant_lname AS 'LastName', 
+                                        hd_job_applicants.applicant_email AS 'Email', 
+                                        hd_job_applicants.applicant_contact AS 'Contact', 
+                                        hd_job_vacancies.job_title AS 'Job',
+                                        hd_job_applicants.applicant_cv AS 'CV',
+                                        hd_job_applicants.applicant_id AS 'ID' 
+                                        FROM hd_job_applicants
+                                        INNER JOIN hd_job_vacancies on (hd_job_applicants.job_id = hd_job_vacancies.job_id)
+                                    ");
 
     $select_stmt->execute();
 
-    return $select_stmt;
+    //Array for results
+    $applicants = array();
+    if ($select_stmt->execute()) {
+        while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+            $applicants[] = $row;
+        }
+    }
+
+    $applicantBox = "";
+
+    //Checks if there are any applicants before displaying page
+    if(empty($applicants)){
+        $applicantPage = <<<JOBS
+        <div class="no-applicants"> 
+            <div class="applicants-message">
+                <h2>No Applicants</h2>
+                <p>There are currently no applications to join us</p>
+                <br>
+            </div>
+        </div>
+
+JOBS;
+    }else{
+
+    //Looping through multidimensional array to display results
+    foreach ( $applicants as $jobItem ) {  
+
+        $applicantBox .= "<div class='applicant-box'>";
+
+        foreach ( $jobItem as $key => $value ) {
+            switch ($key) {
+                case 'FirstName':
+                    $applicantBox .= "<h2><b>Name: </b>$value";
+                    break;
+                case 'LastName':
+                    $applicantBox .= " $value</h2><br>";
+                    break;
+                case 'Email':
+                    $applicantBox .= "<p><b>Email:</b> $value</p><br>";
+                    break;
+                case 'Contact':
+                    $applicantBox .= "<p><b>Contact number:</b> $value</p><br>";
+                    break;
+                case 'Job':
+                    $applicantBox .= "<p><b>Applying For: </b>$value</p><br>";
+                    break;
+                case 'CV':
+                    $applicantBox .= "<form action='$value'><input type='submit' value='View CV' /></form>";
+                    break;
+                case 'ID':
+                    $applicantBox .= "<form action='applicantResponse.php' method='post'>";
+                    $applicantBox .= "<input type='text' style='display: none' id='applicant_id' name='applicant_id' value='$value'>";
+                    $applicantBox .= "<input type='submit' name='btn_accept' id='accept' value='Accept Application' />";
+                    $applicantBox .= "<input type='submit' name='btn_reject' id='reject' value='Reject Application' /></form>";
+                    break;
+            }
+            
+        }
+
+        $applicantBox .= "</div>";
+        
+    }
+    $applicantPage = <<<JOBS
+                   $applicantBox
+    
+JOBS;
+    }
+
+return $applicantPage;
+
 }
 
 //Function to respond to an application appropriately
 //Takes response as a parameter to determine which email to send
 //@author - Morgan Wheatman
 function applicantResponse($response, $applicantId){
-    $dbConn = getDatabase();
 
-    //Getting user data from database to send them an email
-    $select_stmt = $dbConn->prepare("SELECT applicant_fname, applicant_email FROM hd_job_applicants WHERE applicant_id = :aid");
-    $select_stmt->bindParam(":aid", $applicantId);
-    $select_stmt->execute();
-    $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+    try{
+        $dbConn = getDatabase();
 
-    //If database row is selected
-    if($row){
+        //Getting user data from database to send them an email
+        $select_stmt = $dbConn->prepare("SELECT applicant_fname, applicant_email FROM hd_job_applicants WHERE applicant_id = :aid");
+        $select_stmt->bindParam(":aid", $applicantId);
+        $select_stmt->execute();
+        $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
 
         $firstName = $row['applicant_fname'];
         $email = $row['applicant_email'];
@@ -173,7 +323,7 @@ function applicantResponse($response, $applicantId){
 
             $subject = "Response from Henderson Contractors";
         }
-    
+
         //Sending to user	
         mail($email, $subject ,$send, $headers); 
 
@@ -182,19 +332,143 @@ function applicantResponse($response, $applicantId){
         $delete_stmt->bindParam(":aid", $applicantId);
         $delete_stmt->execute();
 
-        return true;
-
-    }else{
-
-        echo "<h1>Something went wrong!</h1>";
-        echo "<h1>Returning to applicants page</h1>";
-
-        header("refresh:5;url=viewApplicants.php");
-
-        return false;
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+        
     }
+
 }
 
+function getVacancies(){
+    $dbConn = getDatabase();
+
+    $select_stmt = $dbConn->prepare("SELECT 
+                                        job_title AS 'Title', 
+                                        job_wage AS 'Wage', 
+                                        job_desc AS 'Description', 
+                                        job_requirements AS 'Requirements', 
+                                        job_close_date AS 'Close',
+                                        job_id AS 'ID' 
+                                    FROM hd_job_vacancies
+                                    ");
+
+    $select_stmt->execute();
+
+    //Array for results
+    $vacancies = array();
+    if ($select_stmt->execute()) {
+        while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+            $vacancies[] = $row;
+        }
+    }
+
+    $vacancyPage = <<<VACANCIES
+        <div class="vacancy-form" id="vacancy">
+            <h1>Vacancies</h1>
+
+            <button type="submit" id="show">Create Job</button>
+
+            <div id ="vacform">
+            <form id="new-vacancy" action="newVacancy.php" method="post">
+                <input 
+                    name="title" type="text" required id="title" 
+                    placeholder="Title" pattern="[a-zA-Z0-9\s]+" title="Only alphaneumerics are allowed" 
+                    autocomplete="first-name" size="20" maxlength="40"
+                ><br>
+                <input 
+                    name="wage" type="text" required id="wage" 
+                    placeholder="Wage (Hourly)" pattern="[0-9]+" title="Only numbers are allowed" 
+                    autocomplete="wage" size="20" maxlength="10"
+                ><br>
+                <textarea type="text" name="description" id="description" placeholder="Description of role" minlength="1" required title="description"></textarea><br>
+
+                <textarea type="text" name="requirements" id="requirements" placeholder="Requirements" minlength="1" required title="requirements"></textarea><br>
+
+                <input 
+                    type="text" 
+                    name="close" 
+                    placeholder="Close Date DD/MM/YYYY"
+                    pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)">         
+
+                <button name="btn_create_vacancy" type="submit" id="create-vacancy">Create Job</button>
+            </form>
+            </div>
+        </div>
+
+VACANCIES;
+    $vacancyBox = "";
+
+    //Checks if there are any applicants before displaying page
+    if(empty($vacancies)){
+        $vacancyPage = <<<JOBS
+        <div class="no-applicants"> 
+            <div class="applicants-message">
+                <h2>No Applicants</h2>
+                <p>There are currently no applications to join us</p>
+                <br>
+            </div>
+        </div>
+
+JOBS;
+    }else{
+        //Looping through multidimensional array to display results
+        foreach ( $vacancies as $jobItem ) {  
+
+            $vacancyBox .= "<div class='vacancy-box'>";
+
+            foreach ( $jobItem as $key => $value ) {
+                switch ($key) {
+                    case 'Title':
+                        $vacancyBox .= "<h2><b>$value</b></h2>";
+                        break;
+                    case 'Wage':
+                        $vacancyBox .= "<p><b>Wage(Hourly)</b> : £$value.00</p><br>";
+                        break;
+                    case 'Description':
+                        $vacancyBox .= "<p>$value</p><br>";
+                        break;
+                    case 'Requirements':
+                        $vacancyBox .= "<p><b>Requirements: </b>$value</p><br>";
+                        break;
+                    case 'Close':
+                        $vacancyBox .= "<p><b>Applications Close: </b>$value</p><br>";
+                        break;
+                    case 'ID':
+                        $vacancyBox .= "<form action='closeVacancy.php' method='post'>";
+                        $vacancyBox .= "<input type='text' style='display: none' id='job_id' name='job_id' value='$value'>";
+                        $vacancyBox .= "<input type='submit' name='btn_close_vacancy' id='close' value='Close Vacancy' /></form>";
+                        break;
+                }
+                
+            }
+
+            $vacancyBox .= "</div>";
+            
+        }
+
+        $vacancyPage .= $vacancyBox;
+
+    }
+
+return $vacancyPage;
+
+}
+
+function closeVacancy($jobId){
+    try{
+        $dbConn = getDatabase();
+
+        //Removing user data from database
+        $delete_stmt = $dbConn->prepare("DELETE FROM hd_job_vacancies WHERE job_id = :jid");
+        $delete_stmt->bindParam(":jid", $jobId);
+        $delete_stmt->execute();
+
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+        
+    }
+
+}
 
 ?>
 
