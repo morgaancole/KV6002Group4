@@ -1,4 +1,8 @@
 <?php
+/*
+*PHP Functions page to be used throughout full project - includes page-building functions & client-side communications
+*Protected by .htaccess to protect functionality which communicates with client side
+*/
 
 //Returns database connection
 function getDatabase(){
