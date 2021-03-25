@@ -344,6 +344,7 @@ function applicantResponse($response, $applicantId){
 }
 
 /*Function to get vacancies from database and display appropriate output
+*Displays message if there are no vacancies
 *@author - Morgan Wheatman
 */
 function getVacancies(){
