@@ -1,5 +1,8 @@
 <?php
-
+/*
+*PHP Functions file to be used throughout  project - includes page-building functions & client-side communications
+*Protected by .htaccess to protect functionality which communicates with client side
+*/
 function getDatabase(){
     try{
         $dir = 'sqlite:../DB/hendersonDB.sqlite';
@@ -40,8 +43,6 @@ CREATEPAGEBODY;
 
     $pageBody .= "\n";
     return $pageBody;
-
-
 }
 
 function createPageClose() {
