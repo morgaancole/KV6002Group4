@@ -24,7 +24,7 @@ function getSession($key){
 	return $returnValue;
 }
 
-//uses get_session function to check if user success logged in
+//uses getSession function to check if user success logged in
 function checkLogin(){
 	if (getSession('logged-in') == true){
 		return true;
@@ -137,6 +137,7 @@ NAVBAR;
     return $nav;
 }
 
+/*Function to create navbar for admin users*/
 function adminNav(){
     $nav = <<<NAV
     <input type="checkbox" id="sidebar-toggle">
