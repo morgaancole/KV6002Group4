@@ -18,6 +18,7 @@
         $contact = filter_has_var(INPUT_POST, 'phone') ? $_POST['phone']: null;
         $role = filter_has_var(INPUT_POST, 'role') ? $_POST['role']: null;
   
+
         //Trimming input from user
         $firstName = trim($firstName);
         $lastName = trim($lastName);
