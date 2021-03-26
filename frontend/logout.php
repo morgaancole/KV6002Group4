@@ -1,4 +1,8 @@
 <?php
-session_start(); //start session
-session_destroy(); //destroy session
-header("location: index.php"); //relocate to logged out home page
+	ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+	session_start();
+	$SESSION = array();
+	session_destroy();
+
+	header("Location: loginForm.php");
+?>
