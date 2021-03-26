@@ -511,10 +511,42 @@ function closeVacancy($jobId){
     try{
         $dbConn = getDatabase();
 
-        //Removing vacancies from database
-        $delete_stmt = $dbConn->prepare("DELETE FROM hd_job_vacancies WHERE job_id = :jid");
-        $delete_stmt->bindParam(":jid", $jobId);
-        $delete_stmt->execute();
+        $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_applicants WHERE job_id = :job_id");
+        $select_stmt->bindParam(":job_id", $jobId);
+        $select_stmt->execute();
+        $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($row){
+            $applicantMessage = <<<APPLICANTS
+            <link rel="stylesheet" href="styles.css">
+            <div class="main-content">
+                <main>
+                    <tbody>
+                        <h1 class="mtitle">Can't Delete</h1>
+                        <div class="vacancy-page">
+                            <div class="no-applicants"> 
+                                <div class="applicants-message">
+                                    <h2>There are still applicants for this role</h2>
+                                    <p><a href='viewApplicants.php'>Respond to all applications before closing</a></p>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </tdbody>
+                </main>
+            </div>
+    
+APPLICANTS;
+            echo adminNav();
+            echo $applicantMessage;
+        }else{
+            //Removing vacancies from database
+            $delete_stmt = $dbConn->prepare("DELETE FROM hd_job_vacancies WHERE job_id = :jid");
+            $delete_stmt->bindParam(":jid", $jobId);
+            $delete_stmt->execute();
+
+            header('Location: viewVacancies.php');
+        }
 
     }catch (Exception $e) {
         echo "There was a problem: " . $e->getMessage();
