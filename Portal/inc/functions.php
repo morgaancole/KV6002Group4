@@ -302,15 +302,26 @@ function applicantResponse($response, $applicantId){
         $dbConn = getDatabase();
 
         //Getting user data from database to send them an email
-        $select_stmt = $dbConn->prepare("SELECT applicant_fname, applicant_email FROM hd_job_applicants WHERE applicant_id = :aid");
+        $select_stmt = $dbConn->prepare("SELECT applicant_fname, applicant_email, applicant_cv FROM hd_job_applicants WHERE applicant_id = :aid");
         $select_stmt->bindParam(":aid", $applicantId);
         $select_stmt->execute();
         $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
 
-
         $firstName = $row['applicant_fname'];
         $email = $row['applicant_email'];
 
+        //Getting CV link from database and splitting string to delete it from uploads folder
+        $cvLink = $row['applicant_cv']; 
+
+        $targetPath = "../frontend/uploads/";
+
+        $linkParts = explode("uploads/", $cvLink);
+
+        $cvFileName = $linkParts[1];
+
+        $targetPath .= $cvFileName;
+
+        //Checking response from admin and sending appropriate email
         if($response === 'accept'){
             
             $send = "Hi " . $firstName . "\n\nCongratulations!\n\nHenderson Contractors would like to bring you in for an interview!\nPlease confirm a date/time which would be convenient for you!\n\n";
@@ -336,6 +347,16 @@ function applicantResponse($response, $applicantId){
         $delete_stmt = $dbConn->prepare("DELETE FROM hd_job_applicants WHERE applicant_id = :aid");
         $delete_stmt->bindParam(":aid", $applicantId);
         $delete_stmt->execute();
+
+        
+        //Using unlink() function to delete applicant's CV from uploads folder
+        if (!unlink($targetPath)) { 
+            $errors[] = "CV couldn't be deleted";
+        } 
+        else { 
+            return true;
+        } 
+
 
     }catch (Exception $e) {
         echo "There was a problem: " . $e->getMessage();
