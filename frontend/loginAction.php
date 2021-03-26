@@ -59,7 +59,7 @@
             $_SESSION ['email'] = $email; //THIS
             $_SESSION['adminLevel'] = '1';
             
-            header('Location: ../Portal/viewApplicants.php');
+            header('Location: ../Portal/adminDashboard.php');
                
         }       
             
