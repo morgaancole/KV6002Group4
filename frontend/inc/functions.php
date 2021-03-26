@@ -1,6 +1,6 @@
 <?php
 /*
-*PHP Functions page to be used throughout full project - includes page-building functions & client-side communications
+*PHP Functions page to be used throughout frontend product - includes page-building functions & client-side communications
 *Protected by .htaccess to protect functionality which communicates with client side
 */
 
@@ -160,8 +160,15 @@ PAGEEND;
 function getJobs($job){
     try{
         $dbConn = getDatabase();
-
-        $select_stmt = $dbConn->prepare("SELECT * FROM hd_job_vacancies");
+        
+        //Selecting all columns, but assigning alias to ID to protect DB structure
+        $select_stmt = $dbConn->prepare("SELECT job_id AS 'ID',
+                                                job_title,
+                                                job_wage,
+                                                job_desc,
+                                                job_requirements,
+                                                job_close_date
+                                                FROM hd_job_vacancies");
 
         $select_stmt->execute();
 
@@ -215,7 +222,7 @@ JOBS;
         
             foreach ( $jobItem as $key => $value ) {
                 switch ($key) {
-                    case 'job_id':                        
+                    case 'ID':                        
                         $jobBox .= "<input style='display:none;' name='$key' type='text' readonly value ='$value'>";
                         break;
                     case 'job_title':
@@ -399,14 +406,13 @@ function sendApplication($jobId, $firstName, $lastName, $email, $contact, $role,
             $subject = "New Applicant for role: " . $role;
 
             $message = "There has been a new applicant for the role of " . $role . "\n";
-            $message .= "You can view their CV on our datase";
+            $message .= "You can view their application on our admin portal";
 
             //Sending to developer
             mail("morgan.wheatman@northumbria.ac.uk",$subject ,$message, $headers);
         }else{
             echo applicationSubmitted('failure');
         }
-
 }
 
 //Function which displays message for user after submitting an application

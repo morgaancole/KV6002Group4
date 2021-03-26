@@ -18,7 +18,6 @@
         $contact = filter_has_var(INPUT_POST, 'phone') ? $_POST['phone']: null;
         $role = filter_has_var(INPUT_POST, 'role') ? $_POST['role']: null;
   
-
         //Trimming input from user
         $firstName = trim($firstName);
         $lastName = trim($lastName);
@@ -33,8 +32,6 @@
 
   
         $targetFile = $targetDir . $filename;
-
-      //  $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
 
         $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . $filename;  
         
