@@ -211,6 +211,7 @@ JOBS;
         foreach ( $jobs as $jobItem ) {
 
             $jobBox .= "<div class='job-box'>";
+            $jobBox .= "<form id='jobForm' action='apply.php' method='post'>";
         
             foreach ( $jobItem as $key => $value ) {
                 switch ($key) {
