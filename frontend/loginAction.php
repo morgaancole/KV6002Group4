@@ -1,7 +1,9 @@
 <?php
-    
-    ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, THIS
-    session_start(); //start session, THIS
+     ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+     session_start(); //start session, THIS
+
+    //ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, THIS
+    //session_start(); //start session, THIS
 
     if(ISSET($_POST['btn_login'])){
         $email = filter_has_var(INPUT_POST, 'txt_email') ? $_POST['txt_email']: null;
@@ -55,10 +57,10 @@
             
             $_SESSION['logged-in'] = true; //THIS
             $_SESSION ['email'] = $email; //THIS
+            $_SESSION['adminLevel'] = '1';
             
-          header('Location: ../Portal/adminDashboard.php');
-            
-            
+            header('Location: ../Portal/viewApplicants.php');
+               
         }       
             
         else{

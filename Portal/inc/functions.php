@@ -15,6 +15,25 @@ function getDatabase(){
     return $dbConnection;
 }
 
+//function that gets a session from session array
+function getSession($key){
+	$returnValue = "";
+	if(isset($_SESSION[$key])){
+		$returnValue = $_SESSION[$key];
+	}
+	return $returnValue;
+}
+
+//uses get_session function to check if user success logged in
+function checkLogin(){
+	if (getSession('logged-in') == true){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 function makePageStart($title) {
     $pageStart = <<<PAGESTART
 
@@ -181,7 +200,7 @@ function adminNav(){
                 </li>
 
                 <li>
-                    <a href="../frontend/logout.php">
+                    <a href="logout.php">
                         <span class="ti-share"></span>
                         <span>Log Out</span>
                     </a>
