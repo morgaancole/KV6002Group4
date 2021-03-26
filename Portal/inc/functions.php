@@ -281,7 +281,7 @@ JOBS;
                     $applicantBox .= "<p><b>Email:</b> $value</p><br>";
                     break;
                 case 'Contact':
-                    $applicantBox .= "<p><b>Contact number:</b> $value</p><br>";
+                    $applicantBox .= "<p><b>Contact number:</b> (+44)$value</p><br>";
                     break;
                 case 'Job':
                     $applicantBox .= "<p><b>Applying For: </b>$value</p><br>";
