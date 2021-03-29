@@ -22,10 +22,8 @@ window.addEventListener('load', function() {
 		
 		if(consentSelected == false){
 			_evt.preventDefault();
-
             var message = document.getElementById('errorMessage');
             message.style.display = 'block';
-			//alert("Please select select Yes or No");
 		}
 	}
 	 
