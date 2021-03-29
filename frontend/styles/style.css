@@ -575,13 +575,10 @@ fieldset {
  color:#888;
 }
 
-label.error{
-	color: darkred;
-	padding-left: 10px;
-	font-weight: bold;
-}
-input.error{
-	border-color: darkred !important;
+
+#errorMessage{
+	display: none;
+	color: #FE0212;
 }
 
 @media (max-height:800px){
