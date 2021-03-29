@@ -2,6 +2,8 @@
 /*
 *PHP Functions page to be used throughout frontend product - includes page-building functions & client-side communications
 *Protected by .htaccess to protect functionality which communicates with client side
+*@author Morgan Wheatman
+*@author Rachel Johnson
 */
 
 //Returns database connection
