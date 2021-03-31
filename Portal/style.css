@@ -275,6 +275,259 @@ tbody tr:nth-child(even){
     overflow-x: auto;
 }
 
+
+/*Applicant page - Morgan*/
+.mtitle{
+    text-align: center;
+}
+
+.applicant-page {
+	display: flex;
+	flex-wrap: wrap;
+	flex-flow: row wrap;
+	width: 100%;
+	padding: 5%;
+    
+}
+
+.applicant-box {
+	width: 47%;
+	display: block;
+	overflow: hidden;
+	height: 400x;
+	padding: 20px;
+	margin:5px;
+	margin-left:10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+	border-radius: 20px;
+	background-color: #FEFEFE;
+}
+
+.applicant-box input[type="submit"] {
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:#222221;
+	color:#FEFEFE;
+	margin:0 0 5px;
+	padding:5px;
+	font-size:15px;
+	text-transform: uppercase;
+	border-radius: 1px;
+}
+
+.applicant-box input[type="submit"]:hover {
+	background:#ADADAD;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+.applicant-box #accept {
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:#00FF00;
+	color:#FEFEFE;
+	margin:0 0 5px;
+	padding:5px;
+	font-size:15px;
+	text-transform: uppercase;
+	border-radius: 1px;
+}
+
+.applicant-box #accept:hover {
+	background: #228B22;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+.applicant-box #reject{
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:#FE0212;
+	color:#FEFEFE;
+	margin:0 0 5px;
+	padding:5px;
+	font-size:15px;
+	text-transform: uppercase;
+	border-radius: 1px;
+}
+
+.applicant-box #reject:hover {
+	background: #F30000;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+.no-applicants{
+	display: flex;
+	flex-wrap: wrap;
+	flex-flow: row wrap;
+	width: 100%;
+	padding: 5%;
+	height: auto;
+}
+  
+.no-applicants .applicants-message{
+	width: 100%;
+	display: block;
+	height: 100%;
+	padding: 15px;
+	margin:5px;
+	margin-left:10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+	border-radius: 20px;
+	background-color: #FEFEFE;
+}
+
+/*Vacancies Page - Morgan*/
+.vacancy-page {
+	display: flex;
+	flex-wrap: wrap;
+	flex-flow: row wrap;
+	width: 100%;
+	padding: 5%;
+}
+
+.vacancy-box {
+	width: 100%;
+	display: block;
+	overflow: hidden;
+	height: 400x;
+	padding: 20px;
+	margin:5px;
+	margin-left:10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+	border-radius: 20px;
+	background-color: #FEFEFE;
+}
+
+.vacancy-box #close{
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:#FE0212;
+	color:#FEFEFE;
+	margin:0 0 5px;
+	padding:5px;
+	font-size:15px;
+	text-transform: uppercase;
+	border-radius: 1px;
+}
+
+.vacancy-box #close:hover {
+	background: #F30000;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+#show{
+	cursor:pointer;
+	width:20%;
+	border:none;
+	background:#ADADAD;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:5px;
+	font-size:1rem;
+	text-transform: uppercase;
+}
+
+#show:hover {
+	background:#222221;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+#new-vacancy input[type="text"], input[type="date"],  #new-vacancy textarea, #new-vacancy button[type="submit"] {
+     border-radius: 10px;
+}
+
+.vacancy-form{
+	width: 100%;
+    text-align: center;
+}
+
+#vac-form{
+    display: none;
+}
+
+#new-vacancy {
+	padding:25px;
+	
+}
+
+#new-vacancy h3 {
+	color: #000;
+	display: block;
+	font-size: 30px;
+	font-weight: 400;
+}
+
+#new-vacancy h4 {
+	margin:5px 0 15px;
+	display:block;
+	font-size:13px;
+}
+
+#new-vacancy input[type="text"], input[type="date"], #new-vacancy textarea {
+	width:100%;
+	border:1px solid #CCC;
+	background:#FFF;
+	margin:0 0 5px;
+	padding:10px;
+}
+
+#new-vacancy input[type="text"]:hover, input[type="date"]:hover, #new-vacancy textarea:hover {
+	-webkit-transition:border-color 0.3s ease-in-out;
+	-moz-transition:border-color 0.3s ease-in-out;
+	transition:border-color 0.3s ease-in-out;
+	border:1px solid #AAA;
+}
+
+#new-vacancy textarea {
+	height:100px;
+	max-width:100%;
+	resize:none;
+}
+
+#new-vacancy button[type="submit"] {
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:#ADADAD;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:25px 10px;
+	font-size:15px;
+	text-transform: uppercase;
+}
+
+#new-vacancy button[type="submit"]:hover {
+	background:#222221;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+#new-vacancy button[type="submit"]:active { box-shadow:inset 0 1px 3px rgba(0, 0, 0, 0.5); }
+
+#new-vacancy input:focus, #new-vacancy textarea:focus {
+	outline:0;
+}
+
 @media only screen and (max-width: 1200px){
     .sidebar{
         width: 60px;
@@ -354,4 +607,16 @@ tbody tr:nth-child(even){
         padding-left: 1rem;
         padding-right: 1rem;
     }
+}
+
+@media screen and (max-width: 800px) {
+	 .applicant-box {
+		width: 100%;
+		height: 100%;
+	}
+
+    #show{
+        width: 60%;
+    }
+
 }

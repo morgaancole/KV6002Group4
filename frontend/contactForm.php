@@ -46,7 +46,8 @@
             <option value="selectOption">Please Select</option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
-          </select><br><br>
+          </select><br>
+          <p id="errorMessage">Please Select an option from the above dropdown menu</p>
           <fieldset>
               <button name="btn_contact" type="submit" id="submit" data-submit="...Sending">Send now</button>
           </fieldset>

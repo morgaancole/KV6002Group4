@@ -2,16 +2,19 @@
  ini_set("session.save_path", "/home/unn_w19042409/sessionData");
  session_start(); 
  require_once("inc/functions.php");
- 
+
 //Session data path needs to change for demo
 
 /*
 *Page for admin users to view applications sent in from frontend
 *@author - Morgan Wheatman
 */
+    require_once("inc/functions.php");
+
     //Checking if user is logged in & their admin level
     //Redirects user to staff dash if they are not admin
     if(checkLogin()){
+
         if($_SESSION['adminLevel'] != '1'){
             header('Location: dash.php');
         }
@@ -21,7 +24,6 @@
 
     }
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,8 +31,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>View Applicants</title>
+    <title>View Vacancies</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <script src="js/vacancies.js"></script>
 </head>
 <body>
     <?php 
@@ -39,10 +42,10 @@
     <div class="main-content">
         <main>
             <tbody>
-                <h1 class="mtitle">Applicants</h1>
-                <div class="applicant-page">
+                <h1 class="mtitle">Vacancies</h1>
+                <div class="vacancy-page">
                     <?php 
-                        echo getApplicants();
+                        echo getVacancies();
                     ?>
                 </div>
             </tbody>

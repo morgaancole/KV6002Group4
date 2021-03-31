@@ -220,8 +220,6 @@ fieldset {
 	padding:25px 10px;
 	font-size:15px;
 	text-transform: uppercase;
-	border-radius: 1px;
-	border: solid #222221;
 }
 
 #jobForm button[type="submit"]:hover {
@@ -577,13 +575,10 @@ fieldset {
  color:#888;
 }
 
-label.error{
-	color: darkred;
-	padding-left: 10px;
-	font-weight: bold;
-}
-input.error{
-	border-color: darkred !important;
+
+#errorMessage{
+	display: none;
+	color: #FE0212;
 }
 
 @media (max-height:800px){

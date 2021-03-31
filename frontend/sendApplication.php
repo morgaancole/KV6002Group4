@@ -34,8 +34,6 @@
   
         $targetFile = $targetDir . $filename;
 
-      //  $fileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
-
         $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . $filename;  
         
         //Checking if fields are empty (also checked on client-side)
