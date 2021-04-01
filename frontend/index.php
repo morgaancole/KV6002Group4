@@ -15,7 +15,7 @@
     
                  
             
-                    <h1>Family Run</h1> <br> <h1> Industry Specialists</h1>
+                    <h1>Family Run, Industry Specialists</h1>
                 </div>
                     
 </div>    
@@ -25,12 +25,17 @@
             <div class="info-text-wrapper">
                 
                 <div class="info-subtitle">
-                    Our business is a well established building contracting service based in Cramlington, Northumberland, operating throughout the North East of England. A family run business, trading since 1984, offering a high quality professional and friendly service to all our customers.
-<br><br>
-We specialise in flood, fire, impact and storm damage re-instatement, subsidence, wet and dry rot, and escape of water/oil. As an approved contractor to the insurance and loss adjusting industry, we work closely with insurance companies, loss adjusters, building surveyors and structural engineers.
-<br><br>
-With our workforce of skilled tradesman, we offer all aspects of new build, extensions, alterations/refurbishment and maintenance works for larger contracts in the public and business sectors, through to smaller private works. As a member of ‘Federation of Master Builders’ and ‘Safe Contractor’, all work is carried out to strict safety regulations and guidelines.
+                   <h2> Our business is a well established building contracting service based in Cramlington, Northumberland, operating throughout the North East of England. A family run business, trading since 1984, offering a high quality professional and friendly service to all our customers.</h2>
+                        <br><br>
+                   <h3>We specialise in flood, fire, impact and storm damage re-instatement, subsidence, wet and dry rot, and escape of water/oil. As an approved contractor to the insurance and loss adjusting industry, we work closely with insurance companies, loss adjusters, building surveyors and structural engineers.</h3>
+                        <br><br>
+                    With our workforce of skilled tradesman, we offer all aspects of new build, extensions, alterations/refurbishment and maintenance works for larger contracts in the public and business sectors, through to smaller private works. As a member of ‘Federation of Master Builders’ and ‘Safe Contractor’, all work is carried out to strict safety regulations and guidelines.
                 </div>
+
+<form method="get" action="about.php">
+    <button type="submit">Read more</button>
+</form>
+                
                 
 </div>
     
