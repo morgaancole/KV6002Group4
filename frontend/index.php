@@ -15,7 +15,7 @@
     
                  
             
-                    <h1>Family Run, Industry Specialists</h1>
+                    <h1>Family Run</h1> <br> <h1> Industry Specialists</h1>
                 </div>
                     
 </div>    
