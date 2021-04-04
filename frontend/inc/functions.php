@@ -450,4 +450,76 @@ BODY;
     return $bodyContent;
 }
 
+function getReviews(){
+    
+        $dbConn = getDatabase();
+        
+        //Selecting all columns, but assigning alias to ID to protect DB structure
+        $select_stmt = $dbConn->prepare("SELECT review_id AS 'ID',
+                                                review,
+                                                customer_name
+                                                FROM hd_reviews 
+                                                limit 4");
+
+        $select_stmt->execute();
+
+        //Array for results
+        $reviews = array();
+        if ($select_stmt->execute()) {
+            while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
+                $reviews[] = $row;
+            }
+        }
+    
+
+ $reviewBox = "";
+
+    //Checks if there are any applicants before displaying page
+    if(empty($reviews)){
+        $reviewPage = <<<REVIEWS
+        <div class="no-applicants"> 
+            <div class="applicants-message">
+                <h2>No Applicants</h2>
+                <p>There are currently no applications to join us</p>
+                <br>
+            </div>
+        </div>
+
+REVIEWS;
+    }else{
+
+    //Looping through multidimensional array to display results
+    foreach ( $reviews as $reviewItem ) {  
+
+        $reviewBox .= "<div class='job-box'>";
+        
+
+        foreach ( $reviewItem as $key => $value ) {
+            switch ($key) {
+                case 'review':
+                    $reviewBox .= "$value</h2><br>";
+                    break;
+                case 'customer_name':
+                    $reviewBox .= "<h2><b> - </b>$value";
+                    break;
+                
+            }
+            
+        }
+
+        $reviewBox .= "</div>";
+        
+    }
+    $reviewPage = <<<REVIEWS
+                   $reviewBox
+    
+REVIEWS;
+    }
+
+return $reviewPage;
+
+}
+
+
+
 ?>

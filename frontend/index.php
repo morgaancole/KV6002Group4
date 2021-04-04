@@ -26,10 +26,10 @@
                 
                 <div class="info-subtitle">
                    <h2> Our business is a well established building contracting service based in Cramlington, Northumberland, operating throughout the North East of England. A family run business, trading since 1984, offering a high quality professional and friendly service to all our customers.</h2>
-                        <br><br>
-                   <h3>We specialise in flood, fire, impact and storm damage re-instatement, subsidence, wet and dry rot, and escape of water/oil. As an approved contractor to the insurance and loss adjusting industry, we work closely with insurance companies, loss adjusters, building surveyors and structural engineers.</h3>
-                        <br><br>
-                    With our workforce of skilled tradesman, we offer all aspects of new build, extensions, alterations/refurbishment and maintenance works for larger contracts in the public and business sectors, through to smaller private works. As a member of ‘Federation of Master Builders’ and ‘Safe Contractor’, all work is carried out to strict safety regulations and guidelines.
+                <br><br><h3>
+We specialise in flood, fire, impact and storm damage re-instatement, subsidence, wet and dry rot, and escape of water/oil. As an approved contractor to the insurance and loss adjusting industry, we work closely with insurance companies, loss adjusters, building surveyors and structural engineers.</h3>
+<br><br>
+With our workforce of skilled tradesman, we offer all aspects of new build, extensions, alterations/refurbishment and maintenance works for larger contracts in the public and business sectors, through to smaller private works. As a member of ‘Federation of Master Builders’ and ‘Safe Contractor’, all work is carried out to strict safety regulations and guidelines.
                 </div>
 
 <form method="get" action="about.php">
@@ -50,11 +50,11 @@
             <div class="img-text-wrapper">
                 
                 <div class="logo-wrapper">
-                    <img src="images/IMG_0150.PNG">
+                   <img src="images/IMG_0150.PNG">
                 </div>
                 
                 <div class="subtitle">
-                    Impact Damage Repair
+                   <a href="services.php" class="subtitle">Impact Damage Repair</a> 
                 </div>
                 
             </div>
@@ -71,7 +71,7 @@
                 </div>
                 
                 <div class="subtitle">
-                    Structure Damage
+                    <a href="services.php" class="subtitle">Structure Damage</a>
                 </div>
                 
             </div>
@@ -88,7 +88,7 @@
                 </div>
                 
                 <div class="subtitle">
-                    Water/Oil Escape
+                    <a href="services.php" class="subtitle"> Water/Oil Escape</a>
                 </div>
                 
             </div>
@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="subtitle">
-                    Fire Damage
+                    <a href="services.php" class="subtitle"> Fire Damage</a>
                 </div>
                 
             </div>
@@ -122,7 +122,7 @@
                 </div>
  
                 <div class="subtitle">
-                    Refurbishment
+                    <a href="services.php" class="subtitle">Refurbishment</a>
                 </div>
                 
             </div>
@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="subtitle">
-                    Flood Damage
+                    <a href="services.php" class="subtitle"> Flood Damage</a>
                 </div>
                 
             </div>
@@ -147,22 +147,29 @@
         </div>
         
     </div>
- 
     
 
-    
 
- <div class="review-item-wrapper">
+
+    
+     <div class="review-item-wrapper">
             
             <div class="review-text-wrapper">
                 
-                <div class="review-subtitle">
+                <div class="title">
                     Reviews
                 </div>
-                
+                <div class="job-page">  
+        <?php echo getReviews();?>
+    </div>
 </div>
     
 </div>
+    
+    
+    
+    
+    
     
    
     
