@@ -36,7 +36,6 @@ function checkLogin(){
 
 function makePageStart($title) {
     $pageStart = <<<PAGESTART
-
     <!DOCTYPE html>
 <html>
     <head>
@@ -44,9 +43,10 @@ function makePageStart($title) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>$title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="style.css">
     </head>
-
 PAGESTART;
     $pageStart .="\n";
     return $pageStart;
@@ -55,9 +55,7 @@ PAGESTART;
 
 function createPageBody() {
     $pageBody = <<<CREATEPAGEBODY
-
     <body>
-
 CREATEPAGEBODY;
 
     $pageBody .= "\n";
@@ -66,7 +64,6 @@ CREATEPAGEBODY;
 
 function createPageClose() {
     $pageClose = <<<CLOSE
-
     </body>
     </html>
     
@@ -78,7 +75,6 @@ CLOSE;
 
 function createNav() {
     $nav = <<<NAVBAR
-
     <input type="checkbox" id="sidebar-toggle">
     <div class="sidebar">
         <div class="sidebar-header">
@@ -87,7 +83,6 @@ function createNav() {
             </h3>
             <label for="sidebar-toggle" class="ti-menu-alt"></label>
         </div>
-
         <div class="sidebar-menu">
             <ul>
                 <li>
@@ -96,41 +91,33 @@ function createNav() {
                         <span>Home</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="./timesheet.php">
                         <span class="ti-time"></span>
                         <span>Timesheet</span>
                     </a>
                 </li>
-
-
                 <li>
                     <a href="./vehiclelog.php">
                         <span class="ti-book"></span>
                         <span>Vehicle Logs</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="">
                         <span class="ti-book"></span>
                         <span>Payslip</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="./manageAccount.php">
                         <span class="ti-settings"></span>
                         <span>Manage Account</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </div>
-
-
 NAVBAR;
 
     $nav .= "\n";
@@ -148,7 +135,6 @@ function adminNav(){
             </h3>
             <label for="sidebar-toggle" class="ti-menu-alt"></label>
         </div>
-
         <div class="sidebar-menu">
             <ul>
                 <li>
@@ -157,60 +143,57 @@ function adminNav(){
                         <span>Home</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="payroll.php">
                         <span class="ti-time"></span>
                         <span>Payroll</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="position.php">
                         <span class="ti-settings"></span>
                         <span>Positions</span>
                     </a>
                 </li>
-
+                <li>
+                <a href="deductions.php">
+                    <span class="ti-settings"></span>
+                    <span>Deductions</span>
+                </a>
+            </li>
                 <li>
                     <a href="vehicleLogs.php">
                         <span class="ti-settings"></span>
                         <span>View Vehichle Logs</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="viewEmployees.php">
                         <span class="ti-settings"></span>
                         <span>View Employees</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="viewVacancies.php">
                         <span class="ti-files"></span>
                         <span>View Vacancies</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="viewApplicants.php">
                         <span class="ti-user"></span>
                         <span>View Applicants</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="logout.php">
                         <span class="ti-share"></span>
                         <span>Log Out</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </div>
-
 NAV;
 
     $nav .= "\n";
@@ -259,7 +242,6 @@ function getApplicants(){
                 <br>
             </div>
         </div>
-
 JOBS;
     }else{
 
@@ -415,9 +397,7 @@ function getVacancies(){
     //New vacancy form which will be hidden unless toggled by admin
     $vacancyPage = <<<VACANCIES
         <div class="vacancy-form" id="vacancy">
-
             <button type="submit" id="show">Create Job</button>
-
             <div id ="vac-form">
             <form id="new-vacancy" action="newVacancy.php" method="post">
                 <input 
@@ -431,20 +411,16 @@ function getVacancies(){
                     autocomplete="wage" size="20" maxlength="10"
                 ><br>
                 <textarea type="text" name="description" id="description" placeholder="Description of role" minlength="1" required title="description"></textarea><br>
-
                 <textarea type="text" name="requirements" id="requirements" placeholder="Requirements" minlength="1" required title="requirements"></textarea><br>
-
                 <input 
                     type="text" 
                     name="close" 
                     placeholder="Close Date DD/MM/YYYY"
                     pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)">         
-
                 <button name="btn_create_vacancy" type="submit" id="create-vacancy">Create Job</button>
             </form>
             </div>
         </div>
-
 VACANCIES;
     $vacancyBox = "";
 
@@ -459,7 +435,6 @@ VACANCIES;
                 <br>
             </div>
         </div>
-
 JOBS;
     }else{
         //Looping through multidimensional array to display results
@@ -582,4 +557,3 @@ function newVacancy($jobTitle, $wage, $description, $requirements, $closeDate){
 }
 
 ?>
-
