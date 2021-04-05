@@ -11,7 +11,7 @@
     
     <div class="home-item-wrapper">
                 
-        <div class="home-img-background" style="background-image:url(images/people.jpeg)">
+        <div class="home-img-background" style="background-image:url(styles/images/people.jpeg)">
 
         </div>
                     
@@ -49,12 +49,12 @@
     <div class="portfolio-items-wrapper">
         
         <div class="portfolio-item-wrapper">
-                <div class="portfolio-img-background" style="background-image:url(images/blueprint.jpeg)"></div>
+                <div class="portfolio-img-background" style="background-image:url(styles/images/blueprint.jpeg)"></div>
             
             <div class="img-text-wrapper">
                 
                 <div class="logo-wrapper">
-                   <img src="images/IMG_0150.PNG">
+                   <img src="styles/images/IMG_0150W.PNG">
                 </div>
                 
                 <div class="subtitle">
@@ -66,12 +66,12 @@
         </div>
         
         <div class="portfolio-item-wrapper">
-                <div class="portfolio-img-background" style="background-image:url(images/builder.jpeg)"></div>
+                <div class="portfolio-img-background" style="background-image:url(styles/images/builder.jpeg)"></div>
             
             <div class="img-text-wrapper">
                 
                 <div class="logo-wrapper">
-                    <img src="images/IMG_0148.PNG">
+                    <img src="styles/images/IMG_0148W.PNG">
                 </div>
                 
                 <div class="subtitle">
@@ -83,12 +83,12 @@
         </div>
         
         <div class="portfolio-item-wrapper">
-                <div class="portfolio-img-background" style="background-image:url(images/extension.jpeg)"></div>
+                <div class="portfolio-img-background" style="background-image:url(styles/images/extension.jpeg)"></div>
             
             <div class="img-text-wrapper">
                 
                 <div class="logo-wrapper">
-                    <img src="images/IMG_0145.PNG">
+                    <img src="styles/images/IMG_0145W.PNG">
                 </div>
                 
                 <div class="subtitle">
@@ -100,12 +100,12 @@
         </div>
         
         <div class="portfolio-item-wrapper">
-                <div class="portfolio-img-background" style="background-image:url(images/paper.jpeg)"></div>
+                <div class="portfolio-img-background" style="background-image:url(styles/images/paper.jpeg)"></div>
             
             <div class="img-text-wrapper">
                 
                 <div class="logo-wrapper">
-                    <img src="images/IMG_0147.PNG">
+                    <img src="styles/images/IMG_0147W.PNG">
                 </div>
 
                 <div class="subtitle">
@@ -117,12 +117,12 @@
         </div>
         
         <div class="portfolio-item-wrapper">
-                <div class="portfolio-img-background" style="background-image:url(images/people.jpeg)"></div>
+                <div class="portfolio-img-background" style="background-image:url(styles/images/people.jpeg)"></div>
             
             <div class="img-text-wrapper">
                 
                 <div class="logo-wrapper">
-                    <img src="images/IMG_0149.PNG">
+                    <img src="styles/images/IMG_0149W.PNG">
                 </div>
  
                 <div class="subtitle">
@@ -134,12 +134,12 @@
         </div>
         
         <div class="portfolio-item-wrapper">
-                <div class="portfolio-img-background" style="background-image:url(images/saw.jpg)"></div>
+                <div class="portfolio-img-background" style="background-image:url(styles/images/saw.jpg)"></div>
             
             <div class="img-text-wrapper">
                 
                 <div class="logo-wrapper">
-                    <img src="images/IMG_0144.PNG">
+                    <img src="styles/images/IMG_0144W.PNG">
                 </div>
 
                 <div class="subtitle">

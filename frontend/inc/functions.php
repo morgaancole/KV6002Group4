@@ -498,7 +498,7 @@ REVIEWS;
         foreach ( $reviewItem as $key => $value ) {
             switch ($key) {
                 case 'review':
-                    $reviewBox .= "$value</h2><br>";
+                    $reviewBox .= "$value</h2><br><br>";
                     break;
                 case 'customer_name':
                     $reviewBox .= "<h2><b> - </b>$value";
