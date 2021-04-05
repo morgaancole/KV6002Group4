@@ -9,13 +9,13 @@
     
 <div class="content-wrapper">    
     
-    <div class="home-item-wrapper">
-                
-        <div class="home-img-background" style="background-image:url(styles/images/people.jpeg)">
+<div class="home-item-wrapper">
+                <div class="home-img-background" style="background-image:url(images/people.jpeg)">
 
-        </div>
+                </div>
                     
-    </div>    
+</div>      
+      
     
     <div class="info-item-wrapper">
      

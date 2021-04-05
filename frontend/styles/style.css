@@ -680,7 +680,6 @@ fieldset {
 
 
 
-
 /*homepage*/
 
 .home-img-background{
@@ -691,14 +690,8 @@ fieldset {
     background-repeat: no-repeat;
 }
 
-.home-item-wrapper  {
-    position: absolute;
-    font-weight: 300;
-    font-size: 4rem;
-    bottom: 20%;
-    left: 73%;
-    
-}
+
+
 
 /*  Intro - home page */
 
@@ -761,6 +754,16 @@ fieldset {
     transition: 1s;
     filter: brightness(10%);
 }
+
+  @media screen and (max-width: 800px) {
+	.portfolio-items-wrapper{
+    display: grid;
+    grid-template-columns: 1fr ;    
+        }
+    
+	}
+
+
 
 
 /* Reviews - home page */
@@ -881,4 +884,9 @@ fieldset {
     margin: 10px 0;
   }
 }
+
+
+
+
+
 
