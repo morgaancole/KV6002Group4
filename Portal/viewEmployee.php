@@ -1,70 +1,32 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <title>Document</title>
-</head>
-<body>
-<body>
+<?php
+ ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+ session_start(); 
+ require_once("inc/functions.php");
 
-<input type="checkbox" id="sidebar-toggle">
-<div class="sidebar">
-    <div class="sidebar-header">
-        <h3 class="brand">
-            <span>Hendersons</span>
-        </h3>
-        <label for="sidebar-toggle" class="ti-menu-alt"></label>
-    </div>
+//Session data path needs to change for demo
 
-    <div class="sidebar-menu">
-        <ul>
-            <li>
-                <a href="adminDashboard.php">
-                    <span class="ti-home"></span>
-                    <span>Home</span>
-                </a>
-            </li>
+/*
+*Page for admin users to view applications sent in from frontend
+*@author - Morgan Wheatman
+*/
+    require_once("inc/functions.php");
 
-            <li>
-             <a href="payroll.php">
-                <span class="ti-time"></span>
-                <span>Payroll</span>
-             </a>
-            </li>
+    //Checking if user is logged in & their admin level
+    //Redirects user to staff dash if they are not admin
+    if(checkLogin()){
 
-            <li>
-                    <a href="position.php">
-                        <span class="ti-settings"></span>
-                        <span>Positions</span>
-                    </a>
-                </li>
+        if($_SESSION['adminLevel'] != '1'){
+            header('Location: dash.php');
+        }
+        
+    }else{//Redirecting user if they're not logged in
+        header('Location: ../frontend/loginForm.php');
 
-                <li>
-                    <a href="vehicleLogs.php">
-                        <span class="ti-settings"></span>
-                        <span>View Vehichle Logs</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="viewEmployees.php">
-                        <span class="ti-settings"></span>
-                        <span>View Employees</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../frontend/logout.php">
-                        <span>Log Out</span>
-                    </a>
-                </li>
-        </ul>
-    </div>
-</div>
+    }
+    echo makePageStart("Henderson Building Contractors"); 
+    echo  createPageBody();
+    echo adminNav(); 
+?>
 
 <div class="main-content">
 
@@ -94,22 +56,45 @@
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
 
 echo "
-		<h1>Update Position: '{$row['staff_first_name']}' </h1>
+		<h1>Update Employee: '{$row['staff_first_name']}' </h1>
 		<form id='UpdateEmployee' action='updateEmployee.php' method='get'>
-			<p>staff_id<input type='text' name='staff_id' value='$staff_id' readonly /></p>
-			<p>staff_first_name<input type='text' name='staff_first_name' size='50' value='{$row['staff_first_name']}' required/></p>
-            <p>staff_last_name<input type='text' name='staff_last_name' value='{$row['staff_last_name']}' required/></p>
-            <p>staff_email<input type='text' name='staff_email' value='{$row['staff_email']}' required/></p>
-            <p>staff_password <input type='text' name='staff_password' value='{$row['staff_password']}' required/> </p>
-            <p>staff_address<input type='text' name='staff_address' value='{$row['staff_address']}' required/></p>
-            <p>staff_postcode<input type='text' name='staff_postcode' value='{$row['staff_postcode']}' required/></p>";
+        <div class='inputsInner'>
+        <label for='staff_id'>Staff ID</label>
+        <input type='text' name='staff_id' id='staff_id' value='$staff_id' readonly />
+        </div>
+        <div class='inputsInner'>
+        <label for='staff_first_name'>Staff First Name</label>
+        <input type='text' name='staff_first_name' id='staff_first_name' size='50' value='{$row['staff_first_name']}' required/>
+        </div>
+        <div class='inputsInner'>
+        <label for='staff_last_name'>Staff Last Name</label>
+        <input type='text' name='staff_last_name' id='staff_last_name' value='{$row['staff_last_name']}' required/>
+        </div>
+        <div class='inputsInner'>
+        <label for='staff_email'>Staff Email</label>
+        <input type='text' name='staff_email' id='staff_email' value='{$row['staff_email']}' required/>
+        </div>
+        <div class='inputsInner'>
+        <label for='staff_password'>Staff Password</label>
+        <input type='text' name='staff_password' id='staff_password' value='{$row['staff_password']}' required/>
+        </div>
+        <div class='inputsInner'>
+        <label for='staff_address'>Staff Address</label>
+        <input type='text' name='staff_address' id='staff_address' value='{$row['staff_address']}' required/>
+        </div>
+        <div class='inputsInner'>
+        <label for='staff_postcode'>Staff Postcode</label>
+        <input type='text' name='staff_postcode' id='staff_postcode' value='{$row['staff_postcode']}' required/>
+        </div>   
+            ";
 
-            echo"Role <br>";
+            echo"<div class='inputsInner'>
+            <label for='pay_id'>Staff Role</label>";
         
             $rsVenue = $myPDO->query("SELECT pay_id, pay_desc from hd_pay_categories ORDER BY pay_desc");
 
 
-              echo "<select name='pay_id'>";
+              echo "<select id='pay_id'name='pay_id'>";
               while ($venueRecord = $rsVenue->fetch(PDO::FETCH_ASSOC)) {
                   
                   if ($pay_id == $venueRecord['pay_id'] ) {
@@ -120,11 +105,15 @@ echo "
                       echo "<option value='{$venueRecord['pay_id']}'>{$venueRecord['pay_desc']}</option>";
                   }
                   }
-              echo "</select> <br>";
+              echo "</select>
+              </div>";
 
 
      
-              echo " <p><input type='submit' name='submit' value='Update Employee'></p>
+              echo " 
+              <div class='inputsInner'>
+              <input type='submit' name='submit' value='Update Employee'>
+              </div>
             </form>
         ";
 
@@ -136,5 +125,6 @@ echo "
         </main>
 
 </div>
-</body>
-</html>
+<?php 
+        echo createPageClose(); 
+?>

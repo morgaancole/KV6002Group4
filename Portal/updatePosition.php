@@ -1,9 +1,30 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-</head>
-<body>
+<?php
+ ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+ session_start(); 
+ require_once("inc/functions.php");
+
+//Session data path needs to change for demo
+
+/*
+*Page for admin users to view applications sent in from frontend
+*@author - Morgan Wheatman
+*/
+    require_once("inc/functions.php");
+
+    //Checking if user is logged in & their admin level
+    //Redirects user to staff dash if they are not admin
+    if(checkLogin()){
+
+        if($_SESSION['adminLevel'] != '1'){
+            header('Location: dash.php');
+        }
+        
+    }else{//Redirecting user if they're not logged in
+        header('Location: ../frontend/loginForm.php');
+
+    }
+?>
+
 <?php
 //using the $_GET the correct values from the selected event can be accessed and they are stored with variables
 $pay_id = filter_has_var(INPUT_GET, 'pay_id') ? $_GET['pay_id'] : null;

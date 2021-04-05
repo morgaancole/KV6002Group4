@@ -1,9 +1,41 @@
-<!doctype html>
+<?php
+ ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+ session_start(); 
+ require_once("inc/functions.php");
+
+//Session data path needs to change for demo
+
+/*
+*Page for admin users to view applications sent in from frontend
+*@author - Morgan Wheatman
+*/
+    require_once("inc/functions.php");
+
+    //Checking if user is logged in & their admin level
+    //Redirects user to staff dash if they are not admin
+    if(checkLogin()){
+
+        if($_SESSION['adminLevel'] != '1'){
+            header('Location: dash.php');
+        }
+        
+    }else{//Redirecting user if they're not logged in
+        header('Location: ../frontend/loginForm.php');
+
+    }
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <title>Document</title>
 </head>
 <body>
+
 <?php
 //using the $_GET the correct values from the selected event can be accessed and they are stored with variables
 $timesheet_id = filter_has_var(INPUT_GET, 'timesheet_id') ? $_GET['timesheet_id'] : null;
@@ -33,13 +65,29 @@ $date = $day . "/" . $month . "/" . $year;
         SET process_id = '$process_id'
         WHERE payslip_id = '$payslip_id'");
         
+        
+        $query3 = $myPDO->query("UPDATE hd_payslips
+        SET hours_worked = '$hours', overtime_worked = '$hoursOvertime'
+        WHERE timesheet_id = '$timesheet_id'");
 
 
-
-if($query && $query2) {
+if($query && $query2 &&  $query3) {
     require_once "inc/functions.php";
     echo makePageStart("Timesheet");
     echo createPageBody();
+
+    if($payslip_id = 1){
+    
+    $to      = '';
+    $subject = 'Timesheet Approved';
+    $message = 'Hello, your timesheet has been approved';
+    $headers = 'From: webmaster@example.com'       . "\r\n" .
+                 'Reply-To: webmaster@example.com' . "\r\n" .
+                 'X-Mailer: PHP/' . phpversion();
+
+    mail($to, $subject, $message, $headers);
+    }
+
 
     $success = <<<UPLOADED
 

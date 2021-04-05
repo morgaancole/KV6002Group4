@@ -1,4 +1,30 @@
-<!doctype html>
+<?php
+ ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+ session_start(); 
+ require_once("inc/functions.php");
+
+//Session data path needs to change for demo
+
+/*
+*Page for admin users to view applications sent in from frontend
+*@author - Morgan Wheatman
+*/
+    require_once("inc/functions.php");
+
+    //Checking if user is logged in & their admin level
+    //Redirects user to staff dash if they are not admin
+    if(checkLogin()){
+
+        if($_SESSION['adminLevel'] != '1'){
+            header('Location: dash.php');
+        }
+        
+    }else{//Redirecting user if they're not logged in
+        header('Location: ../frontend/loginForm.php');
+
+    }
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,62 +35,9 @@
     <title>Document</title>
 </head>
 <body>
-<body>
-
-<input type="checkbox" id="sidebar-toggle">
-<div class="sidebar">
-    <div class="sidebar-header">
-        <h3 class="brand">
-            <span>Hendersons</span>
-        </h3>
-        <label for="sidebar-toggle" class="ti-menu-alt"></label>
-    </div>
-
-    <div class="sidebar-menu">
-        <ul>
-            <li>
-                <a href="adminDashboard.php">
-                    <span class="ti-home"></span>
-                    <span>Home</span>
-                </a>
-            </li>
-
-            <li>
-             <a href="payroll.php">
-                <span class="ti-time"></span>
-                <span>Payroll</span>
-             </a>
-            </li>
-
-            <li>
-                    <a href="position.php">
-                        <span class="ti-settings"></span>
-                        <span>Positions</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="vehicleLogs.php">
-                        <span class="ti-settings"></span>
-                        <span>View Vehichle Logs</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="viewEmployees.php">
-                        <span class="ti-settings"></span>
-                        <span>View Employees</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../frontend/logout.php">
-                        <span>Log Out</span>
-                    </a>
-                </li>
-        </ul>
-    </div>
-</div>
+    <?php 
+        echo adminNav(); 
+    ?>
 
 <div class="main-content">
 

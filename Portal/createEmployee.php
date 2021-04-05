@@ -1,73 +1,34 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <title>Document</title>
-</head>
-<body>
-<body>
+<?php
+ ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+ session_start(); 
+ require_once("inc/functions.php");
 
-<input type="checkbox" id="sidebar-toggle">
-<div class="sidebar">
-    <div class="sidebar-header">
-        <h3 class="brand">
-            <span>Hendersons</span>
-        </h3>
-        <label for="sidebar-toggle" class="ti-menu-alt"></label>
-    </div>
+//Session data path needs to change for demo
 
-    <div class="sidebar-menu">
-        <ul>
-            <li>
-                <a href="adminDashboard.php">
-                    <span class="ti-home"></span>
-                    <span>Home</span>
-                </a>
-            </li>
+/*
+*Page for admin users to view applications sent in from frontend
+*@author - Morgan Wheatman
+*/
+    require_once("inc/functions.php");
 
-            <li>
-             <a href="payroll.php">
-                <span class="ti-time"></span>
-                <span>Payroll</span>
-             </a>
-            </li>
+    //Checking if user is logged in & their admin level
+    //Redirects user to staff dash if they are not admin
+    if(checkLogin()){
+
+        if($_SESSION['adminLevel'] != '1'){
+            header('Location: dash.php');
+        }
+        
+    }else{//Redirecting user if they're not logged in
+        header('Location: ../frontend/loginForm.php');
+
+    }
+    echo makePageStart("Henderson Building Contractors"); 
+    echo  createPageBody();
+    echo adminNav(); 
+?>
 
 
-
-
-            <li>
-                    <a href="position.php">
-                        <span class="ti-settings"></span>
-                        <span>Positions</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="vehicleLogs.php">
-                        <span class="ti-settings"></span>
-                        <span>View Vehichle Logs</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="viewEmployees.php">
-                        <span class="ti-settings"></span>
-                        <span>View Employees</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../frontend/logout.php">
-                        <span>Log Out</span>
-                    </a>
-                </li>
-        </ul>
-    </div>
-</div>
 
 <div class="main-content">
 
@@ -85,45 +46,53 @@
         </header>
 
         <main>
-
-
-    <form action="createEmployee.php" method="post" enctype="multipart/form-data">
+<?php
+echo "
+    <form action='createEmployee.php' method='post' enctype='multipart/form-data'>
     
-        <table align="center" width="1000">
-            <tr>
-                <td><h2>Create New Employee</h2></td>
-            </tr>
+
+                <h2>Create New Employee</h2>
             
-            <tr>
-                <td>First Name:</td>
-                <td><input type="text" name="staff_first_name" size="60" required/></td>
-            </tr>
+            
+            <div class='inputsInner'>
+            <label for='staff_first_name'>Staff first name</label>
+            <input type='text' id='staff_first_name' name='staff_first_name' pattern='[A-Za-z]{20}' placeholder='John' required/>
+            </div>
 
-            <tr>
-                <td>Second Name:</td>
-                <td><input type="text" name="staff_last_name" size="60" required/></td>
-            </tr>
+            <div class='inputsInner'>
+            <label for='staff_last_name'>Staff last name</label>
+            <input type='text' id='staff_last_name'name='staff_last_name' pattern='[A-Za-z]{20}' placeholder='Smith' required/>
+            </div>
 
-            <tr>
-                <td>Staff Email:</td>
-                <td><input type="email" name="staff_email" size="60" required/></td>
-            </tr>
+            <div class='inputsInner'>
+            <label for='staff_email'>Staff Email</label>
+            <input type='email' id='staff_email' name='staff_email'  pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' placeholder='johnsmith@.gmailcom' required/>
+            </div>
 
-            <tr>
-                <td>Password:</td>
-                <td><input type="text" name="staff_password" value=<?php echo randomPassword();?> size="60" required /></td>
-            </tr>
-            <tr>
-            <td>Staff address:</td>
-                <td><input type="text" name="staff_address" size="60" required/></td>
-            </tr>
-            <tr>
-            <td>Staff postcode:</td>
-                <td><input type="text" name="staff_postcode" size="60" required/></td>
-            </tr>
-            <tr>
+            <div class='inputsInner'>
+            <label for='birthday'>Date of birth:</label>
+            <input type='date' id='birthday' name='birthday'max='2002-12-30'>
+            </div>
+
+            <div class='inputsInner'>
+            <label for='staff_password'>Staff Password</label>
+            <input type='text' id='staff_password' name='staff_password' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}' value=";echo randomPassword();?> <?php echo"required />
+            </div>
+            
+            <div class='inputsInner'>
+            <label for='staff_address'>Staff Address</label>
+            <td><input type='text' id='staff_address'name='staff_address' pattern='[A-Za-z0-9'\.\-\s\,]' placeholder='12 Eskdale Road' required/></td>
+            </div>
+
+            <div class='inputsInner'>
+            <label for='staff_postcode'>Staff postcode</label>
+                <td><input type='text' id='staff_postcode' name='staff_postcode' pattern='/^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i' placeholder='CA1 1JB' required/></td>
+            </div>
+
+            <div class='inputsInner'>
             <td>Role</td>
-            <td>
+            <td>";
+            ?>
             <?php
     
             $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
@@ -140,20 +109,23 @@
                   echo "<option value='{$row['pay_id']}'>{$row['pay_desc']}</option>";
               
               }
-          echo "</select>";?>
-                </td>
-              </tr>
-            <tr>
-                <td><input type="submit" name="insert_employee" value="Create Employee"></td>
-            </tr>
-        </table>
+          echo "</select>
+          </div>
+         
+          <div class='inputsInner'>
+
+         <input type='submit' name='insert_employee' value='Create Employee'>
+         </div>
     </form>
+    ";?>
     </main>
 
 </div>
 
-</body>
-</html>
+<?php 
+        echo createPageClose(); 
+?>
+
 
 <?php
 
@@ -174,6 +146,7 @@ $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');
 if(isset($_POST['insert_employee'])){
 
 $staff_first_name = $_POST['staff_first_name'];
+$date_of_birth = $_POST['birthday'];
 $staff_last_name = $_POST['staff_last_name'];
 $staff_email = $_POST['staff_email'];
 $staff_password = $_POST['staff_password'];
@@ -182,11 +155,49 @@ $staff_postcode = $_POST['staff_postcode'];
 $pay_id = $_POST['pay_id'];
 
 
+//validate inputs
+$staff_first_name = trim($staff_first_name);
+$staff_last_name = trim($staff_last_name);
+$staff_email = trim($staff_email);
+$staff_password = password_hash($staff_password);
+$staff_address = trim($staff_address);
+$staff_postcode = trim($staff_postcode);
 
-$query  = $myPDO->query("INSERT INTO hd_staff_users(staff_first_name,staff_last_name,staff_email,staff_password,staff_address,staff_postcode,pay_id) VALUES('$staff_first_name','$staff_last_name','$staff_email','$staff_password','$staff_address','$staff_postcode','$pay_id')");
-       
-header("Location: http://unn-w18011589.newnumyspace.co.uk/KV6002/Portal/viewEmployees.php");
 
+
+$check_users  = $myPDO->query("SELECT date_of_birth,staff_last_name
+FROM hd_staff_users
+WHERE staff_last_name ='$staff_last_name'");
+
+$duplicateUser = false;
+
+while($row= $check_users->fetch(PDO::FETCH_ASSOC)){
+
+if($row['date_of_birth'] == $date_of_birth && $row['staff_last_name'] == $staff_last_name ){
+    $duplicateUser = true; 
+}
+}
+if($duplicateUser == false){
+    $query  = $myPDO->query("INSERT INTO hd_staff_users(staff_first_name,staff_last_name,staff_email,staff_password,staff_address,staff_postcode,pay_id,date_of_birth) VALUES('$staff_first_name','$staff_last_name','$staff_email','$staff_password','$staff_address','$staff_postcode','$pay_id','$date_of_birth')");
+    
+    echo makePageStart("Timesheet");
+    echo createPageBody();
+    
+    $success = <<<UPLOADED
+
+    <div class="success_outer">
+    <div class="success_inner">
+    <img class="success_img" src="img/success.png" alt="success tick">
+        <p>Employee Created</p>
+        <a href="viewEmployees.php"><button>Employee List</a></button>
+        </div>
+    </div>
+
+UPLOADED;
+    $success .= "\n";
+    echo $success;
+    echo createPageClose();
+}
 }
 
 ?>
