@@ -681,7 +681,6 @@ fieldset {
 
 
 
-
 /*homepage*/
 
 .home-img-background{
@@ -692,7 +691,7 @@ fieldset {
     background-repeat: no-repeat;
 }
 
-.home-item-wrapper h1 {
+.home-item-wrapper  {
     position: absolute;
     font-weight: 300;
     font-size: 4rem;
@@ -882,6 +881,4 @@ fieldset {
     margin: 10px 0;
   }
 }
-
-
 

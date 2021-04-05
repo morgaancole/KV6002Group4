@@ -64,11 +64,11 @@
         }       
             
         else{
-          echo "Failed";       
+          header('Location: loginFail.php');       
         }
     } 
         else{
-          echo "user not found";
+          header('Location: loginFail.php'); 
         }  
             
             

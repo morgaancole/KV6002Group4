@@ -450,31 +450,33 @@ BODY;
     return $bodyContent;
 }
 
+
+
+//Function that displays reviews from database
+//@author - Rachel Johnson
+
+
 function getReviews(){
     
         $dbConn = getDatabase();
-        
-        //Selecting all columns, but assigning alias to ID to protect DB structure
+
         $select_stmt = $dbConn->prepare("SELECT review_id AS 'ID',
                                                 review,
                                                 customer_name
                                                 FROM hd_reviews 
-                                                limit 4");
+                                                limit 6");
 
         $select_stmt->execute();
 
-        //Array for results
         $reviews = array();
         if ($select_stmt->execute()) {
             while ($row = $select_stmt->fetch(PDO::FETCH_ASSOC)) {
                 $reviews[] = $row;
             }
         }
-    
 
  $reviewBox = "";
 
-    //Checks if there are any applicants before displaying page
     if(empty($reviews)){
         $reviewPage = <<<REVIEWS
         <div class="no-applicants"> 
@@ -488,7 +490,6 @@ function getReviews(){
 REVIEWS;
     }else{
 
-    //Looping through multidimensional array to display results
     foreach ( $reviews as $reviewItem ) {  
 
         $reviewBox .= "<div class='job-box'>";
@@ -517,9 +518,7 @@ REVIEWS;
     }
 
 return $reviewPage;
-
 }
-
 
 
 ?>

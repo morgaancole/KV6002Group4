@@ -6,12 +6,14 @@
 
 <body>
   
-  <div class="title">Henderson Building Contractors</div>
+  <div class="title">Staff Login</div>
       <div class="container">
         <div class="form-container">
           <form id="contact" method="post" action="loginAction.php" name="signin-form">
               
                 <div>
+                    <br>
+                    <br>
                     <label>Email</label>
                     <input 
                         type="email"
@@ -37,7 +39,9 @@
                         maxlength="40"
                         required
                         id="password"/>
-                </div>          
+                </div>   
+              <br>
+              <br>
         
                 <button type="submit" name="btn_login" value="login">Log In</button>
           </form>

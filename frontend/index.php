@@ -1,4 +1,4 @@
- <?php
+<?php
   require_once("inc/functions.php");
   echo makePageStart();
   echo makeNav();
@@ -9,37 +9,41 @@
     
 <div class="content-wrapper">    
     
-<div class="home-item-wrapper">
-                <div class="home-img-background" style="background-image:url(images/people.jpeg)">
-    
-    
-                 
-            
-                    <h1>Family Run, Industry Specialists</h1>
-                </div>
+    <div class="home-item-wrapper">
+                
+        <div class="home-img-background" style="background-image:url(images/people.jpeg)">
+
+        </div>
                     
-</div>    
+    </div>    
     
- <div class="info-item-wrapper">
+    <div class="info-item-wrapper">
+     
+    
             
-            <div class="info-text-wrapper">
+        <div class="info-text-wrapper">
+            <h1 class="title">Welcome to Henderson Building Contractors</h1>
+                <br>
                 
                 <div class="info-subtitle">
                    <h2> Our business is a well established building contracting service based in Cramlington, Northumberland, operating throughout the North East of England. A family run business, trading since 1984, offering a high quality professional and friendly service to all our customers.</h2>
-                <br><br><h3>
-We specialise in flood, fire, impact and storm damage re-instatement, subsidence, wet and dry rot, and escape of water/oil. As an approved contractor to the insurance and loss adjusting industry, we work closely with insurance companies, loss adjusters, building surveyors and structural engineers.</h3>
-<br><br>
-With our workforce of skilled tradesman, we offer all aspects of new build, extensions, alterations/refurbishment and maintenance works for larger contracts in the public and business sectors, through to smaller private works. As a member of ‘Federation of Master Builders’ and ‘Safe Contractor’, all work is carried out to strict safety regulations and guidelines.
+                        <br>
+                        <br>
+                   <h3>We specialise in flood, fire, impact and storm damage re-instatement, subsidence, wet and dry rot, and escape of water/oil. As an approved contractor to the insurance and loss adjusting industry, we work closely with insurance companies, loss adjusters, building surveyors and structural engineers.</h3>
+                        <br>
+                        <br>
+                   <h3>With our workforce of skilled tradesman, we offer all aspects of new build, extensions, alterations/refurbishment and maintenance works for larger contracts in the public and business sectors, through to smaller private works. As a member of ‘Federation of Master Builders’ and ‘Safe Contractor’, all work is carried out to strict safety regulations and guidelines.</h3>
                 </div>
+                        <br>
 
-<form method="get" action="about.php">
-    <button type="submit">Read more</button>
-</form>
+                <form method="get" action="about.php" id="contact">
+                    <button type="submit" class="contact">Read more</button>
+                </form>
                 
                 
-</div>
+        </div>
     
-</div>
+    </div>
     
 
     <div class="portfolio-items-wrapper">
@@ -148,30 +152,20 @@ With our workforce of skilled tradesman, we offer all aspects of new build, exte
         
     </div>
     
-
-
-
-    
-     <div class="review-item-wrapper">
+    <div class="review-item-wrapper">
             
-            <div class="review-text-wrapper">
+         <div class="review-text-wrapper">
                 
-                <div class="title">
-                    Reviews
-                </div>
-                <div class="job-page">  
-        <?php echo getReviews();?>
+             <div class="title">
+                    <h3>Customer Reviews</h3>
+             </div>                
+
+             <div class="job-page">  
+                    <?php echo getReviews();?>
+             </div>
+        </div>
+    
     </div>
-</div>
-    
-</div>
-    
-    
-    
-    
-    
-    
-   
     
 </div>  
 
