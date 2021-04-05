@@ -108,6 +108,9 @@
 
 
                          <td><a href='deleteTimesheet.php?timesheetID={$row['timesheet_id']}'>Delete</a</td>
+
+                         <td><a href='print.php?timesheetID={$row['timesheet_id']}'>Print</a</td>
+
                          </tr>
                       ";
                     }
