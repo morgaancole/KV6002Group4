@@ -1,9 +1,9 @@
 <?php
      ini_set("session.save_path", "/home/unn_w19042409/sessionData");
-     session_start(); //start session, THIS
+     session_start(); //start session
 
-    //ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, THIS
-    //session_start(); //start session, THIS
+    //ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
+    //session_start(); //start session
 
     if(ISSET($_POST['btn_login'])){
         $email = filter_has_var(INPUT_POST, 'txt_email') ? $_POST['txt_email']: null;
@@ -14,8 +14,8 @@
         
         try {
             
-        unset($_SESSION ['email']); //THIS
-        unset($_SESSION ['logged-in']); //THIS
+        unset($_SESSION ['email']); 
+        unset($_SESSION ['logged-in']); 
             
         require_once("inc/functions.php");
                 $dbConn = getDatabase();
@@ -37,8 +37,8 @@
 
         if(password_verify($password, $passwordHash)){
         
-            $_SESSION['logged-in'] = 'true'; //THIS
-            $_SESSION ['email'] = $email; //THIS
+            $_SESSION['logged-in'] = 'true'; 
+            $_SESSION ['email'] = $email; 
  
             header('Location: ../Portal/staff_user_dash/group_project/userDashboard.php');
         }        
@@ -55,8 +55,8 @@
         if ($admin) {  
         if($password === $admin['admin_password']){
             
-            $_SESSION['logged-in'] = true; //THIS
-            $_SESSION ['email'] = $email; //THIS
+            $_SESSION['logged-in'] = true; 
+            $_SESSION ['email'] = $email; 
             $_SESSION['adminLevel'] = '1';
             
             header('Location: ../Portal/adminDashboard.php');
