@@ -5,8 +5,6 @@
     if(ISSET($_POST['btn_login'])){
         $email = filter_has_var(INPUT_POST, 'txt_email') ? $_POST['txt_email']: null;
         $password = filter_has_var(INPUT_POST, 'txt_password') ? $_POST['txt_password']: null;
-
-        echo $email . " " . $password;
         
         $email = trim($email);
         $password = trim($password);
@@ -30,8 +28,6 @@
                 $admin = $selectAdmin->fetch(PDO::FETCH_ASSOC);
         
        if ($user) { 
-
-        echo "User";
            
            $passwordHash = $user['staff_password'];
 
@@ -64,9 +60,9 @@
         }else{
           header('Location: loginFail.php');       
         }
-    }else{    
-        echo "user not found";
-      } 
+    }else{
+        header('Location: loginFail.php');       
+      }
          
             
             
