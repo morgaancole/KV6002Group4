@@ -1,6 +1,7 @@
 <?php
-
-
+require_once "inc/functions.php";
+session_start();
+echo checkLoggedInStatus();
 if (isset($_POST['submit'])) {
     handlePwdChange();
 }
@@ -18,10 +19,13 @@ function handlePwdChange() {
     if(!empty($sanitizedPwd) && !empty($sanitizedPwdRepeat) && $sanitizedPwd == $sanitizedPwdRepeat) {
         $pwdHash = password_hash($sanitizedPwd, PASSWORD_DEFAULT);
         $conn = makeConnection();
-        $stmt = $conn->prepare("update hd_staff_users set staff_password = :newPwd where staff_id = 1");
+        $id = $_SESSION['id'];
+
+        $stmt = $conn->prepare("update hd_staff_users set staff_password = :newPwd where staff_id = " . $id);
         $params = ["newPwd" => $pwdHash];
     
         $result = $stmt->execute($params);
+
     
         if ($result) {
     
@@ -31,9 +35,9 @@ function handlePwdChange() {
     
             $success = <<<UPLOADED
     
-            <div class="success_outer">
-            <div class="success_inner">
-            <img class="success_img" src="img/success.png" alt="success tick">
+            <div class="upload_outer">
+            <div class="upload_inner">
+            <img class="upload_img" src="img/success.png" alt="success tick">
                 <p>Thank you, your password has been successfully uploaded</p>
                 <a href="dash.php"><button>Home</a></button>
                 </div>
@@ -45,10 +49,28 @@ function handlePwdChange() {
             echo createPageClose();
     
         } else {
-            echo "not submitted";
+            require_once "inc/functions.php";
+        echo makePageStart("Timesheet");
+        echo createPageBody();
+
+        $success = <<<UPLOADED
+
+        <div class="upload_outer">
+        <div class="upload_inner">
+        <img class="upload_img" src="img/failure.png" alt="failure tick">
+            <p>Sorry, we have been unable to upload or make your changes, please try again.</p>
+            <a href="dash.php"><button>Home</a></button>
+            </div>
+        </div>
+
+UPLOADED;
+        $success .= "\n";
+        echo $success;
+        echo createPageClose();
         }
     } else {
-        header('Location:manageAccount.php?incorrectDetails ');
+        header('Location: manageAccount.php');
+
     }
 
     
@@ -56,21 +78,6 @@ function handlePwdChange() {
 }
 
 
-function makeConnection()
-{
-    //this has been changed from ./ to ../ in order to work with the project files
-    //github, will need to be changed back for when i am testing
-    $pdo = new PDO('sqlite:../DB/hendersonDB.sqlite');
-    return $pdo;
-}
-
-function sanitizeInput($val)
-{
-    $santiseVal = htmlspecialchars($val);
-    $santiseVal = trim($santiseVal);
-    $santiseVal = stripslashes($santiseVal);
-    return $santiseVal;
-}
 
 
 

@@ -1,13 +1,13 @@
 <?php
+session_start();
 require_once "inc/functions.php";
+echo checkLoggedInStatus();
 require_once "uploadAccount.php";
-echo makePageStart("Timesheet");
+echo makePageStart("Manage Account");
 echo createPageBody();
 echo createNav();
 
 ?>
-
-
 
 
 <div class="main-content">
@@ -27,34 +27,21 @@ echo createNav();
 
         <main>
             <h2 class="dash-title">Account management</h2>
+            <p class="errorMsg" id="errorMsg"></p>
+
 
 
         <?php
 $details = getDetails();
 
 
-echo($_COOKIE["test"]);
-
-
-// $detailsLength = count($details);
-//    var_dump($details);
-
-// echo "
-// <br/><br/>
-// <p>Firstname: $details[staff_first_name]</p>
-// <p>Lastname: $details[staff_last_name]</p>
-// <p>Email: $details[staff_email]</p>
-// <p>password: $details[staff_password]</p>
-// <p>address: $details[staff_address]</p>
-// <p>postcode: $details[staff_postcode]</p>
-// <p>Hourly rate: $details[hourly_rate]</p>
-// <p>Assigned vehicle: $details[vehicle_reg]</p>
-// ";
-
 $form = <<<SETTINGS
 
             <div class="settings_outer">
                 <div class="settings_inner">
+
+                <form class="details_form" action="./updatePersonalDetails.php" method="post" id="detailsForm" onsubmit="return checkEnquiry(this)"> 
+
                 <div class="settingsInputOuter">
                 <div class="inputsSettings">
                     <Label for="first">First Name</Label>
@@ -86,22 +73,28 @@ $form = <<<SETTINGS
                 </div>
 
                 <div class="inputsSettings">
-                <button class="changeBtn" type="submit">Change Details</button>
-                </div>
+                <input type="submit" name="submit" class="submitBtn" value="Update Details" />
+                                </div>
 
 
                 </div>
+                </form>
                 </div>
 
                 <span id="margin"></span>
 
 
                 <div class="settings_inner">
-                <form class="password_form" action="./updatePassword.php" method="post">
-                    <div class="inputsOuter">
+                <form class="password_form" action="./updatePassword.php" method="post" id="passwordForm" onsubmit="return checkEnquiry(this)">
+                    
+                <p class="errorMsg" id="errorMsg2"></p>
+                <div class="inputsOuter">
                     <div class="inputsInner">
+
                     <Label for="password">Password</Label>
                     <input type="password" name="password" id="password"  />
+                    <meter max="4" id="password-strength-meter"></meter>
+                    <p id="password-strength-text"></p>
                 </div>
                 <div class="inputsInner">
                     <Label for="passwordRepeat">Password Repeat</Label>
@@ -109,7 +102,7 @@ $form = <<<SETTINGS
                 </div>
 
                 <div class="inputsInner">
-                <input type="submit" name="submit" class="submitBtn" />
+                <input type="submit" name="submit" class="submitBtn" value="Change Password" />
                 </div>
 
 
@@ -131,8 +124,8 @@ echo $form;
 
         </main>
     </div>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+    <script src="checkManageAccount.js"></script>
 <?php
 
 echo createPageClose();
