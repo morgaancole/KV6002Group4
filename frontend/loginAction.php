@@ -36,6 +36,8 @@
         
             $_SESSION['logged-in'] = 'true'; 
             $_SESSION ['email'] = $email; 
+            $_SESSION ['id'] = $user['staff_id']; 
+            
 
             
  
