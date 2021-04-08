@@ -34,6 +34,148 @@ function checkLogin(){
 	}
 }
 
+[12:00 PM] liam.davison
+    
+
+<?php
+function makePageStart($title)
+{​​​​​​​​
+$pageStart=<<<PAGESTART
+ 
+ <!DOCTYPE html>
+<html>
+ <head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <title>$title</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="styles.css">
+ </head>
+ 
+PAGESTART;
+$pageStart.="\n";
+return$pageStart;
+}​​​​​​​​
+ 
+function createPageBody()
+{​​​​​​​​
+$pageBody=<<<CREATEPAGEBODY
+ 
+ <body>
+ 
+CREATEPAGEBODY;
+ 
+$pageBody.="\n";
+return$pageBody;
+ 
+}​​​​​​​​
+ 
+function createPageClose()
+{​​​​​​​​
+$pageClose=<<<CLOSE
+ 
+ </body>
+ </html>
+ 
+CLOSE;
+$pageClose.="\n";
+return$pageClose;
+}​​​​​​​​
+ 
+function createNav()
+{​​​​​​​​
+$nav=<<<NAVBAR
+ 
+ <input type="checkbox" id="sidebar-toggle">
+ <div class="sidebar">
+ <div class="sidebar-header">
+ <h3 class="brand">
+ <span>Hendersons</span>
+ </h3>
+ <label for="sidebar-toggle" class="ti-menu-alt"></label>
+ </div>
+ 
+ <div class="sidebar-menu">
+ <ul>
+ <li>
+ <a href="dash.php">
+ <span class="ti-home"></span>
+ <span>Home</span>
+ </a>
+ </li>
+ 
+ <li>
+ <a href="timesheet.php">
+ <span class="ti-time"></span>
+ <span>Timesheet</span>
+ </a>
+ </li>
+ 
+ <li>
+ <a href="vehiclelog.php">
+ <span class="ti-book"></span>
+ <span>Vehicle Logs</span>
+ </a>
+ </li>
+ 
+ <li>
+ <a href="payslips.php">
+ <span class="ti-book"></span>
+ <span>Payslip</span>
+ </a>
+ </li>
+ 
+ <li>
+ <a href="manageAccount.php">
+ <span class="ti-settings"></span>
+ <span>Manage Account</span>
+ </a>
+ </li>
+ <li>
+ <a href="logout.php">
+ <span class="ti-settings"></span>
+ <span>Logout</span>
+ </a>
+ </li>
+ 
+ </ul>
+ </div>
+ </div>
+ 
+NAVBAR;
+ 
+$nav.="\n";
+return$nav;
+}​​​​​​​​
+ 
+function makeConnection()
+{​​​​​​​​
+//this has been changed from ./ to ../ in order to work with the project files
+//github, will need to be changed back for when i am testing
+$pdo=newPDO('sqlite:../../../DB/hendersonDB.sqlite');
+// $pdo = new PDO('sqlite:./DB/hendersonDB.sqlite');
+return$pdo;
+}​​​​​​​​
+ 
+function sanitizeInput($val)
+{​​​​​​​​
+$santiseVal=htmlspecialchars($val);
+$santiseVal=trim($santiseVal);
+$santiseVal=stripslashes($santiseVal);
+return$santiseVal;
+}​​​​​​​​
+ 
+function checkLoggedInStatus()
+{​​​​​​​​
+ 
+if(empty($_SESSION)){​​​​​​​​
+header("location: ../../../frontend/index.php");
+}​​​​​​​​
+ 
+}​​​​​​​​
+
+
+
 function makePageStart($title) {
     $pageStart = <<<PAGESTART
     <!DOCTYPE html>
