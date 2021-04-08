@@ -53,7 +53,13 @@
         }
             
         if ($admin) {  
-        if($password === $admin['admin_password']){
+            
+            $passwordHash = $admin['admin_password'];
+
+
+        if(password_verify($password, $passwordHash)){
+            
+            
             
             $_SESSION['logged-in'] = true; 
             $_SESSION ['email'] = $email; 
