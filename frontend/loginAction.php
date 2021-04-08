@@ -1,6 +1,6 @@
 <?php
- ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
- session_start(); //start session
+ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
+session_start(); //start session
 
     if(ISSET($_POST['btn_login'])){
         $email = filter_has_var(INPUT_POST, 'txt_email') ? $_POST['txt_email']: null;

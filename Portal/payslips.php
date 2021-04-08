@@ -43,6 +43,15 @@ $params = [];
 
 $stmt->execute($params);
 $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+
+
+
+
+    if(count($result) < 1) {
+        echo "<p>No payslips have been stored in the database at this time. Please contact the admin staff</p>";
+    } 
+
+
 foreach ($result as $key => $value) {
     
    
