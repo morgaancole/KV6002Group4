@@ -1,9 +1,8 @@
 <?php
- ini_set("session.save_path", "/home/unn_w19042409/sessionData");
- session_start(); 
+ ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
+ session_start(); //start session
  require_once("inc/functions.php");
  
-//Session data path needs to change for demo
 
 /*
 *Page for admin users to view applications sent in from frontend
