@@ -5,8 +5,6 @@
     if(ISSET($_POST['btn_login'])){
         $email = filter_has_var(INPUT_POST, 'txt_email') ? $_POST['txt_email']: null;
         $password = filter_has_var(INPUT_POST, 'txt_password') ? $_POST['txt_password']: null;
-
-        echo $email . " " . $password;
         
         $email = trim($email);
         $password = trim($password);
