@@ -1,6 +1,7 @@
 <?php
-session_start();
 require_once "inc/functions.php";
+ini_set("session.save_path", "/home/unn_w18010282/sessionData"); //location of session data file, 
+session_start();
 echo checkLoggedInStatus();
 echo makePageStart("Payslips");
 echo createPageBody();
@@ -30,7 +31,7 @@ echo createNav();
                 <div class="payslipOuter">
             <?php
 $id = $_SESSION['id'];
-$conn = makeConnection();
+$conn = getDatabase();
 $stmt = $conn->prepare("SELECT hd_staff_users.staff_first_name, hd_staff_users.staff_last_name, hd_staff_users.staff_email, hd_staff_users.staff_address, hd_staff_users.staff_postcode,
 hd_payslips.hours_worked, hd_payslips.salary, hd_payslips.overtime_worked, hd_payslips.pre_tax_income, hd_payslips.post_tax_income, hd_payslips.final_income, hd_payslips.deductables,
 hd_timesheet_responses.Date, hd_timesheet_responses.location

@@ -1,5 +1,6 @@
 <?php
 require_once "inc/functions.php";
+ini_set("session.save_path", "/home/unn_w18010282/sessionData"); //location of session data file, 
 session_start();
 echo checkLoggedInStatus();
 echo makePageStart("Vehicle logs");
@@ -45,7 +46,7 @@ echo "<input type='text' name='id' id='userID' placeholder='$id' value='$id' rea
                         <div class="inputsInner">
                             <label for="reg">Vehicle reg</label>
                             <?php
-$conn = makeConnection();
+$conn = getDatabase();
 $stmt = $conn->prepare("SELECT vehicle_reg from hd_vehicles");
 $params = [];
 

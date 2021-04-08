@@ -1,8 +1,10 @@
 <?php
 
 require_once "inc/functions.php";
+ini_set("session.save_path", "/home/unn_w18010282/sessionData"); //location of session data file, 
+
 session_start();
-//echo checkLoggedInStatus();
+echo checkLoggedInStatus();
 echo makePageStart("Landing page");
 echo createPageBody();
 echo createNav();
@@ -25,6 +27,9 @@ echo createNav();
 
     <main>
         <h2 class="dash-title">Employee Dashboard</h2>
+        <?php
+        var_dump($_SESSION);
+        ?>
 
 
 
@@ -32,8 +37,10 @@ echo createNav();
             <div class="dashSmallOuter">
                 <div class="dashSmallInner">
                     <?php
+                    
                     $id = $_SESSION['id'];
-                    $conn = makeConnection();
+                   
+                    $conn = getDatabase();
                     $stmt = $conn->prepare("SELECT  hd_vehicle_log_responses.response_date
                 from hd_vehicle_log_responses
                 where hd_vehicle_log_responses.staff_id = " . $id . " 
@@ -45,12 +52,20 @@ echo createNav();
                     $result = $stmt->fetchall(PDO::FETCH_ASSOC);
 
 
+                    $value = null;
+                    if(count($result) > 0) {
+                        $value = $result[0]['response_date'];
+                    } else {
+                        $value = "No vehicle logs have been created yet";
+                    }
+
+
 
                     echo "
                 <p>Your most recent vehicle log response was on the:</p>
                 <p>
                 ";
-                    echo $result[0]['response_date'];
+                    echo $value;
                     echo "
                 </p>
                 <p>Would you like to complete a new one now?</p>
@@ -63,7 +78,7 @@ echo createNav();
                 <div class="dashSmallInner">
                     <?php
                     $id = $_SESSION['id'];
-                    $conn = makeConnection();
+                    $conn = getDatabase();
                     $stmt = $conn->prepare("SELECT  hd_timesheet_responses.Date, hd_timesheet_responses.timesheet_id
                 from hd_timesheet_responses
                 where hd_timesheet_responses.staff_id = " . $id . " 
@@ -73,11 +88,20 @@ echo createNav();
 
                     $stmt->execute($params);
                     $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+
+
+                    $valueDate = null;
+                    if(count($result) > 0) {
+                        $valueDate = $result[0]['Date'];
+                    } else {
+                        $valueDate = "No timesheets have been created yet";
+                    }
+
                     echo "
                 <p>Your most recent timesheet response was on the:</p>
                 <p>
                 ";
-                    echo $result[0]['Date'];
+                    echo $valueDate;
                     echo "
                 </p>
                 <p>Would you like to complete a new one now?</p>
@@ -94,7 +118,7 @@ echo createNav();
 
                 <?php
                 $id = $_SESSION['id'];
-                $conn = makeConnection();
+                $conn = getDatabase();
                 $stmt = $conn->prepare("SELECT hd_payslips.final_income, hd_timesheet_responses.Date, hd_staff_users.staff_first_name
 FROM hd_staff_users
 JOIN hd_payslips ON (hd_staff_users.staff_id = hd_payslips.staff_id)

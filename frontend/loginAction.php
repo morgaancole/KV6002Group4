@@ -1,5 +1,5 @@
 <?php
-    ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
+    ini_set("session.save_path", "/home/unn_w18010282/sessionData"); //location of session data file, 
     session_start(); //start session
 
     if(ISSET($_POST['btn_login'])){
@@ -11,8 +11,8 @@
         
         try {
             
-        unset($_SESSION ['email']); 
-        unset($_SESSION ['logged-in']); 
+        // unset($_SESSION ['email']); 
+        // unset($_SESSION ['logged-in']); 
             
         require_once("inc/functions.php");
                 $dbConn = getDatabase();

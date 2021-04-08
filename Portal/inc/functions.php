@@ -112,7 +112,7 @@ function createNav()
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="./payslips.php">
                         <span class="ti-book"></span>
                         <span>Payslip</span>
                     </a>
@@ -123,6 +123,12 @@ function createNav()
                         <span>Manage Account</span>
                     </a>
                 </li>
+                <li>
+                <a href="logout.php">
+                    <span class="ti-share"></span>
+                    <span>Log Out</span>
+                </a>
+            </li>
             </ul>
         </div>
     </div>
@@ -144,16 +150,16 @@ function sanitizeInput($val) {
     return $sanitiseVal;
 }
 
-/*
+
 
 function checkLoggedInStatus() {
 
     if(empty($_SESSION)) {
-        header(("location: dash.php"));
+        header(("location: ../frontend/index.php"));
     }
 }
 
-*/
+
 
 
 

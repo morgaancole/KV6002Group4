@@ -13,7 +13,9 @@ window.addEventListener("load", function () {
     let desc = document.getElementById("desc");
 
     const currentYear = new Date().getFullYear().toString().substr(-2);
-    const currentMonth = new Date().getMonth().toString();
+    let currentMonth = new Date().getMonth() + 1;
+    currentMonth = currentMonth.toString();
+    
     const currentDay = new Date().getDate().toString();
 
     const errorMsg = document.getElementById("errorMsg");
@@ -31,6 +33,7 @@ window.addEventListener("load", function () {
     } else {
       newMonth = currentMonth;
     }
+
 
     const regEx = /^[\w!?,. -]+$/;
 

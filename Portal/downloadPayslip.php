@@ -1,9 +1,9 @@
 <?php
-session_start();
 require_once "inc/functions.php";
+ini_set("session.save_path", "/home/unn_w18010282/sessionData"); //location of session data file, 
+session_start();
 echo checkLoggedInStatus();
-// require 'inc/fpdf182/fpdf.php';
-require 'inc/fpdf182/html2pdf.php';
+require 'fpdf182/html2pdf.php';
 if (isset($_POST['submit'])) {
     handleDownload();
 }
