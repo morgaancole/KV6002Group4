@@ -34,7 +34,7 @@
   
         $targetFile = $targetDir . $filename;
 
-        $fullPath = "http://unn-w19042409.newnumyspace.co.uk/project/frontend/uploads" . "/" . $filename;  
+        $fullPath = "http://unn-w17005084.newnumyspace.co.uk/frontend/uploads" . "/" . $filename;  
         
         //Checking if fields are empty (also checked on client-side)
         if (!empty($jobId)  && !empty($firstName)  && !empty($lastName) && !empty($email) && !empty($contact) && !empty($role)) {   
