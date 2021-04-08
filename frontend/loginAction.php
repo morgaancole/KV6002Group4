@@ -30,8 +30,6 @@
                 $admin = $selectAdmin->fetch(PDO::FETCH_ASSOC);
         
        if ($user) { 
-
-        echo "User";
            
            $passwordHash = $user['staff_password'];
 
@@ -64,9 +62,9 @@
         }else{
           header('Location: loginFail.php');       
         }
-    }else{    
-        echo "user not found";
-      } 
+    }else{
+        header('Location: loginFail.php');       
+      }
          
             
             
