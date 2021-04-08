@@ -38,11 +38,9 @@
             $_SESSION ['email'] = $email; 
  
             header('Location: ../Portal/dash.php');
-        }        
-        
-        else{
-          echo "Failed";       
-        }
+        }else{
+            header('Location: loginFail.php'); 
+        } 
     } 
         
         else{
@@ -64,15 +62,11 @@
             
             header('Location: ../Portal/adminDashboard.php');
                
-        }       
-            
-        else{
+        }else{
           header('Location: loginFail.php');       
         }
     } 
-        else{
-          header('Location: loginFail.php'); 
-        }  
+         
             
             
      } catch (Exception $e) {
