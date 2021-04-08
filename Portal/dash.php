@@ -27,11 +27,6 @@ echo createNav();
 
     <main>
         <h2 class="dash-title">Employee Dashboard</h2>
-        <?php
-        var_dump($_SESSION);
-        ?>
-
-
 
         <div class="dashOuter">
             <div class="dashSmallOuter">
