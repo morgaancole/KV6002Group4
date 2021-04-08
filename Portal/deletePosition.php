@@ -1,5 +1,5 @@
 <?php
- ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+ ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
  session_start(); 
  require_once("inc/functions.php");
 
@@ -23,18 +23,11 @@
         header('Location: ../frontend/loginForm.php');
 
     }
+    echo makePageStart("Henderson Building Contractors"); 
+    echo  createPageBody();
+    echo adminNav(); 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <title>Document</title>
-</head>
-<body>
+
 <?php
 //using the $_GET the correct values from the selected event can be accessed and they are stored with variables
 $pay_id = filter_has_var(INPUT_GET, 'payID') ? $_GET['payID'] : null;
