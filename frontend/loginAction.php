@@ -41,20 +41,18 @@
             $_SESSION['logged-in'] = 'true'; 
             $_SESSION ['email'] = $email; 
 
-            header('Location: ../Portal/dash.php');
-        }
-           
-            else {
-               header('Location: loginFail.php'); 
-        } 
-    }
             
-            else if ($admin) {  
+ 
+            header('Location: ../Portal/dash.php');
+        }else{
+            header('Location: loginFail.php'); 
+        } 
+    }else if ($admin) {  
             
             $passwordHash = $admin['admin_password'];
 
 
-         if(password_verify($password, $passwordHash)){  
+        if(password_verify($password, $passwordHash)){  
             
             $_SESSION['logged-in'] = true; 
             $_SESSION ['email'] = $email; 
@@ -63,21 +61,17 @@
             header('Location: ../Portal/adminDashboard.php');
 
                
+        }else{
+          header('Location: loginFail.php');       
         }
-                
-            else{
-                header('Location: loginFail.php');       
-        }
-    }
-            else{    
-                echo "user not found";
+    }else{    
+        echo "user not found";
       } 
          
             
             
-     } 
-            catch (Exception $e) {
-                echo "There was a problem: " . $e->getMessage();
+     } catch (Exception $e) {
+            echo "There was a problem: " . $e->getMessage();
     }
     
     }
