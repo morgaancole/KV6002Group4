@@ -1,5 +1,5 @@
 <?php
- ini_set("session.save_path", "/home/unn_w19042409/sessionData");
+ ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
  session_start(); 
  require_once("inc/functions.php");
 
