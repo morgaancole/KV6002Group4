@@ -1,5 +1,7 @@
 <?php
-
+require_once "inc/functions.php";
+session_start();
+echo checkLoggedInStatus();
 if (isset($_POST['submit'])) {
     handleUpload();
 }
@@ -34,25 +36,22 @@ function handleUpload()
     $sanitizedDesc = sanitizeInput($desc);
 
     $timesheetID = generateRandomId();
-    // echo $timesheetID;
+
+
+    
+
 
     $conn = makeConnection();
-
-
-    $stmt = $conn->prepare('SELECT SUM(deduction_amount) AS value_sum FROM hd_deductions');
-    $stmt->execute();
-    
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $deductables = $row['value_sum'];
-
     $stmt = $conn->prepare("INSERT INTO hd_timesheet_responses (timesheet_id, staff_id, Date, location, hours_worked, jobs_completed_desc, overtime_worked)
         VALUES( :tid ,:id, :date, :location, :hoursworked, :desc, :overTime)");
     $params = ["tid" => $timesheetID, "id" => $sanitizedId, "date" => $date, "location" => $sanitizedLocation, "hoursworked" => $sanitizedHours, "desc" => $sanitizedDesc, "overTime" => $sanitizedHoursOver];
-
+    
     $result = $stmt->execute($params);
 
-    if ($result) {
+    
 
+
+    if ($result) {
         $stmt = $conn->prepare("select hourly_rate, staff_first_name from hd_staff_users join hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id) where staff_id = $sanitizedId");
         $params = [];
 
@@ -71,12 +70,10 @@ function handleUpload()
 
         $postTax = $preTax * 0.80;
 
-        $final = $postTax - $deductables;
-
         $stmt = $conn->prepare("insert into hd_payslips (staff_id, hours_worked, salary, overtime_worked, pre_tax_income, post_tax_income, deductables,  final_income, process_id, timesheet_id )
          VALUES (:sid, :hours, :sal, :over, :pre, :post, :deductables, :final, :process, :tid)");
         $params = ["sid" => $sanitizedId, "hours" => $sanitizedHours, "sal" => $salaryReg, "over" => $sanitizedHoursOver, "pre" => $preTax,
-            "post" => $postTax, "deductables" => $deductables, "final" => $final, "process" => 1, "tid" => $timesheetID];
+            "post" => $postTax, "deductables" => 0, "final" => $postTax, "process" => 1, "tid" => $timesheetID];
         $result = $stmt->execute($params);
 
         if ($result) {
@@ -85,41 +82,43 @@ function handleUpload()
             echo createPageBody();
 
             $success = <<<UPLOADED
-            <div class="success_outer">
-            <div class="success_inner">
-            <img class="success_img" src="img/success.png" alt="success tick">
+
+            <div class="upload_outer">
+            <div class="upload_inner">
+            <img class="upload_img" src="img/success.png" alt="success tick">
                 <p>Thank you, your timesheet has been successfully uploaded</p>
-                <a href="dash.php"><button>Home</a></button>
+                <a href="dash.php"><button>Home</button></a>
                 </div>
             </div>
+
 UPLOADED;
             $success .= "\n";
             echo $success;
             echo createPageClose();
         }
 
-        //upload to payslips table with the calculations
 
     } else {
-        echo "not submitted";
+        require_once "inc/functions.php";
+        echo makePageStart("Timesheet");
+        echo createPageBody();
+
+        $success = <<<UPLOADED
+
+        <div class="upload_outer">
+        <div class="upload_inner">
+        <img class="upload_img" src="img/failure.png" alt="failure tick">
+            <p>Sorry, we have been unable to upload or make your changes, please try again.</p>
+            <a href="http://192.168.64.2/group_project/dash.php"><button>Home</a></button>
+            </div>
+        </div>
+
+UPLOADED;
+        $success .= "\n";
+        echo $success;
+        echo createPageClose();
     }
 
-}
-
-function makeConnection()
-{
-    //this has been changed from ./ to ../ in order to work with the project files
-    //github, will need to be changed back for when i am testing
-    $pdo = new PDO('sqlite:../DB/hendersonDB.sqlite');
-    return $pdo;
-}
-
-function sanitizeInput($val)
-{
-    $santiseVal = htmlspecialchars($val);
-    $santiseVal = trim($santiseVal);
-    $santiseVal = stripslashes($santiseVal);
-    return $santiseVal;
 }
 
 function generateRandomId()
