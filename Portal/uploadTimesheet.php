@@ -7,6 +7,15 @@ if (isset($_POST['submit'])) {
     handleUpload();
 }
 
+/**
+ * Method handleUpload santisizes and uploads posted data to the database in 
+ * to the timesheet table.
+ * 
+ * PHP version 5.6
+ * 
+ * @author Liam Davison
+ *
+ */
 function handleUpload()
 {
 
@@ -58,8 +67,6 @@ function handleUpload()
 
         $stmt->execute($params);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // echo $result['hourly_rate'];
 
         $hourlyRate = $result['hourly_rate'];
         $hourlyRateOvertime = $result['hourly_rate'] * 2;
@@ -122,6 +129,15 @@ UPLOADED;
 
 }
 
+/**
+ * Method generateRandomId genrates a new random & unique ID from the timsheet
+ *
+ * @author Liam Davison
+ * 
+ * PHP version 5.6
+ * 
+ * @return $randomString the randomly generated ID
+ */
 function generateRandomId()
 {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

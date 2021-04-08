@@ -7,10 +7,15 @@ if (isset($_POST['submit'])) {
     handleUpload();
 }
 
+/**
+ * Method handleUpload sanitizes and uploads posted data to the vehicle log table
+ * 
+ * PHP version 5.6
+ *
+ * @author Liam Davison
+ */
 function handleUpload()
 {
-
-    
 
     $id = $_POST['id'];
     $sanitizedId = sanitizeInput($id);
