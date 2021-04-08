@@ -5,6 +5,8 @@
     if(ISSET($_POST['btn_login'])){
         $email = filter_has_var(INPUT_POST, 'txt_email') ? $_POST['txt_email']: null;
         $password = filter_has_var(INPUT_POST, 'txt_password') ? $_POST['txt_password']: null;
+
+        echo $email . " " . $password;
         
         $email = trim($email);
         $password = trim($password);
@@ -17,7 +19,7 @@
         require_once("inc/functions.php");
                 $dbConn = getDatabase();
  
-        $select = $dbConn->prepare("SELECT * FROM hd_staff_users WHERE staff_email= :uemail");
+        $select = $dbConn->prepare("SELECT * FROM hd_staff_users WHERE staff_email = :uemail");
                 $select->bindParam(":uemail", $email);
                 $select->execute();
                 $user = $select->fetch(PDO::FETCH_ASSOC);
@@ -28,6 +30,8 @@
                 $admin = $selectAdmin->fetch(PDO::FETCH_ASSOC);
         
        if ($user) { 
+
+        echo "User";
            
            $passwordHash = $user['staff_password'];
 
@@ -36,36 +40,33 @@
         
             $_SESSION['logged-in'] = 'true'; 
             $_SESSION ['email'] = $email; 
+
+            
  
             header('Location: ../Portal/dash.php');
         }else{
             header('Location: loginFail.php'); 
         } 
-    } 
-        
-        else{
-            echo "user not found";
-        }
-            
-        if ($admin) {  
+    }else if ($admin) {  
             
             $passwordHash = $admin['admin_password'];
 
 
-        if(password_verify($password, $passwordHash)){
-            
-            
+        if(password_verify($password, $passwordHash)){  
             
             $_SESSION['logged-in'] = true; 
             $_SESSION ['email'] = $email; 
             $_SESSION['adminLevel'] = '1';
             
             header('Location: ../Portal/adminDashboard.php');
+
                
         }else{
           header('Location: loginFail.php');       
         }
-    } 
+    }else{    
+        echo "user not found";
+      } 
          
             
             
