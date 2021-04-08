@@ -521,4 +521,31 @@ return $reviewPage;
 }
 
 
+function newReview($name, $review){
+    
+    try{
+        $dbConn = getDatabase();
+
+        //Inserting new review
+        $insert_stmt = $dbConn->prepare("INSERT INTO hd_reviews(review_id, customer_name, review) 
+                                            VALUES(:cid, :cname, :creview)
+                                        ");
+
+        $id="5";
+        
+        $insert_stmt->bindParam(":cid", $id);
+        $insert_stmt->bindParam(":cname", $name);
+        $insert_stmt->bindParam(":creview", $review);
+
+        $insert_stmt->execute();
+
+    }catch (Exception $e) {
+        echo "There was a problem: " . $e->getMessage();
+        
+    }
+}
+
+
+
+
 ?>
