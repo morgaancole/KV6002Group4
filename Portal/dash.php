@@ -2,7 +2,7 @@
 
 require_once "inc/functions.php";
 session_start();
-echo checkLoggedInStatus();
+//echo checkLoggedInStatus();
 echo makePageStart("Landing page");
 echo createPageBody();
 echo createNav();
