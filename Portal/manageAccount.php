@@ -1,6 +1,6 @@
 <?php
 require_once "inc/functions.php";
-ini_set("session.save_path", "/home/unn_w18010282/sessionData"); //location of session data file, 
+ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
 session_start();
 echo checkLoggedInStatus();
 require_once "uploadAccount.php";
