@@ -1,13 +1,15 @@
 <?php
+
 /*
 *PHP Functions file to be used throughout  project - includes page-building functions & client-side communications
 *Protected by .htaccess to protect functionality which communicates with client side
 */
-function getDatabase(){
-    try{
+function getDatabase()
+{
+    try {
         $dir = 'sqlite:../DB/hendersonDB.sqlite';
-        $dbConnection  = new PDO($dir) or die("cannot open the database");   
-    }catch (Exception $e) {
+        $dbConnection  = new PDO($dir) or die("cannot open the database");
+    } catch (Exception $e) {
         echo "There was a problem: " . $e->getMessage();
     }
 
@@ -16,182 +18,48 @@ function getDatabase(){
 }
 
 //function that gets a session from session array
-function getSession($key){
-	$returnValue = "";
-	if(isset($_SESSION[$key])){
-		$returnValue = $_SESSION[$key];
-	}
-	return $returnValue;
+function getSession($key)
+{
+    $returnValue = "";
+    if (isset($_SESSION[$key])) {
+        $returnValue = $_SESSION[$key];
+    }
+    return $returnValue;
 }
 
 //uses getSession function to check if user success logged in
-function checkLogin(){
-	if (getSession('logged-in') == true){
-		return true;
-	}
-	else{
-		return false;
-	}
+function checkLogin()
+{
+    if (getSession('logged-in') == true) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function makePageStart($title)
-{​​​​​​​​
-$pageStart=<<<PAGESTART
- 
- <!DOCTYPE html>
-<html>
- <head>
- <meta charset="utf-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <title>$title</title>
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <link rel="stylesheet" href="styles.css">
- </head>
- 
-PAGESTART;
-$pageStart.="\n";
-return$pageStart;
-}​​​​​​​​
- 
-function createPageBody()
-{​​​​​​​​
-$pageBody=<<<CREATEPAGEBODY
- 
- <body>
- 
-CREATEPAGEBODY;
- 
-$pageBody.="\n";
-return$pageBody;
- 
-}​​​​​​​​
- 
-function createPageClose()
-{​​​​​​​​
-$pageClose=<<<CLOSE
- 
- </body>
- </html>
- 
-CLOSE;
-$pageClose.="\n";
-return$pageClose;
-}​​​​​​​​
- 
-function createNav()
-{​​​​​​​​
-$nav=<<<NAVBAR
- 
- <input type="checkbox" id="sidebar-toggle">
- <div class="sidebar">
- <div class="sidebar-header">
- <h3 class="brand">
- <span>Hendersons</span>
- </h3>
- <label for="sidebar-toggle" class="ti-menu-alt"></label>
- </div>
- 
- <div class="sidebar-menu">
- <ul>
- <li>
- <a href="dash.php">
- <span class="ti-home"></span>
- <span>Home</span>
- </a>
- </li>
- 
- <li>
- <a href="timesheet.php">
- <span class="ti-time"></span>
- <span>Timesheet</span>
- </a>
- </li>
- 
- <li>
- <a href="vehiclelog.php">
- <span class="ti-book"></span>
- <span>Vehicle Logs</span>
- </a>
- </li>
- 
- <li>
- <a href="payslips.php">
- <span class="ti-book"></span>
- <span>Payslip</span>
- </a>
- </li>
- 
- <li>
- <a href="manageAccount.php">
- <span class="ti-settings"></span>
- <span>Manage Account</span>
- </a>
- </li>
- <li>
- <a href="logout.php">
- <span class="ti-settings"></span>
- <span>Logout</span>
- </a>
- </li>
- 
- </ul>
- </div>
- </div>
- 
-NAVBAR;
- 
-$nav.="\n";
-return$nav;
-}​​​​​​​​
- 
-function makeConnection()
-{​​​​​​​​
-//this has been changed from ./ to ../ in order to work with the project files
-//github, will need to be changed back for when i am testing
-$pdo=newPDO('sqlite:../../../DB/hendersonDB.sqlite');
-// $pdo = new PDO('sqlite:./DB/hendersonDB.sqlite');
-return$pdo;
-}​​​​​​​​
- 
-function sanitizeInput($val)
-{​​​​​​​​
-$santiseVal=htmlspecialchars($val);
-$santiseVal=trim($santiseVal);
-$santiseVal=stripslashes($santiseVal);
-return$santiseVal;
-}​​​​​​​​
- 
-function checkLoggedInStatus()
-{​​​​​​​​
- 
-if(empty($_SESSION)){​​​​​​​​
-header("location: ../../../frontend/index.php");
-}​​​​​​​​
- 
-}​​​​​​​​
+{
+    $pageStarter = <<<PAGESTART
 
-
-
-function makePageStart($title) {
-    $pageStart = <<<PAGESTART
     <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>$title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-        <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="style.css">
-    </head>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title>$title</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+            <link rel="stylesheet" href="styles.css">
+            <link rel="stylesheet" href="style.css">
+        </head>
+
 PAGESTART;
-    $pageStart .="\n";
-    return $pageStart;
+    $pageStarter .= "\n";
+    return $pageStarter;
 }
 
-
-function createPageBody() {
+function createPageBody()
+{
     $pageBody = <<<CREATEPAGEBODY
     <body>
 CREATEPAGEBODY;
@@ -200,18 +68,20 @@ CREATEPAGEBODY;
     return $pageBody;
 }
 
-function createPageClose() {
+function createPageClose()
+{
     $pageClose = <<<CLOSE
-    </body>
-    </html>
-    
+ 
+     </body>
+     </html>
 CLOSE;
+
     $pageClose .= "\n";
     return $pageClose;
 }
 
-
-function createNav() {
+function createNav()
+{
     $nav = <<<NAVBAR
     <input type="checkbox" id="sidebar-toggle">
     <div class="sidebar">
@@ -258,9 +128,33 @@ function createNav() {
     </div>
 NAVBAR;
 
-    $nav .= "\n";
-    return $nav;
+$nav .= "\n";
+return $nav;
 }
+
+function makeConnection() {
+    $pdo = new PDO('sqlite: ../DB/hendersonDB.sqlite');
+    return $pdo;
+}
+
+function sanitizeInput($val) {
+    $sanitiseVal = htmlspecialchars($val);
+    $sanitiseVal = trim($sanitiseVal);
+    $sanitiseVal = stripslashes($sanitiseVal);
+    return $sanitiseVal;
+}
+
+function checkLoggedInStatus() {
+
+    if(empty($_SESSION)) {
+        header(("location: ../frontend/index.php"));
+    }
+}
+
+
+
+
+
 
 /*Function to create navbar for admin users*/
 function adminNav(){
@@ -694,4 +588,6 @@ function newVacancy($jobTitle, $wage, $description, $requirements, $closeDate){
     }
 }
 
-?>
+
+
+
