@@ -40,7 +40,7 @@
             $_SESSION['logged-in'] = 'true'; 
             $_SESSION ['email'] = $email; 
  
-            header('Location: ../Portal/staff_user_dash/group_project/userDashboard.php');
+            header('Location: ../Portal/dash.php');
         }        
         
         else{
