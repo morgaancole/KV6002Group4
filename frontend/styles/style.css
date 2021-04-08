@@ -773,6 +773,104 @@ fieldset {
 
 }
 
+#show{
+	cursor:pointer;
+	width:20%;
+	border:none;
+	background:#ADADAD;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:5px;
+	font-size:1rem;
+	text-transform: uppercase;
+}
+
+#show:hover {
+	background:#222221;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+#new-review input[type="text"], #new-review textarea, #new-review button[type="submit"] {
+     border-radius: 10px;
+}
+
+.review-form{
+	width: 100%;
+    text-align: center;
+}
+
+#rev-form{
+    display: none;
+}
+
+#new-review {
+	padding:25px;
+	
+}
+
+#new-review h3 {
+	color: #000;
+	display: block;
+	font-size: 30px;
+	font-weight: 400;
+}
+
+#new-review h4 {
+	margin:5px 0 15px;
+	display:block;
+	font-size:13px;
+}
+
+#new-review input[type="text"], #new-review textarea {
+	width:100%;
+	border:1px solid #CCC;
+	background:#FFF;
+	margin:0 0 5px;
+	padding:10px;
+}
+
+#new-review input[type="text"]:hover, #new-review textarea:hover {
+	-webkit-transition:border-color 0.3s ease-in-out;
+	-moz-transition:border-color 0.3s ease-in-out;
+	transition:border-color 0.3s ease-in-out;
+	border:1px solid #AAA;
+}
+
+#new-review textarea {
+	height:100px;
+	max-width:100%;
+	resize:none;
+}
+
+#new-review button[type="submit"] {
+	cursor:pointer;
+	width:100%;
+	border:none;
+	background:#ADADAD;
+	color:#FFF;
+	margin:0 0 5px;
+	padding:25px 10px;
+	font-size:15px;
+	text-transform: uppercase;
+}
+
+#new-review button[type="submit"]:hover {
+	background:#222221;
+	-webkit-transition:background 0.3s ease-in-out;
+	-moz-transition:background 0.3s ease-in-out;
+	transition:background-color 0.3s ease-in-out;
+}
+
+#new-review button[type="submit"]:active { box-shadow:inset 0 1px 3px rgba(0, 0, 0, 0.5); }
+
+#new-review input:focus, #new-review textarea:focus {
+	outline:0;
+}
+
+
+
 
 
 /* about page  */

@@ -155,6 +155,23 @@
     <div class="review-item-wrapper">
             
          <div class="review-text-wrapper">
+             
+               <div class="review-form" id="review">
+            <button type="submit" id="show">Leave Review</button>
+            <div id ="rev-form">
+            <form id="new-review" action="newReview.php" method="post">
+                <input 
+                    name="name" type="text" required id="name" 
+                    placeholder="Name" pattern="[a-zA-Z0-9\s]+" title="Only alphaneumerics are allowed" 
+                    autocomplete="first-name" size="20" maxlength="40"
+                ><br>
+
+                <textarea type="text" name="review" id="review" placeholder="Leave review here" minlength="1" required title="review"></textarea><br>
+        
+                <button name="btn_create_review" type="submit" id="create-review">Post</button>
+            </form>
+            </div>
+        </div>
                 
              <div class="title">
                     <h3>Customer Reviews</h3>
