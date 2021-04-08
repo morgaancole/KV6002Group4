@@ -13,25 +13,19 @@
         $name = trim($name);
         $review = trim($review);
         
-        echo $name ." ". $review;
-        
         if(!empty($name) && !empty($review)){
             
-            echo "set";
             
             echo newReview($name, $review);
             
-            
-
-            //header('Location: index.php');
+            header('Location: index.php');
         }else{
-           // header('Location: index.php');
+            header('Location: index.php');
         }
         
     }else{//Redirect user if they haven't selected an option
             
-        //header('Location: index.php');
-        echo "not set";
+        header('Location: index.php');
     }
 
 ?>

@@ -4,7 +4,9 @@
   echo makeNav();
 ?>
 
-
+<head>
+<script src="js/reviews.js"></script>
+</head>
 <body>
     
 <div class="content-wrapper">    

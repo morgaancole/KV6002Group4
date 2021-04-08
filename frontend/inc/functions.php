@@ -464,7 +464,8 @@ function getReviews(){
                                                 review,
                                                 customer_name
                                                 FROM hd_reviews 
-                                                limit 6");
+                                                ORDER BY RANDOM()
+                                                LIMIT 6");
 
         $select_stmt->execute();
 
@@ -527,13 +528,10 @@ function newReview($name, $review){
         $dbConn = getDatabase();
 
         //Inserting new review
-        $insert_stmt = $dbConn->prepare("INSERT INTO hd_reviews(review_id, customer_name, review) 
-                                            VALUES(:cid, :cname, :creview)
+        $insert_stmt = $dbConn->prepare("INSERT INTO hd_reviews(customer_name, review) 
+                                            VALUES(:cname, :creview)
                                         ");
 
-        $id="5";
-        
-        $insert_stmt->bindParam(":cid", $id);
         $insert_stmt->bindParam(":cname", $name);
         $insert_stmt->bindParam(":creview", $review);
 
