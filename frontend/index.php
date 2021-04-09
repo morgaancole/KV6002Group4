@@ -158,7 +158,13 @@
             
          <div class="review-text-wrapper">
              
-               <div class="review-form" id="review">
+                
+             <div class="title">
+                    <h3>Customer Reviews</h3>
+                    <br>
+             </div>      
+             
+         <div class="review-form" id="review">
             <button type="submit" id="show">Leave Review</button>
             <div id ="rev-form">
             <form id="new-review" action="newReview.php" method="post">
@@ -174,10 +180,6 @@
             </form>
             </div>
         </div>
-                
-             <div class="title">
-                    <h3>Customer Reviews</h3>
-             </div>                
 
              <div class="job-page">  
                     <?php echo getReviews();?>

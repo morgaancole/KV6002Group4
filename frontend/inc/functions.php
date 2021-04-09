@@ -521,6 +521,8 @@ REVIEWS;
 return $reviewPage;
 }
 
+//Function that allows the user to submit a review to the database
+//@author - Rachel Johnson
 
 function newReview($name, $review){
     
