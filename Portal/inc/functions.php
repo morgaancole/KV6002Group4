@@ -152,7 +152,6 @@ function sanitizeInput($val) {
 
 
 function checkLoggedInStatus() {
-
     if(empty($_SESSION)) {
         header(("location: ../frontend/index.php"));
     }
