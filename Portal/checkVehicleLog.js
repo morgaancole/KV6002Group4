@@ -32,7 +32,7 @@ window.addEventListener("load", function () {
       newMonth = currentMonth;
     }
 
-    const regEx = /^[\w!?,. -]+$/;
+    const regEx = /^[\w!?,. \-/]+$/;
     const numRegEx = /^[0-9]+$/;
 
     
