@@ -18,7 +18,7 @@ function handleDetailsChange()
 
     $postcode = sanitizeInput($_POST['postcode']);
 
-    $conn = makeConnection();
+    $conn = getDatabase();
 
     $id = $_SESSION['id'];
 

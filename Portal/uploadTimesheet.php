@@ -51,7 +51,7 @@ function handleUpload()
     
 
 
-    $conn = makeConnection();
+    $conn = getDatabase();
     $stmt = $conn->prepare("INSERT INTO hd_timesheet_responses (timesheet_id, staff_id, Date, location, hours_worked, jobs_completed_desc, overtime_worked)
         VALUES( :tid ,:id, :date, :location, :hoursworked, :desc, :overTime)");
     $params = ["tid" => $timesheetID, "id" => $sanitizedId, "date" => $date, "location" => $sanitizedLocation, "hoursworked" => $sanitizedHours, "desc" => $sanitizedDesc, "overTime" => $sanitizedHoursOver];

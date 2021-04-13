@@ -40,7 +40,7 @@ function handleUpload()
     $issues = $_POST['issues'];
     $sanitizedIssues = sanitizeInput($issues);
 
-    $conn = makeConnection();
+    $conn = getDatabase();
     $stmt = $conn->prepare("INSERT INTO hd_vehicle_log_responses (staff_id, current_mileage, any_issues, response_date, vehicle_reg)
         VALUES (:id, :milage, :issues, :date, :reg) ");
     $params = ["id" => $sanitizedId, "milage" => $sanitizedMilage, "issues" => $sanitizedIssues, "date" => $date, "reg" => $sanitizedReg];

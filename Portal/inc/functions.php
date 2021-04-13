@@ -17,6 +17,8 @@ function getDatabase()
     return $dbConnection;
 }
 
+
+
 //function that gets a session from session array
 function getSession($key)
 {
@@ -138,10 +140,7 @@ $nav .= "\n";
 return $nav;
 }
 
-function makeConnection() {
-    $pdo = new PDO('sqlite: ../DB/hendersonDB.sqlite');
-    return $pdo;
-}
+
 
 function sanitizeInput($val) {
     $sanitiseVal = htmlspecialchars($val);

@@ -19,7 +19,7 @@ function handlePwdChange() {
 
     if(!empty($sanitizedPwd) && !empty($sanitizedPwdRepeat) && $sanitizedPwd == $sanitizedPwdRepeat) {
         $pwdHash = password_hash($sanitizedPwd, PASSWORD_DEFAULT);
-        $conn = makeConnection();
+        $conn = getDatabase();
         $id = $_SESSION['id'];
 
         $stmt = $conn->prepare("update hd_staff_users set staff_password = :newPwd where staff_id = " . $id);
