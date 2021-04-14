@@ -1,10 +1,7 @@
 <?php
- ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
- session_start(); 
- require_once("inc/functions.php");
-
-    require_once("inc/functions.php");
-
+require_once "inc/functions.php";
+ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
+session_start();
     //Checking if user is logged in & their admin level
     //Redirects user to staff dash if they are not admin
     if(checkLogin()){
@@ -16,22 +13,11 @@
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }
+    }echo makePageStart("Vehicle Logs");
+echo createPageBody();
+echo adminNav(); 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <title>Document</title>
-</head>
-<body>
-    <?php 
-        echo adminNav(); 
-    ?>
+
 
 <div class="main-content">
 
@@ -64,7 +50,7 @@
 			<tbody>
 				<?php
                 
-                $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
+                $myPDO  = getDatabase();
                 $query = $myPDO->query("SELECT *
                 FROM hd_vehicle_log_responses
                 order by log_id ");
@@ -89,5 +75,7 @@
         </main>
         
 </div>
-</body>
-</html>
+<?php 
+        echo createPageClose(); 
+?>
+    

@@ -1,16 +1,7 @@
 <?php
- ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
- session_start(); 
- require_once("inc/functions.php");
-
-//Session data path needs to change for demo
-
-/*
-*Page for admin users to view applications sent in from frontend
-*@author - Morgan Wheatman
-*/
-    require_once("inc/functions.php");
-
+require_once "inc/functions.php";
+ini_set("session.save_path", "/home/unn_w17005084/sessionData"); //location of session data file, 
+session_start();
     //Checking if user is logged in & their admin level
     //Redirects user to staff dash if they are not admin
     if(checkLogin()){
@@ -22,10 +13,9 @@
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }
-    echo makePageStart("Henderson Building Contractors"); 
-    echo  createPageBody();
-    echo adminNav(); 
+    }echo makePageStart("Vehicle Logs");
+echo createPageBody();
+echo adminNav(); 
 ?>
 
 
@@ -50,7 +40,7 @@ $staff_postcode = trim($staff_postcode);
 
 
         //Connects to database
-        $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
+        $myPDO  = getDatabase();
         //SQL update statement to update the content of the database with the changes the user just made
 		$query  = $myPDO->query("UPDATE hd_staff_users 
                     SET staff_first_name = '$staff_first_name', staff_last_name = '$staff_last_name',staff_email = '$staff_email',
