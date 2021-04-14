@@ -40,8 +40,11 @@ echo adminNav();
 echo "
     <form action='createEmployee.php' method='post' enctype='multipart/form-data'>
     
+    <div class='box-header with-border'>
+    <a href='viewEmployees.php'><i class='fa fa-plus'></i>Back</a>
+   </div>
 
-                <h2>Create New Employee</h2>
+                <h2>Create Employee</h2>
             
             
             <div class='inputsInner'>
@@ -194,11 +197,22 @@ while($row= $check_users->fetch(PDO::FETCH_ASSOC)){
 
 if($row['date_of_birth'] == $date_of_birth && $row['staff_last_name'] == $staff_last_name ){
     $duplicateUser = true; 
+    echo '<script type="text/javascript">',
+    'alert("Not created, duplicate user");',
+    '</script>'
+;
 }
 }
 if($duplicateUser == false){
     $query  = $myPDO->query("INSERT INTO hd_staff_users(staff_first_name,staff_last_name,staff_email,staff_password,staff_address,staff_postcode,pay_id,date_of_birth) VALUES('$staff_first_name','$staff_last_name','$staff_email','$staff_password','$staff_address','$staff_postcode','$pay_id','$date_of_birth')");
     
+
+    echo '<script type="text/javascript">',
+    'alert("Employee Created");',
+    '</script>'
+;
+
+
 
 }
 }
