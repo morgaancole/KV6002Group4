@@ -203,7 +203,7 @@ function adminNav(){
                 <li>
                     <a href="vehicleLogs.php">
                         <span class="ti-settings"></span>
-                        <span>View Vehichle Logs</span>
+                        <span>View Vehicle Logs</span>
                     </a>
                 </li>
                 <li>
