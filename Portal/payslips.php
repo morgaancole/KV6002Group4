@@ -32,12 +32,14 @@ echo createNav();
             <?php
 $id = $_SESSION['id'];
 $conn = getDatabase();
-$stmt = $conn->prepare("SELECT hd_staff_users.staff_first_name, hd_staff_users.staff_last_name, hd_staff_users.staff_email, hd_staff_users.staff_address, hd_staff_users.staff_postcode,
-hd_payslips.hours_worked, hd_payslips.salary, hd_payslips.overtime_worked, hd_payslips.pre_tax_income, hd_payslips.post_tax_income, hd_payslips.final_income, hd_payslips.deductables,
+$stmt = $conn->prepare("SELECT hd_payslips.hours_worked, hd_payslips.salary, hd_payslips.overtime_worked, hd_payslips.pre_tax_income, hd_payslips.post_tax_income, hd_payslips.final_income, hd_payslips.deductables,
+hd_payslip_process.process_id, hd_payslip_process.process_desc,
+hd_staff_users.staff_first_name, hd_staff_users.staff_last_name, hd_staff_users.staff_email, hd_staff_users.staff_address, hd_staff_users.staff_postcode,
 hd_timesheet_responses.Date, hd_timesheet_responses.location
-from hd_staff_users
- JOIN hd_payslips on (hd_staff_users.staff_id = hd_payslips.staff_id)
- JOIN hd_timesheet_responses on (hd_payslips.timesheet_id = hd_timesheet_responses.timesheet_id)
+FROM hd_payslips
+JOIN hd_payslip_process on (hd_payslips.process_id = hd_payslip_process.process_id)
+JOIN hd_staff_users on (hd_payslips.staff_id = hd_staff_users.staff_id)
+JOIN hd_timesheet_responses on (hd_payslips.timesheet_id = hd_timesheet_responses.timesheet_id)
 WHERE hd_staff_users.staff_id = " . $id );
 $params = [];
 
@@ -60,8 +62,9 @@ foreach ($result as $key => $value) {
     <div class="payslipElementOuter">
                     <p>Date: $value[Date]</p>
                    <p>Post tax: $value[post_tax_income]</p>
-                   <p>Deductions: $value[deductables]</p>
                    <p>Take home: $value[final_income]</p>
+                   <p>Status: $value[process_desc]</p>
+
 
                    <form action="./downloadPayslip.php" method="post"> 
                    <input type="hidden" id="first" name="first" value="$value[staff_first_name]">
