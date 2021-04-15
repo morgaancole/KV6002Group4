@@ -124,7 +124,6 @@ WHERE hd_staff_users.staff_id = " . $id);
                 $stmt->execute($params);
                 $result = $stmt->fetchall(PDO::FETCH_ASSOC);
 
-                // var_dump($result[0]['final_income']);
 
                 $labelArr = [];
                 $incomeArr = [];
