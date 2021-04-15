@@ -40,17 +40,19 @@ echo adminNav();
     <?php
 echo "
     <form action='createDeduction.php' method='post' enctype='multipart/form-data'>
-    
-                <h2>Create New Deduction</h2>
+    <div class='box-header with-border'>
+    <a href='deductions.php'><i class='fa fa-plus'></i>Back</a>
+   </div>
+                <h2>Create Deduction</h2>
            
             
                 <div class='inputsInner'>
                 <label for='deduction_name'>Deduction</label>
-                <input type='text' id='deduction_name'name='deduction_name' pattern='[A-Za-z]{20}' placeholder='Tax' required/>
+                <input type='text' id='deduction_name'name='deduction_name' pattern='[A-Za-z0-9]{1,20}' placeholder='Tax' required/>
                 </div>
                 <div class='inputsInner'>
                 <label for='deduction_amount'>Deduction Amount</label>
-                <input type='number' id='deduction_amount' name='deduction_amount' min='1' max='100' pattern='[0-9]+' placeholder='10.00' required/>
+                <input type='number' id='deduction_amount' name='deduction_amount' min='1' max='100' placeholder='10.00' required/>
                 </div>
                 <div class='inputsInner'>
                 <input type='submit' name='insert_deduction' value='Submit'>
@@ -76,14 +78,42 @@ $deduction_amount = $_POST['deduction_amount'];
 
 //Trimming inputs from user
 $deduction_name = trim($deduction_name);
-$deduction_amount =trim($deduction_amount);
+
+
+$check_deductions  = $myPDO->query("SELECT deduction_name
+FROM hd_deductions
+WHERE deduction_name ='$deduction_name'");
+
+$duplicateDeduction = false;
+
+while($row= $check_deductions->fetch(PDO::FETCH_ASSOC)){
+
+if($row['deduction_name'] == $deduction_name){
+    $duplicateDeduction = true; 
+    echo '<script type="text/javascript">',
+    'alert("Not created, duplicate deduction");',
+    '</script>'
+;
+}
+}
+if($duplicateDeduction == false){
+    $query  = $myPDO->query("INSERT INTO hd_deductions(deduction_name,deduction_amount) VALUES('$deduction_name','$deduction_amount')");
+    
+
+    echo '<script type="text/javascript">',
+    'alert("Deduction Created");',
+    '</script>'
+;
 
 
 
-$query  = $myPDO->query("INSERT INTO hd_deductions(deduction_name,deduction_amount) VALUES('$deduction_name','$deduction_amount')");
-       
-header("Location: deductions.php");
-die();
+}
+
+
+
+
+
+
 }
 
 ?>

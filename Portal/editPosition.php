@@ -53,12 +53,12 @@ echo "
 		<input type='text' name='pay_id' id='pay_id' value='$pay_id' readonly />
         </div>
         <div class='inputsInner'>
-        <label for='pay_desc'>Description*</label>
-		<input type='text' name='pay_desc' id='pay_desc' size='50' value='{$row['pay_desc']}' required/>
+        <label for='pay_desc'>Role</label>
+		<input type='text' name='pay_desc' id='pay_desc' size='50' value='{$row['pay_desc']}' readonly/>
         </div>
         <div class='inputsInner'>
         <label for='hourly_rate'>Hourly Rate*</label>
-        <input type='number' name='hourly_rate' id='hourly_rate' value='{$row['hourly_rate']}'   min="7.5" max="100" required/>
+        <input type='number' name='hourly_rate' id='hourly_rate' value='{$row['hourly_rate']}' min='1' max='100' required/>
         </div>
 
         <div class='inputsInner'>

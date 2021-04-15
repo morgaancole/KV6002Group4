@@ -88,36 +88,39 @@ echo adminNav();
                     </div>
                     <div class='inputsInner'>
                     <label for='siteLocation'>Site Location</label>
-                    <input type='text' name='location' id='siteLocation' value='{$row['location']}' placeholder='Site Location*' required/>
+                    <input type='text' name='location' id='siteLocation' pattern='[a-zA-Z0-9\s]+' value='{$row['location']}' placeholder='Site Location*' required/>
                     </div>
                     <div class='inputsInner'>
                     <label for='hoursWorked'>Regular hours worked at location</label>
-                    <input type='text' name='hours' id='hoursWorked' value='{$row['hours_worked']}' placeholder='Regular hours*' maxlength='2' required/>
+                    <input type='number' name='hours' id='hoursWorked' value='{$row['hours_worked']}' placeholder='Regular hours*' min='1' max='8' maxlength='2' required/>
                     </div>
                     <div class='inputsInner'>
                     <label for='hoursWorkedOvertime'>Overtime hours worked at location</label>
-                    <input type='text' name='hoursOvertime' id='hoursWorkedOvertime' value='{$row['overtime_worked']}' placeholder='Overtime hours' maxlength='2'/>
+                    <input type='number' name='hoursOvertime' id='hoursWorkedOvertime' value='{$row['overtime_worked']}' min='1' max='8' placeholder='Overtime hours' maxlength='2'/>
                     </div>
                     <div class='inputsInner'>
                     <label for='desc'>Description of jobs completed</label>
-                    <textarea name='desc' id='desc' placeholder='Please insert details of jobs completed here...*'  required>{$row['jobs_completed_desc']}</textarea>
-                    </div>";
+                    <textarea name='desc' id='desc' placeholder='Please insert details of jobs completed here...*' pattern='[A-Za-z0-9\s]+ {1,440}' required>{$row['jobs_completed_desc']}</textarea>
+                    </div>
         
-                    $role = $myPDO->query("SELECT process_id, process_desc from hd_payslip_process ORDER BY process_desc");
+                    <div class='inputsInner'>";
+
+                    $process = $myPDO->query("SELECT process_id, process_desc from hd_payslip_process ORDER BY process_desc");
         
     
                       echo "<select name='process_id'>";
-                      while ($roleRecord = $role->fetch(PDO::FETCH_ASSOC)) {
+                      while ($processRecord = $process->fetch(PDO::FETCH_ASSOC)) {
                           
-                          if ($process_id == $roleRecord['process_id'] ) {
-                              echo "<option value='{$roleRecord['process_id']}' selected>
-                              {$roleRecord['process_desc']}</option>";
+                          if ($process_id == $processRecord['process_id'] ) {
+                              echo "<option value='{$processRecord['process_id']}' selected>
+                              {$processRecord['process_desc']}</option>";
                           }
                           else { 
-                              echo "<option value='{$roleRecord['process_id']}'>{$roleRecord['process_desc']}</option>";
+                              echo "<option value='{$processRecord['process_id']}'>{$processRecord['process_desc']}</option>";
                           }
                           }
-                      echo "</select> <br>";
+                      echo "          </div>
+                      </select> <br>";
 
 
 

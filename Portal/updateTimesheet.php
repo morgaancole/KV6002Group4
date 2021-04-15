@@ -73,11 +73,11 @@ if($query && $query2 &&  $query3) {
 
     $success = <<<UPLOADED
 
-    <div class="success_outer">
-    <div class="success_inner">
-    <img class="success_img" src="img/success.png" alt="success tick">
-        <p>Payslip Updated</p>
-        <a href="payroll.php"><button>Back to Payroll</a></button>
+    <div class="upload_outer">
+    <div class="upload_inner">
+    <img class="upload_img" src="img/success.png" alt="success tick">
+        <p>Timesheet successfully updated</p>
+        <a href="payroll.php"><button>Payroll</button></a>
         </div>
     </div>
 

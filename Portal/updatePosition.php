@@ -26,23 +26,18 @@ $hourly_rate = filter_has_var(INPUT_GET, 'hourly_rate') ? $_GET['hourly_rate'] :
 
 
 
-$errors = false;
-
-//Variables are trimmed to get rid of white space at the start or the end
-$pay_desc = trim($pay_desc);
-$hourly_rate = trim($hourly_rate);
-
-
         //Connects to database
         $myPDO  = getDatabase(); 
         //SQL update statement to update the content of the database with the changes the user just made
 		$query  = $myPDO->query("UPDATE hd_pay_categories 
                     SET pay_desc = '$pay_desc', hourly_rate = '$hourly_rate'
                     WHERE pay_id = '$pay_id'");
-        
-        header("Location:position.php");
-        die();
 
+header("Location:position.php");
+
+die();
+        
 ?>
-</body>
-</html>
+<?php 
+        echo createPageClose(); 
+?>

@@ -54,12 +54,12 @@ echo "
         <input type='text' id='deduction_id' name='deduction_id' value='$deduction_id' readonly />
         </div>
         <div class='inputsInner'>
-        <label for='deduction_name'>Deduction Name*</label>
-        <input type='text' name='deduction_name' id='deduction_name' size='50' value='{$row['deduction_name']}' required/>
+        <label for='deduction_name'>Deduction Name</label>
+        <input type='text' name='deduction_name' id='deduction_name' size='50' value='{$row['deduction_name']}' readonly/>
         </div>
         <div class='inputsInner'>    
         <label for='deduction_amount'>Deduction Amount*</label>
-        <input type='number' name='deduction_amount' id ='deduction_amount'value='{$row['deduction_amount']}'  min="10" max="100" required/>
+        <input type='number' name='deduction_amount' id ='deduction_amount'value='{$row['deduction_amount']}'  min='1' max='100' required/>
         </div>
 
         <div class='inputsInner'>
