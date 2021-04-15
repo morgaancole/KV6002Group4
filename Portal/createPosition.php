@@ -39,18 +39,20 @@ echo adminNav();
    <?php
 echo"
     <form action='createPosition.php' method='post' enctype='multipart/form-data'>
-    
+    <div class='box-header with-border'>
+    <a href='position.php'><i class='fa fa-plus'></i>Back</a>
+   </div>
             
-            <h2>Create New Position</h2>
+            <h2>New Position</h2>
             
             
             <div class='inputsInner'>
             <label for='pay_desc'>Position Name</label>
-            <input type='text' id='pay_desc' name='pay_desc'pattern='[A-Za-z]{20}' placeholder='Plumber' required/>
+            <input type='text' id='pay_desc' name='pay_desc'pattern='[A-Za-z]{1,20}' placeholder='Plumber' required/>
             </div>
             <div class='inputsInner'>
             <label for='hourly_rate'>Hourly Rate</label>
-            <input type='number' id='hourly_rate'name='hourly_rate' min='7.5' max='100' pattern='^\d{1,2}.\d{2}$' placeholder='12.50' required/>
+            <input type='number' id='hourly_rate'name='hourly_rate' min='1' max='100' placeholder='10.00' required/>
             </div>
 
             <div class='inputsInner'>
@@ -78,13 +80,43 @@ $hourly_rate = $_POST['hourly_rate'];
 
 //Validate inputs
 $pay_desc = trim($pay_desc);
-$hourly_rate = trim($name);
 
 
-$query  = $myPDO->query("INSERT INTO hd_pay_categories(pay_desc,hourly_rate) VALUES('$pay_desc','$hourly_rate')");
        
-header("Location: position.php");
-die();
+$check_positions  = $myPDO->query("SELECT pay_desc
+FROM hd_pay_categories
+WHERE pay_desc ='$pay_desc'");
+
+$duplicatePosition = false;
+
+while($row= $check_positions->fetch(PDO::FETCH_ASSOC)){
+
+if($row['pay_desc'] == $pay_desc){
+    $duplicatePosition = true; 
+    echo '<script type="text/javascript">',
+    'alert("Not created, duplicate position");',
+    '</script>'
+;
+}
+}
+if($duplicatePosition == false){
+    $query  = $myPDO->query("INSERT INTO hd_pay_categories(pay_desc,hourly_rate) VALUES('$pay_desc','$hourly_rate')");
+    
+    echo '<script type="text/javascript">',
+    'alert("Position Created");',
+    '</script>'
+;
+
+
+
+}
+
+
+
+
+
+
+
 }
 
 ?>

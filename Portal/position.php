@@ -39,11 +39,11 @@ echo adminNav();
               <a href="createPosition.php"><i class="fa fa-plus"></i>Create New Position</a>
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered">
+              <table id="example1" class="responsive-table">
                 <thead>
                   <th>Position Title</th>
                   <th>Rate per Hour</th>
-                  <th>Tools</th>
+                  <th>Action</th>
                 </thead>
                 <tbody>
                   <?php
@@ -54,11 +54,13 @@ echo adminNav();
 
                       echo "
                         <tr>
-                          <td>".$row['pay_desc']."</td>
-                          <td>".number_format($row['hourly_rate'], 2)."</td>
+                          <td data-label='Position Title'>".$row['pay_desc']."</td>
+                          <td data-label='Rate per Hour'>".number_format($row['hourly_rate'], 2)."</td>
                         
-                          <td><a href='editPosition.php?payID={$row['pay_id']}'>Edit</a</td>
-                          <td><a href='deletePosition.php?payID={$row['pay_id']}'>Delete</a</td>
+                          <td data-label='Action'><a href='editPosition.php?payID={$row['pay_id']}'>Edit</a>
+                          <br>
+                          <a href='deletePosition.php?payID={$row['pay_id']}'>Delete</a>
+                          </td>
 
                         </tr>
 
