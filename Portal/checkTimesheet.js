@@ -13,6 +13,7 @@ window.addEventListener("load", function () {
     let desc = document.getElementById("desc");
 
     const currentYear = new Date().getFullYear().toString().substr(-2);
+    
     let currentMonth = new Date().getMonth() + 1;
     currentMonth = currentMonth.toString();
     
