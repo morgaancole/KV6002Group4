@@ -57,7 +57,7 @@ $form = <<<SETTINGS
                     <input type="text" name="email" id="email" placeholder="$details[staff_email]" />
                 </div>
                 <div class="inputsSettings">
-                    <Label for="address">Adress line 1</Label>
+                    <Label for="address">Address line 1</Label>
                     <input type="text" name="address" id="address" placeholder="$details[staff_address]" />
                 </div>
                 <div class="inputsSettings">
