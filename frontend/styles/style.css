@@ -883,14 +883,14 @@ fieldset {
 }
 
 .wrapper .date{
-    color: #ADADAD;
+    color: #181237;
 }
 
 .wrapper .center-line{
   position: absolute;
   height: 100%;
   width: 4px;
-  background: #fff;
+  background: #ADADAD;
   left: 50%;
   top: 20px;
   transform: translateX(-50%);
@@ -905,7 +905,7 @@ fieldset {
   justify-content: flex-end;
 }
 .wrapper .row section{
-  background: #fff;
+  background: #ADADAD;
   border-radius: 5px;
   width: calc(50% - 40px);
   padding: 20px;
@@ -930,7 +930,7 @@ fieldset {
 .row section .icon,
 .center-line .scroll-icon{
   position: absolute;
-  background: #f2f2f2;
+  background: #ADADAD;
   height: 40px;
   width: 40px;
   text-align: center;
