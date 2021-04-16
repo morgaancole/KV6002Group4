@@ -24,9 +24,6 @@ echo adminNav();
 
 $deduction_id = filter_has_var(INPUT_GET, 'deductionID') ? $_GET['deductionID'] : null; 
 
-$errors = false;
-
-
         //Connects to database
         $myPDO  = getDatabase();
 		$query  = $myPDO->query("DELETE  

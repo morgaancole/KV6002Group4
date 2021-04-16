@@ -37,7 +37,6 @@ echo adminNav();
         <main>
         <?php
         
-        /**Form can be editted and submitted*/
         $staff_id = filter_has_var(INPUT_GET, 'staffID') ? $_GET['staffID'] : null; 
         $pay_id = filter_has_var(INPUT_GET, 'payID') ? $_GET['payID'] : null; 
 
@@ -48,6 +47,7 @@ echo adminNav();
 
         $result = $query->execute();
 
+        //Checks if there is an error returning data
         if($result){
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
             

@@ -22,8 +22,6 @@ echo adminNav();
 
 <?php
 /**Removes selected employee from the database */
-
-
 $staff_id = filter_has_var(INPUT_GET, 'staffID') ? $_GET['staffID'] : null; 
 
         //Connects to database

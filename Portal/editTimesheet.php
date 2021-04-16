@@ -58,6 +58,7 @@ echo adminNav();
         
         $result = $query->execute();
 
+        //Checks if there is an error returning data
         if($result){
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
 
