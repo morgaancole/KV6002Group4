@@ -56,17 +56,17 @@ echo "
             
             <div class='inputsInner'>
             <label for='staff_first_name'>Staff first name *</label>
-            <input type='text' id='staff_first_name' name='staff_first_name' pattern='[A-Za-z]{0,20}' placeholder='John' required/>
+            <input type='text' id='staff_first_name' name='staff_first_name' maxlength='30' pattern='[A-Za-z]{0,20}' placeholder='John' required/>
             </div>
 
             <div class='inputsInner'>
             <label for='staff_last_name'>Staff last name *</label>
-            <input type='text' id='staff_last_name'name='staff_last_name' pattern='[A-Za-z]{0,20}' placeholder='Smith' required/>
+            <input type='text' id='staff_last_name'name='staff_last_name' maxlength='30' pattern='[A-Za-z]{0,20}' placeholder='Smith' required/>
             </div>
 
             <div class='inputsInner'>
             <label for='staff_email'>Staff Email *</label>
-            <input type='email' id='staff_email' name='staff_email'  pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' placeholder='johnsmith@.gmailcom' required/>
+            <input type='email' id='staff_email' name='staff_email'  maxlength='40' pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' placeholder='johnsmith@.gmailcom' required/>
             </div>
 
             <div class='inputsInner'>
@@ -76,7 +76,7 @@ echo "
 
             <div class='inputsInner'>
             <label for='staff_password'>Staff Password: * (at least 1 uppercase, lowercase, number and symbol. Between 8-12 characters)</label>
-            <input type='text' id='staff_password' name='staff_password' pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$' value="; $my_passwords = randomPassword(10,1,"lower_case,upper_case,numbers,special_symbols");
+            <input type='text' id='staff_password' name='staff_password' pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$' maxlength='12' value="; $my_passwords = randomPassword(10,1,"lower_case,upper_case,numbers,special_symbols");
            
             foreach($my_passwords as $value){
                 //Print random password in the input field
@@ -86,12 +86,12 @@ echo "
             
             <div class='inputsInner'>
             <label for='staff_address'>Staff Address *</label>
-            <td><input type='text' id='staff_address'name='staff_address' pattern='[A-Za-z0-9'\.\-\s\,]' placeholder='12 Eskdale Road' required/></td>
+            <td><input type='text' id='staff_address'name='staff_address' maxlength='40' pattern='[A-Za-z0-9'\.\-\s\,]' placeholder='12 Eskdale Road' required/></td>
             </div>
 
             <div class='inputsInner'>
             <label for='staff_postcode'>Staff postcode *</label>
-                <td><input type='text' id='staff_postcode' name='staff_postcode' pattern='^(([A-Z][0-9]{1,2})|(([A-Z][A-HJ-Y][0-9]{1,2})|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2}$' placeholder='CA1 1JB' required/></td>
+                <td><input type='text' id='staff_postcode' name='staff_postcode' maxlength='20' pattern='^(([A-Z][0-9]{1,2})|(([A-Z][A-HJ-Y][0-9]{1,2})|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2}$' placeholder='CA1 1JB' required/></td>
             </div>
 
             <div class='inputsInner'>

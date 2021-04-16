@@ -74,7 +74,7 @@ echo "
         </div>
         <div class='inputsInner'>
         <label for='staff_email'>Staff Email</label>
-        <input type='text' name='staff_email' id='staff_email'pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$' placeholder='johnsmith@.gmail.com' value='{$row['staff_email']}' required/>
+        <input type='text' name='staff_email' id='staff_email'pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'maxlength='40' placeholder='johnsmith@.gmail.com' value='{$row['staff_email']}' required/>
         </div>
         <div class='inputsInner'>
         <label for='staff_address'>Staff Address</label>
@@ -82,7 +82,7 @@ echo "
         </div>
         <div class='inputsInner'>
         <label for='staff_postcode'>Staff Postcode</label>
-        <input type='text' name='staff_postcode' id='staff_postcode'  pattern='^(([A-Z][0-9]{1,2})|(([A-Z][A-HJ-Y][0-9]{1,2})|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2}$' placeholder='CA1 1JB' value='{$row['staff_postcode']}' required/>
+        <input type='text' name='staff_postcode' id='staff_postcode'  maxlength='20' pattern='^(([A-Z][0-9]{1,2})|(([A-Z][A-HJ-Y][0-9]{1,2})|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2}$' placeholder='CA1 1JB' value='{$row['staff_postcode']}' required/>
         </div>   
             ";
 
