@@ -77,7 +77,6 @@ UPLOADED;
     echo $success;
     echo createPageClose();
 
-
 ;
 }
 }
