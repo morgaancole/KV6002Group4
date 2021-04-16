@@ -199,7 +199,12 @@ $check_users  = $myPDO->query("SELECT date_of_birth,staff_last_name
 FROM hd_staff_users
 WHERE staff_last_name ='$staff_last_name'");
 
+/**Duplicate email check*/
+$check_email  = $myPDO->query("SELECT staff_email
+FROM hd_staff_users");
+
 $duplicateUser = false;
+$duplicateEmail = false;
 
 while($row= $check_users->fetch(PDO::FETCH_ASSOC)){
 
@@ -208,12 +213,25 @@ if($row['date_of_birth'] == $date_of_birth && $row['staff_last_name'] == $staff_
     $duplicateUser = true; 
     //On screen pop up
     echo '<script type="text/javascript">',
-    'alert("Not created, duplicate user");',
+    'alert("Not created, duplicate user date of birth");',
     '</script>'
 ;
 }
 }
-if($duplicateUser == false){
+while($row= $check_email->fetch(PDO::FETCH_ASSOC)){
+//Checks for users with the same email
+if($row['staff_email'] == $staff_email){
+    $duplicateEmail = true; 
+    //On screen pop up
+    echo '<script type="text/javascript">',
+    'alert("Not created, duplicate user email");',
+    '</script>'
+;
+}
+
+}
+
+if($duplicateUser == false && $duplicateEmail == false){
 
     //User inserted into databse
     $query  = $myPDO->query("INSERT INTO hd_staff_users(staff_first_name,staff_last_name,staff_email,staff_password,staff_address,staff_postcode,pay_id,date_of_birth) VALUES('$staff_first_name','$staff_last_name','$staff_email','$staff_password','$staff_address','$staff_postcode','$pay_id','$date_of_birth')");
@@ -222,9 +240,6 @@ if($duplicateUser == false){
     'alert("Employee Created");',
     '</script>'
 ;
-
-
-
 }
 }
 

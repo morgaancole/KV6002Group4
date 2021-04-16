@@ -39,11 +39,17 @@ $staff_postcode = sanitizeInput($staff_postcode);
 /**Duplicate user check */
 $myPDO  = getDatabase();
 
-$check_users  = $myPDO->query("SELECT date_of_birth,staff_last_name
+$check_users  = $myPDO->query("SELECT date_of_birth,staff_last_name,staff_id
 FROM hd_staff_users
-WHERE staff_last_name ='$staff_last_name'");
+WHERE staff_last_name ='$staff_last_name' and NOT staff_id = '$staff_id'");
+
+/**Duplicate email check*/
+$check_email  = $myPDO->query("SELECT staff_email,staff_id
+FROM hd_staff_users
+WHERE NOT staff_id = '$staff_id'");
 
 $duplicateUser = false;
+$duplicateEmail = false;
 
 while($row= $check_users->fetch(PDO::FETCH_ASSOC)){
 $date_of_birth = $row['date_of_birth'];
@@ -75,7 +81,37 @@ UPLOADED;
 ;
 }
 }
-if($duplicateUser == false){
+
+while($row= $check_email->fetch(PDO::FETCH_ASSOC)){
+    if($row['staff_email'] == $staff_email){
+        $duplicateEmail = true;
+
+    require_once "inc/functions.php";
+    echo makePageStart("Employees");
+    echo createPageBody();
+
+    $success = <<<UPLOADED
+
+    <div class="upload_outer">
+    <div class="upload_inner">
+    <img class="upload_img" src="img/failure.png" alt="failure tick">
+        <p>Sorry, can't update email. User already exists with same email</p>
+        <a href="viewEmployees.php"><button>Back</a></button>
+        </div>
+    </div>
+
+UPLOADED;
+    $success .= "\n";
+    echo $success;
+    echo createPageClose();
+
+
+;
+    }
+    }
+
+
+if($duplicateUser == false && $duplicateEmail == false){
 
         //Connects to database
         $myPDO  = getDatabase();
@@ -84,10 +120,25 @@ if($duplicateUser == false){
                     SET staff_first_name = '$staff_first_name', staff_last_name = '$staff_last_name',staff_email = '$staff_email', staff_address = '$staff_address',staff_postcode = '$staff_postcode',pay_id ='$pay_id'
                     WHERE staff_id = '$staff_id'");
         //redirect to employee page
-        header("Location: viewEmployees.php");
-        die();
-;
 
+        require_once "inc/functions.php";
+        echo makePageStart("Timesheet");
+        echo createPageBody();
+    
+        $success = <<<UPLOADED
+    
+        <div class="upload_outer">
+        <div class="upload_inner">
+        <img class="upload_img" src="img/success.png" alt="success tick">
+            <p>User successfully updated</p>
+            <a href="viewEmployees.php"><button>Employee list</button></a>
+            </div>
+        </div>
+    
+UPLOADED;
+        $success .= "\n";
+        echo $success;
+        echo createPageClose();
 }
 
 
