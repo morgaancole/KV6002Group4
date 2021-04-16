@@ -13,10 +13,11 @@ session_start();
   }else{//Redirecting user if they're not logged in
       header('Location: ../frontend/loginForm.php');
 
-  }echo makePageStart("Vehicle Logs");
+  }echo makePageStart("Payroll");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
 
 <div class="main-content">
@@ -35,7 +36,7 @@ echo adminNav();
     </header>
     <main>
     
-              <table id="example1" class="table table-bordered">
+              <table class="responsive-table">
                 <thead>
                   <th>Employee Name</th>
                   <th>Employee ID</th>
@@ -51,6 +52,8 @@ echo adminNav();
                 </thead>
                 <tbody>
                 <?php
+
+/**Displays all payslips including status*/
  $myPDO  = getDatabase();
  $query = $myPDO->query("SELECT * 
  FROM hd_payslips
@@ -60,7 +63,9 @@ echo adminNav();
 
  while($row= $query->fetch(PDO::FETCH_ASSOC)){
 
+    /**Calculates the wage after deductions and tax*/
 
+    
     $hourlyRate = $row['hourly_rate'];
     $hourlyRateOvertime = $row['hourly_rate'] * 2;
 
@@ -72,44 +77,39 @@ echo adminNav();
     $postTax = $preTax * 0.80;
 
     $final = $postTax - $row['deductables'];
+    /**Displays all details about selected deduction */
+    /**Options to edit, delete or print timesheet*/
 
-    
+     echo "
+     <tr>
+     <td data-label='Employee Name'>".$row['staff_first_name']. " ".$row['staff_last_name']."</td>
+     <td data-label='Employee ID'>".$row['staff_id']."</td>
+     <td data-label='Hours'>".$row['hours_worked']."</td>
+     
+     <td data-label='Salary'>". $salaryReg."</td>
+     <td data-label='Overtime'>".$row['overtime_worked']."</td>
+     
+     <td data-label='Pre tax'>".$preTax."</td>
+     <td data-label='Post tax'>".$postTax."</td>
+     
+     <td data-label='Deductions'>".$row['deductables']."</td>
+     <td data-label='Total Pay'>".$final."</td>
+     
+     <td data-label='Status'>".$row['process_desc']."</td>
 
-                      echo "
-                        <tr>
-                          <td>".$row['staff_first_name']. " ".$row['staff_last_name']."</td>
-                          <td>".$row['staff_id']."</td>
-                          <td>".$row['hours_worked']."</td>
-
-                          <td>". $salaryReg."</td>
-                          <td>".$row['overtime_worked']."</td>
-
-                          <td>".$preTax."</td>
-                          <td>".$postTax."</td>
-
-                          <td>".$row['deductables']."</td>
-                          <td>".$final."</td>
-
-                          <td>".$row['process_desc']."</td>
-
-
-
-                         <td><a href='editTimesheet.php?timesheetID={$row['timesheet_id']}&processID={$row['process_id']}&payslipID={$row['payslip_id']}'>Edit</a</td>
-
-
-                         <td><a href='deleteTimesheet.php?timesheetID={$row['timesheet_id']}'>Delete</a</td>
-
-                         <td><a href='print.php?timesheetID={$row['timesheet_id']}'>Print</a</td>
-
-                         </tr>
-                      ";
-                    }
-
-                  ?>
-
-                </tbody>
-              </table>
-    </main>
+     
+    <td data-label='Action'><a href='editTimesheet.php?timesheetID={$row['timesheet_id']}&processID={$row['process_id']}&payslipID={$row['payslip_id']}'>Edit</a>
+    <br>
+    <a href='deleteTimesheet.php?timesheetID={$row['timesheet_id']}'>Delete</a>
+    <br>
+    <a href='print.php?timesheetID={$row['timesheet_id']}'>Print</a>
+    </td>
+    </tr>";
+  }
+?>
+</tbody>
+</table>
+</main>
 </div>
 <?php 
         echo createPageClose(); 

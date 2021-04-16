@@ -28,7 +28,8 @@
     echo adminNav(); 
 ?>
 
-
+<!-- Admim Dashboard 
+@author - Nicholas Coyles-->
     <div class="main-content">
 
         <header>
@@ -46,7 +47,8 @@
 
         <main>
             <h2 class="dash-title">Admin Dashboard</h2>
-
+            
+            <!--Links to parts of the portal-->
             <div class="dash-cards">
                 <div class="card-single">
                     <div class="card-body">
@@ -56,7 +58,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="">View all</a>
+                        <a href="viewEmployees.php">View all</a>
                     </div>
                 </div>
 
@@ -68,7 +70,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="">View all</a>
+                        <a href="vehicleLogs.php">View all</a>
                     </div>
                 </div>
 
@@ -76,72 +78,51 @@
                     <div class="card-body">
                         <span class="ti-briefcase"></span>
                         <div>
-                            <h5>View Timesheets</h5>
+                            <h5>View Payroll</h5>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="">View all</a>
+                        <a href="payroll.php">View all</a>
                     </div>
                 </div>
 
 
             </div>
-
-
+            <!--Data from the database to be displayed on the dashboard-->
             <section class="recent">
                 <div class="activity-grid">
-                    <div class="activity-card">
-                        <h3>Recent Activity</h3>
-
-                        <div class="table-responsive">
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Action</th>
-                                        <th>Date</th>
-                                        <th>User</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Vehicle log updated</td>
-                                        <td>8 March, 2020</td>
-                                        <td>Nicholas</td>
-                                        <td>
-                                            <span class="badge success">Success</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-
-                    <div class="summary">
+                   <div class="summary">
                         <div class="summary-card">
                             <div class="summary-single">
                                 <span class="ti-id-badge"></span>
                                 <div>
-                                    <h5>  <?php $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
+                                <!--Total amount of employees -->
+                                    <h5>  <?php $myPDO  = getDatabase();  
                                     $query  = $myPDO->query("SELECT count(*)
                                     FROM hd_staff_users");
-   while($row = $query->fetch(PDO::FETCH_ASSOC)){ 
-
-    
-                                    echo $row['count(*)'];
-   }
+                                    while($row = $query->fetch(PDO::FETCH_ASSOC)){
+                                        echo $row['count(*)'];
+                                    }
                                     ?>
                                     </h5>
 
-                                    <small>Number of staff</small>
+                                    <small>Number of Employees</small>
                                 </div>
                                 </div>
                                 <div class="summary-single">
                                     <span class="ti-calendar"></span>
                                     <div>
-                                        <h5>16</h5>
+                                        <h5>
+                                        <!--Total number of timesheets submitted-->
+                                        <?php $myPDO  = getDatabase();  
+                                    $query  = $myPDO->query("SELECT count(*)
+                                    FROM hd_timesheet_responses");
+                                    while($row = $query->fetch(PDO::FETCH_ASSOC)){ 
+                                        echo $row['count(*)'];
+                                    }
+                                    ?>
+                                        
+                                        </h5>
                                         <small>Number of timesheets</small>
                                     </div>
                                 </div>
@@ -149,7 +130,17 @@
                                 <div class="summary-single">
                                     <span class="ti-calendar"></span>
                                     <div>
-                                        <h5>12</h5>
+                                        <h5>
+                                        <!--Total number of vehicle logs submitted-->
+
+                                        <?php $myPDO  = getDatabase();  
+                                    $query  = $myPDO->query("SELECT count(*)
+                                    FROM hd_vehicle_log_responses");
+                                    while($row = $query->fetch(PDO::FETCH_ASSOC)){ 
+                                        echo $row['count(*)'];
+                                    }
+                                    ?>
+                                        </h5>
                                         <small>Number of vehicle logs</small>
                                     </div>
                                 </div>
@@ -157,9 +148,6 @@
                         </div>
                     </div>
             </section>
-
-
-
         </main>
     </div>
     <?php 

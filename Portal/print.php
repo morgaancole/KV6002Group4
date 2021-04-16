@@ -1,5 +1,9 @@
 <?php
-        $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
+    /**@author Nicholas Coyles Print payslip*/
+    /**Creates a printalbe PDF with the payslip on*/
+
+       
+       $myPDO  = new PDO('sqlite:../DB/hendersonDB.sqlite');  
 
 	function generateRow($myPDO){
 		$contents = '';

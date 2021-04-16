@@ -13,10 +13,11 @@ session_start();
   }else{//Redirecting user if they're not logged in
       header('Location: ../frontend/loginForm.php');
 
-  }echo makePageStart("Vehicle Logs");
+  }echo makePageStart("Roles");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
 <div class="main-content">
 
@@ -39,7 +40,7 @@ echo adminNav();
               <a href="createPosition.php"><i class="fa fa-plus"></i>Create New Position</a>
             </div>
             <div class="box-body">
-              <table id="example1" class="responsive-table">
+              <table class="responsive-table">
                 <thead>
                   <th>Position Title</th>
                   <th>Rate per Hour</th>

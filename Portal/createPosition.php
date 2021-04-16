@@ -13,11 +13,12 @@ session_start();
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }echo makePageStart("Vehicle Logs");
+    }echo makePageStart("Create Position");
 echo createPageBody();
 echo adminNav(); 
 ?>
 
+<!--@author Nicholas Coyles -->
 
 
 <div class="main-content">
@@ -48,11 +49,11 @@ echo"
             
             <div class='inputsInner'>
             <label for='pay_desc'>Position Name</label>
-            <input type='text' id='pay_desc' name='pay_desc'pattern='[A-Za-z]{1,20}' placeholder='Plumber' required/>
+            <input type='text' id='pay_desc' name='pay_desc'pattern='[A-Za-z]{1,20}' placeholder='Plumber' maxlength='30' required/>
             </div>
             <div class='inputsInner'>
             <label for='hourly_rate'>Hourly Rate</label>
-            <input type='number' id='hourly_rate'name='hourly_rate' min='1' max='100' placeholder='10.00' required/>
+            <input type='number' id='hourly_rate'name='hourly_rate' min='7' max='100' placeholder='10.00' required/>
             </div>
 
             <div class='inputsInner'>
@@ -79,10 +80,10 @@ $pay_desc = $_POST['pay_desc'];
 $hourly_rate = $_POST['hourly_rate'];
 
 //Validate inputs
-$pay_desc = trim($pay_desc);
+$pay_desc = sanitizeInput($pay_desc);
 
 
-       
+/**Duplicate position check */
 $check_positions  = $myPDO->query("SELECT pay_desc
 FROM hd_pay_categories
 WHERE pay_desc ='$pay_desc'");

@@ -13,42 +13,83 @@ session_start();
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }echo makePageStart("Vehicle Logs");
+    }echo makePageStart("");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
 
 <?php
-//using the $_GET the correct values from the selected event can be accessed and they are stored with variables
 $staff_id = filter_has_var(INPUT_GET, 'staff_id') ? $_GET['staff_id'] : null;
 $staff_first_name = filter_has_var(INPUT_GET, 'staff_first_name') ? $_GET['staff_first_name'] : null; 
 $staff_last_name = filter_has_var(INPUT_GET, 'staff_last_name') ? $_GET['staff_last_name'] : null;
 $staff_email = filter_has_var(INPUT_GET, 'staff_email') ? $_GET['staff_email'] : null;
-$staff_password  = filter_has_var(INPUT_GET, 'staff_password') ? $_GET['staff_password'] : null;
 $staff_address = filter_has_var(INPUT_GET, 'staff_address') ? $_GET['staff_address'] : null;
 $staff_postcode = filter_has_var(INPUT_GET, 'staff_postcode') ? $_GET['staff_postcode'] : null;
 $pay_id = filter_has_var(INPUT_GET, 'pay_id') ? $_GET['pay_id'] : null;
 
-//validate inputs
-$staff_first_name = trim($staff_first_name);
-$staff_last_name = trim($staff_last_name);
-$staff_email = trim($staff_email);
-$staff_password = password_hash($staff_password);
-$staff_address = trim($staff_address);
-$staff_postcode = trim($staff_postcode);
+//Variables are sanitizes
+$staff_first_name = sanitizeInput($staff_first_name);
+$staff_last_name = sanitizeInput($staff_last_name);
+$staff_email = sanitizeInput($staff_email);
+$staff_address = sanitizeInput($staff_address);
+$staff_postcode = sanitizeInput($staff_postcode);
 
+/**Duplicate user check */
+$myPDO  = getDatabase();
+
+$check_users  = $myPDO->query("SELECT date_of_birth,staff_last_name
+FROM hd_staff_users
+WHERE staff_last_name ='$staff_last_name'");
+
+$duplicateUser = false;
+
+while($row= $check_users->fetch(PDO::FETCH_ASSOC)){
+$date_of_birth = $row['date_of_birth'];
+
+//Checks for users with the same last name and date of birth
+if($row['date_of_birth'] == $date_of_birth && $row['staff_last_name'] == $staff_last_name ){
+    $duplicateUser = true; 
+
+    require_once "inc/functions.php";
+    echo makePageStart("Employees");
+    echo createPageBody();
+
+    $success = <<<UPLOADED
+
+    <div class="upload_outer">
+    <div class="upload_inner">
+    <img class="upload_img" src="img/failure.png" alt="failure tick">
+        <p>Sorry, can't change name. User already exists with same last name and date of birth</p>
+        <a href="viewEmployees.php"><button>Back</a></button>
+        </div>
+    </div>
+
+UPLOADED;
+    $success .= "\n";
+    echo $success;
+    echo createPageClose();
+
+
+;
+}
+}
+if($duplicateUser == false){
 
         //Connects to database
         $myPDO  = getDatabase();
-        //SQL update statement to update the content of the database with the changes the user just made
+        //employee updated
 		$query  = $myPDO->query("UPDATE hd_staff_users 
-                    SET staff_first_name = '$staff_first_name', staff_last_name = '$staff_last_name',staff_email = '$staff_email',
-                    staff_password = '$staff_password', staff_address = '$staff_address',staff_postcode = '$staff_postcode',pay_id ='$pay_id'
+                    SET staff_first_name = '$staff_first_name', staff_last_name = '$staff_last_name',staff_email = '$staff_email', staff_address = '$staff_address',staff_postcode = '$staff_postcode',pay_id ='$pay_id'
                     WHERE staff_id = '$staff_id'");
-        
+        //redirect to employee page
         header("Location: viewEmployees.php");
         die();
+;
+
+}
+
 
 ?>
 </body>

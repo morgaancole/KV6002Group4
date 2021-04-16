@@ -17,25 +17,31 @@ session_start();
 echo createPageBody();
 echo adminNav(); 
 ?>
-
 <!--@author Nicholas Coyles -->
 
 <?php
-/**Removes selected employee from the database */
+
+/**Hashes new password and puts it into the database*/
+
+$staff_id = filter_has_var(INPUT_GET, 'staff_id') ? $_GET['staff_id'] : null;
+$staff_password = filter_has_var(INPUT_GET, 'staff_password') ? $_GET['staff_password'] : null;
+
+$staff_password = password_hash($staff_password, PASSWORD_DEFAULT);
+
+$myPDO  = getDatabase(); 
 
 
-$staff_id = filter_has_var(INPUT_GET, 'staffID') ? $_GET['staffID'] : null; 
-
-        //Connects to database
-        $myPDO  = getDatabase(); 
-		$query  = $myPDO->query("DELETE  
-                    FROM hd_staff_users
+$query  = $myPDO->query("UPDATE hd_staff_users 
+                    SET staff_password  = '$staff_password'
                     WHERE staff_id = '$staff_id'");
-        //Redirect to employees page
-        header("Location: viewEmployees.php");
-        die();
+        
+        //redirect to the employees page
+        header("Location:viewEmployees.php");
 
+        die();
+                
 ?>
 <?php 
-        echo createPageClose(); 
+    echo createPageClose(); 
 ?>
+

@@ -14,10 +14,11 @@ session_start();
         header('Location: ../frontend/loginForm.php');
 
     }
-echo makePageStart("Vehicle Logs");
+echo makePageStart("Create Deduction");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles Create deduction page-->
 
 
 
@@ -38,6 +39,8 @@ echo adminNav();
     <main>
 
     <?php
+
+
 echo "
     <form action='createDeduction.php' method='post' enctype='multipart/form-data'>
     <div class='box-header with-border'>
@@ -48,7 +51,7 @@ echo "
             
                 <div class='inputsInner'>
                 <label for='deduction_name'>Deduction</label>
-                <input type='text' id='deduction_name'name='deduction_name' pattern='[A-Za-z0-9]{1,20}' placeholder='Tax' required/>
+                <input type='text' id='deduction_name'name='deduction_name' pattern='[A-Za-z0-9]{1,20}' maxlength='200' placeholder='Tax' required/>
                 </div>
                 <div class='inputsInner'>
                 <label for='deduction_amount'>Deduction Amount</label>
@@ -71,15 +74,19 @@ echo "
 
 $myPDO  = getDatabase();
 
+/* 
+* Sanitizes input, checks for duplicate entry, submits to database
+*/
 if(isset($_POST['insert_deduction'])){
 
 $deduction_name = $_POST['deduction_name'];
 $deduction_amount = $_POST['deduction_amount'];
 
 //Trimming inputs from user
-$deduction_name = trim($deduction_name);
+$deduction_name = sanitizeInput($deduction_name);
 
 
+/**Duplicate deduction check */
 $check_deductions  = $myPDO->query("SELECT deduction_name
 FROM hd_deductions
 WHERE deduction_name ='$deduction_name'");
@@ -88,6 +95,9 @@ $duplicateDeduction = false;
 
 while($row= $check_deductions->fetch(PDO::FETCH_ASSOC)){
 
+/* 
+* Pop up on screen if a duplicate entry
+*/    
 if($row['deduction_name'] == $deduction_name){
     $duplicateDeduction = true; 
     echo '<script type="text/javascript">',
@@ -97,6 +107,9 @@ if($row['deduction_name'] == $deduction_name){
 }
 }
 if($duplicateDeduction == false){
+/* 
+* Submits to database if a new entry
+*/
     $query  = $myPDO->query("INSERT INTO hd_deductions(deduction_name,deduction_amount) VALUES('$deduction_name','$deduction_amount')");
     
 

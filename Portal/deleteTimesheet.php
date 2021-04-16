@@ -13,18 +13,15 @@ session_start();
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }echo makePageStart("Vehicle Logs");
+    }echo makePageStart("");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
 <?php
-//using the $_GET the correct values from the selected event can be accessed and they are stored with variables
+
 $timesheet_id = filter_has_var(INPUT_GET, 'timesheetID') ? $_GET['timesheetID'] : null; 
-
-
-$errors = false;
-
 
         //Connects to database
         $myPDO  = getDatabase(); 
@@ -32,7 +29,7 @@ $errors = false;
 		$query  = $myPDO->query("DELETE  
                     FROM hd_payslips
                     WHERE timesheet_id = '$timesheet_id'");
-        
+        //Redirect to payroll page
         header("Location: payroll.php");
         die();
 

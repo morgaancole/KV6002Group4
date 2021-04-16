@@ -58,6 +58,7 @@ function handleUpload()
     
     $result = $stmt->execute($params);
 
+
     
 
 
@@ -68,6 +69,13 @@ function handleUpload()
         $stmt->execute($params);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        $stmt2 = $conn->prepare("select sum(deduction_amount) as 'deduction'
+        from hd_deductions");
+        $params2 = [];
+        $stmt2->execute($params2);
+        $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+        $deductions = $result2['deduction'];
         $hourlyRate = $result['hourly_rate'];
         $hourlyRateOvertime = $result['hourly_rate'] * 2;
 
@@ -78,10 +86,12 @@ function handleUpload()
 
         $postTax = $preTax * 0.80;
 
+        $final = $postTax - $deductions;
+
         $stmt = $conn->prepare("insert into hd_payslips (staff_id, hours_worked, salary, overtime_worked, pre_tax_income, post_tax_income, deductables,  final_income, process_id, timesheet_id )
          VALUES (:sid, :hours, :sal, :over, :pre, :post, :deductables, :final, :process, :tid)");
         $params = ["sid" => $sanitizedId, "hours" => $sanitizedHours, "sal" => $salaryReg, "over" => $sanitizedHoursOver, "pre" => $preTax,
-            "post" => $postTax, "deductables" => 0, "final" => $postTax, "process" => 1, "tid" => $timesheetID];
+            "post" => $postTax, "deductables" => $deductions, "final" => $final, "process" => 1, "tid" => $timesheetID];
         $result = $stmt->execute($params);
 
         if ($result) {

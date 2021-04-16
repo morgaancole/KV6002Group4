@@ -17,22 +17,19 @@ session_start();
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
 <?php
-//using the $_GET the correct values from the selected event can be accessed and they are stored with variables
+/**Removes selected position from the database */
+
 $pay_id = filter_has_var(INPUT_GET, 'payID') ? $_GET['payID'] : null;
-
-
-$errors = false;
-
 
         //Connects to database
         $myPDO  = getDatabase();  
-        //SQL update statement to update the content of the database with the changes the user just made
 		$query  = $myPDO->query("DELETE  
                     FROM hd_pay_categories
                     WHERE pay_id = '$pay_id'");
-        
+        //Redirect to positions page
         header("Location: position.php");
         die();
 
