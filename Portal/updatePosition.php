@@ -36,9 +36,25 @@ $pay_desc = ucfirst($pay_desc);
                     SET pay_desc = '$pay_desc', hourly_rate = '$hourly_rate'
                     WHERE pay_id = '$pay_id'");
 //redirect to positions page
-header("Location:position.php");
-die();
-        
+require_once "inc/functions.php";
+        echo makePageStart("Timesheet");
+        echo createPageBody();
+    
+        $success = <<<UPLOADED
+    
+        <div class="upload_outer">
+        <div class="upload_inner">
+        <img class="upload_img" src="img/success.png" alt="success tick">
+            <p>Position successfully updated</p>
+            <a href="position.php"><button>Positions</button></a>
+            </div>
+        </div>
+    
+UPLOADED;
+        $success .= "\n";
+        echo $success;
+        echo createPageClose();
+
 ?>
 <?php 
         echo createPageClose(); 

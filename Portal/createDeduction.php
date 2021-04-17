@@ -51,7 +51,7 @@ echo "
             
                 <div class='inputsInner'>
                 <label for='deduction_name'>Deduction</label>
-                <input type='text' id='deduction_name'name='deduction_name' pattern='[A-Za-z0-9]{1,20}' maxlength='200' placeholder='Tax' required/>
+                <input type='text' id='deduction_name'name='deduction_name' pattern='[A-Za-z0-9]{1,20}' maxlength='30' placeholder='Tax' required/>
                 </div>
                 <div class='inputsInner'>
                 <label for='deduction_amount'>Deduction Amount</label>
@@ -84,7 +84,8 @@ $deduction_amount = $_POST['deduction_amount'];
 
 //Trimming inputs from user
 $deduction_name = sanitizeInput($deduction_name);
-
+$deduction_name = strtolower($deduction_name);
+$deduction_name = ucfirst($deduction_name);
 
 /**Duplicate deduction check */
 $check_deductions  = $myPDO->query("SELECT deduction_name

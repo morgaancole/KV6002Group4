@@ -127,7 +127,7 @@ UPLOADED;
         <div class="upload_inner">
         <img class="upload_img" src="img/failure.png" alt="failure tick">
             <p>Sorry, we have been unable to upload or make your changes, please try again.</p>
-            <a href="http://192.168.64.2/group_project/dash.php"><button>Home</a></button>
+            <a href="dash.php"><button>Home</a></button>
             </div>
         </div>
 

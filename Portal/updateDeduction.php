@@ -37,8 +37,24 @@ $deduction_name = ucfirst($deduction_name);
                     WHERE deduction_id = '$deduction_id'");
         
         //redirect to deductions page
-        header("Location:deductions.php");
-        die();
+        require_once "inc/functions.php";
+        echo makePageStart("Timesheet");
+        echo createPageBody();
+    
+        $success = <<<UPLOADED
+    
+        <div class="upload_outer">
+        <div class="upload_inner">
+        <img class="upload_img" src="img/success.png" alt="success tick">
+            <p>Deduction successfully updated</p>
+            <a href="deductions.php"><button>Deductions</button></a>
+            </div>
+        </div>
+    
+UPLOADED;
+        $success .= "\n";
+        echo $success;
+        echo createPageClose();
 
 ?>
 <?php 

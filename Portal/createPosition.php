@@ -80,7 +80,10 @@ $pay_desc = $_POST['pay_desc'];
 $hourly_rate = $_POST['hourly_rate'];
 
 //Validate inputs
+//Variables are sanitized
 $pay_desc = sanitizeInput($pay_desc);
+$pay_desc = strtolower($pay_desc);
+$pay_desc = ucfirst($pay_desc);
 
 
 /**Duplicate position check */
