@@ -62,9 +62,6 @@ $date = $day . "/" . $month . "/" . $year;
 if($query && $query2 &&  $query3) {
     //email employee that timesheet was approved
     if($payslip_id = 1){
-    $msg = "Your timesheet has been approved";
-    $subject = "Your payslip";
-    $headers = "From Hendersons, check staff portal";
 
     $myPDO  = getDatabase();
     $query4 = $myPDO->query("SELECT staff_email
@@ -73,16 +70,16 @@ if($query && $query2 &&  $query3) {
     
     while($row= $query4->fetch(PDO::FETCH_ASSOC)){
     $staff_email = $row['staff_email'];
+    $msg = "Your timesheet has been approved";
+    $subject = "Your payslip";
+    $headers = "From Hendersons, check staff portal";
     mail($staff_email,$subject,$msg, $headers);
     }
 
     }
     //email employee that timesheet was rejected
     if($payslip_id = 3){
-    $msg = "Your timesheet has been approved";
-    $subject = "Your payslip";
-    $headers = "From Hendersons, check staff portal";
-
+  
     $myPDO  = getDatabase();
     $query5 = $myPDO->query("SELECT staff_email
     FROM hd_staff_users
@@ -90,7 +87,10 @@ if($query && $query2 &&  $query3) {
     
     while($row= $query5->fetch(PDO::FETCH_ASSOC)){
     $staff_email = $row['staff_email'];
-    mail( $staff_email,$subject,$msg, $headers);
+    $msg = "Your timesheet has been rejected";
+    $subject = "Your payslip";
+    $headers = "From Hendersons, check staff portal";
+    mail($staff_email,$subject,$msg, $headers);
     }
 
     }
