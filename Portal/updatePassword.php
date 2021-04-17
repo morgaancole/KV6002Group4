@@ -44,7 +44,7 @@ function handlePwdChange() {
                 </div>
             </div>
     
-    UPLOADED;
+UPLOADED;
             $success .= "\n";
             echo $success;
             echo createPageClose();
@@ -63,7 +63,6 @@ function handlePwdChange() {
             <a href="dash.php"><button>Home</a></button>
             </div>
         </div>
-
 UPLOADED;
         $success .= "\n";
         echo $success;
