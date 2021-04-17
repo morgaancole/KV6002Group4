@@ -31,7 +31,13 @@ $pay_id = filter_has_var(INPUT_GET, 'pay_id') ? $_GET['pay_id'] : null;
 
 //Variables are sanitizes
 $staff_first_name = sanitizeInput($staff_first_name);
+$staff_first_name = strtolower($staff_first_name);
+$staff_first_name = ucfirst($staff_first_name);
+
 $staff_last_name = sanitizeInput($staff_last_name);
+$staff_last_name = strtolower($staff_last_name);
+$staff_last_name = ucfirst($staff_last_name);
+
 $staff_email = sanitizeInput($staff_email);
 $staff_address = sanitizeInput($staff_address);
 $staff_postcode = sanitizeInput($staff_postcode);

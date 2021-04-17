@@ -186,8 +186,15 @@ $pay_id = $_POST['pay_id'];
 
 //validate inputs
 $staff_first_name = sanitizeInput($staff_first_name);
+$staff_first_name = strtolower($staff_first_name);
+$staff_first_name = ucfirst($staff_first_name);
+
 $staff_last_name = sanitizeInput($staff_last_name);
+$staff_last_name = strtolower($staff_last_name);
+$staff_last_name = ucfirst($staff_last_name);
+
 $staff_email = sanitizeInput($staff_email);
+
 //password hashed
 $staff_password = password_hash($staff_password, PASSWORD_DEFAULT);
 $staff_address = sanitizeInput($staff_address);
