@@ -26,7 +26,8 @@ $deduction_amount = filter_has_var(INPUT_GET, 'deduction_amount') ? $_GET['deduc
 
 //Variables are sanitized
 $deduction_name = sanitizeInput($deduction_name);
-
+$deduction_name = strtolower($deduction_name);
+$deduction_name = ucfirst($deduction_name);
 
         //Connects to database
         $myPDO  = getDatabase(); 

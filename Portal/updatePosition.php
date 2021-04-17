@@ -26,6 +26,8 @@ $hourly_rate = filter_has_var(INPUT_GET, 'hourly_rate') ? $_GET['hourly_rate'] :
 
 //Variables are sanitized
 $pay_desc = sanitizeInput($pay_desc);
+$pay_desc = strtolower($pay_desc);
+$pay_desc = ucfirst($pay_desc);
 
         //Connects to database
         $myPDO  = getDatabase(); 
