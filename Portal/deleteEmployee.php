@@ -30,8 +30,24 @@ $staff_id = filter_has_var(INPUT_GET, 'staffID') ? $_GET['staffID'] : null;
                     FROM hd_staff_users
                     WHERE staff_id = '$staff_id'");
         //Redirect to employees page
-        header("Location: viewEmployees.php");
-        die();
+require_once "inc/functions.php";
+        echo makePageStart("Employees");
+        echo createPageBody();
+    
+        $success = <<<UPLOADED
+    
+        <div class="upload_outer">
+        <div class="upload_inner">
+        <img class="upload_img" src="img/success.png" alt="success tick">
+            <p>Employee successfully removed</p>
+            <a href="viewEmployees.php"><button>Employees</button></a>
+            </div>
+        </div>
+    
+UPLOADED;
+        $success .= "\n";
+        echo $success;
+        echo createPageClose();
 
 ?>
 <?php 
