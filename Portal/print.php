@@ -20,20 +20,33 @@
 		INNER JOIN hd_timesheet_responses on (hd_payslips.timesheet_id = hd_timesheet_responses.timesheet_id)
 		WHERE hd_payslips.timesheet_id = '$timesheet_id'");
         
+
         
         while($row= $query->fetch(PDO::FETCH_ASSOC)){
+            $hourlyRate = $row['hourly_rate'];
+            $hourlyRateOvertime = $row['hourly_rate'] * 2;
+
+    $salaryReg = $row['hours_worked'] * $hourlyRate;
+    $salaryOvertime = $row['overtime_worked'] * $hourlyRateOvertime;
+
+    $preTax = $salaryReg + $salaryOvertime;
+
+    $postTax = $preTax * 0.80;
+
+    $final = $postTax - $row['deductables'];
+
 			$contents .= "
             <tr>
             <td>".$row['Date']."</td>
             <td>".$row['staff_first_name']. " ".$row['staff_last_name']."</td>
             <td>".$row['hours_worked']."</td>
             <td>".$row['overtime_worked']."</td>
-            <td>".$row['salary']."</td>
+            <td>". $salaryOvertime."</td>
 
-            <td>".$row['pre_tax_income']."</td>
-            <td>".$row['post_tax_income']."</td>
+            <td>". $preTax."</td>
+            <td>".$postTax."</td>
             <td>".$row['deductables']."</td>
-            <td>".$row['final_income']."</td>
+            <td>".$final."</td>
 			</tr>
 			";
 		}
