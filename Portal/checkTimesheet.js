@@ -1,4 +1,4 @@
-window.addEventListener("load", function () {
+window.addEventListener("load", function() {
   "use strict";
 
   const submitTimesheet = document.getElementById("timesheetForm");
@@ -12,11 +12,14 @@ window.addEventListener("load", function () {
     let location = document.getElementById("siteLocation");
     let desc = document.getElementById("desc");
 
-    const currentYear = new Date().getFullYear().toString().substr(-2);
-    
+    const currentYear = new Date()
+      .getFullYear()
+      .toString()
+      .substr(-2);
+
     let currentMonth = new Date().getMonth() + 1;
     currentMonth = currentMonth.toString();
-    
+
     const currentDay = new Date().getDate().toString();
 
     const errorMsg = document.getElementById("errorMsg");
@@ -34,7 +37,6 @@ window.addEventListener("load", function () {
     } else {
       newMonth = currentMonth;
     }
-
 
     const regEx = /^[\w!?,. -]+$/;
 

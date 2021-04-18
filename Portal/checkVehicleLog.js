@@ -1,4 +1,4 @@
-window.addEventListener("load", function () {
+window.addEventListener("load", function() {
   "use strict";
 
   const submitVL = document.getElementById("VLForm");
@@ -12,8 +12,14 @@ window.addEventListener("load", function () {
     let milage = document.getElementById("currentmilage");
     let issues = document.getElementById("issues");
 
-    const currentYear = new Date().getFullYear().toString().substr(-2);
-    const currentMonth = new Date().getMonth().toString();
+    const currentYear = new Date()
+      .getFullYear()
+      .toString()
+      .substr(-2);
+
+    let currentMonth = new Date().getMonth() + 1;
+    currentMonth = currentMonth.toString();
+
     const currentDay = new Date().getDate().toString();
 
     const errorMsg = document.getElementById("errorMsg");
@@ -35,9 +41,6 @@ window.addEventListener("load", function () {
     const regEx = /^[\w!?,. \-/]+$/;
     const numRegEx = /^[0-9]+$/;
 
-    
-
-
     if (year.value > currentYear) {
       errorMsg.innerHTML = "Year can't be in advance of todays date";
       year.focus();
@@ -50,8 +53,8 @@ window.addEventListener("load", function () {
       errorMsg.innerHTML = "Date can't be in advance of todays date";
       day.focus();
       return false;
-    } else if(!numRegEx.test(milage.value)) {
-        errorMsg.innerHTML = "Milage contains invalid characters";
+    } else if (!numRegEx.test(milage.value)) {
+      errorMsg.innerHTML = "Milage contains invalid characters";
       milage.focus();
       return false;
     } else if (!regEx.test(issues.value)) {
