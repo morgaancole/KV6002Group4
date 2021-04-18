@@ -60,9 +60,9 @@ echo adminNav();
 				<?php
                 
                 $myPDO  = getDatabase();  
-                $query = $myPDO->query("SELECT staff_id, staff_first_name,staff_last_name, pay_desc, hd_staff_users.pay_id,date_of_birth
+                $query = $myPDO->query("SELECT  *
                 FROM hd_staff_users
-                INNER join hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)
+                left join hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)
                 order by staff_id ");
 
  					while($row= $query->fetch(PDO::FETCH_ASSOC)){
