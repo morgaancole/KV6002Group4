@@ -58,64 +58,52 @@ $duplicateUser = false;
 $duplicateEmail = false;
 
 while($row= $check_users->fetch(PDO::FETCH_ASSOC)){
-$date_of_birth = $row['date_of_birth'];
+
+    //get current user date of birth
+    $check_user_dob = $myPDO->query("SELECT date_of_birth
+    FROM hd_staff_users
+    WHERE staff_id = '$staff_id'");
+    
+    while($result= $check_user_dob->fetch(PDO::FETCH_ASSOC)){
+
+        $user_dob = $result['date_of_birth'];
+    
 
 //Checks for users with the same last name and date of birth
-if($row['date_of_birth'] == $date_of_birth && $row['staff_last_name'] == $staff_last_name ){
+if($row['date_of_birth'] == $user_dob && $row['staff_last_name'] == $staff_last_name ){
     $duplicateUser = true; 
 
-    require_once "inc/functions.php";
-    echo makePageStart("Employees");
-    echo createPageBody();
+    header("refresh:2;url=viewEmployees.php"); 
+    echo "               <div class='upload_outer'>
+    <div class='upload_inner'> 
+    <img class='upload_img' src='img/failure.png' alt='failure tick'>
 
-    $success = <<<UPLOADED
-
-    <div class="upload_outer">
-    <div class="upload_inner">
-    <img class="upload_img" src="img/failure.png" alt="failure tick">
-        <p>Sorry, can't change name. User already exists with same last name and date of birth</p>
-        <a href="viewEmployees.php"><button>Back</a></button>
-        </div>
+    <p align='center'> <font size='6pt'>Error duplicate user, user has same date of birth and last name as another user</font> </p>
     </div>
+    </div>";
+    exit;
 
-UPLOADED;
-    $success .= "\n";
-    echo $success;
-    echo createPageClose();
-
-;
 }
 }
-
+}
+//duplicate email
 while($row= $check_email->fetch(PDO::FETCH_ASSOC)){
     if($row['staff_email'] == $staff_email){
         $duplicateEmail = true;
 
-    require_once "inc/functions.php";
-    echo makePageStart("Employees");
-    echo createPageBody();
-
-    $success = <<<UPLOADED
-
-    <div class="upload_outer">
-    <div class="upload_inner">
-    <img class="upload_img" src="img/failure.png" alt="failure tick">
-        <p>Sorry, can't update email. User already exists with same email</p>
-        <a href="viewEmployees.php"><button>Back</a></button>
+        header("refresh:2;url=viewEmployees.php"); 
+        echo "               <div class='upload_outer'>
+        <div class='upload_inner'> 
+        <img class='upload_img' src='img/failure.png' alt='failure tick'>
+    
+        <p align='center'> <font size='6pt'>Error duplicate email, email already in use</font> </p>
         </div>
-    </div>
+        </div>";
+        exit;
+}
+}
 
-UPLOADED;
-    $success .= "\n";
-    echo $success;
-    echo createPageClose();
-
-
-;
-    }
-    }
-
-
+//New user
 if($duplicateUser == false && $duplicateEmail == false){
 
         //Connects to database
@@ -132,8 +120,8 @@ if($duplicateUser == false && $duplicateEmail == false){
     
         $success = <<<UPLOADED
     
-        <div class="upload_outer">
-        <div class="upload_inner">
+        <div class='upload_outer'>
+        <div class='upload_inner'> 
         <img class="upload_img" src="img/success.png" alt="success tick">
             <p>User successfully updated</p>
             <a href="viewEmployees.php"><button>Employee list</button></a>
