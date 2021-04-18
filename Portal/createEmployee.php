@@ -56,12 +56,12 @@ echo "
             
             <div class='inputsInner'>
             <label for='staff_first_name'>Staff first name *</label>
-            <input type='text' id='staff_first_name' name='staff_first_name' maxlength='30' pattern='[A-Za-z]{0,20}' placeholder='John' required/>
+            <input type='text' id='staff_first_name' name='staff_first_name' maxlength='30' pattern='[A-Za-z]{1,20}' placeholder='John' required/>
             </div>
 
             <div class='inputsInner'>
             <label for='staff_last_name'>Staff last name *</label>
-            <input type='text' id='staff_last_name'name='staff_last_name' maxlength='30' pattern='[A-Za-z]{0,20}' placeholder='Smith' required/>
+            <input type='text' id='staff_last_name'name='staff_last_name' maxlength='30' pattern='[A-Za-z]{1,20}' placeholder='Smith' required/>
             </div>
 
             <div class='inputsInner'>
