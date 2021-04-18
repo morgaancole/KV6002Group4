@@ -13,30 +13,41 @@ session_start();
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }echo makePageStart("Vehicle Logs");
+    }echo makePageStart("");
 echo createPageBody();
 echo adminNav(); 
 ?>
 
-
+<!--@author Nicholas Coyles -->
 
 <?php
-//using the $_GET the correct values from the selected event can be accessed and they are stored with variables
+/**Removes selected employee from the database */
 $staff_id = filter_has_var(INPUT_GET, 'staffID') ? $_GET['staffID'] : null; 
-
-
-$errors = false;
-
 
         //Connects to database
         $myPDO  = getDatabase(); 
-        //SQL update statement to update the content of the database with the changes the user just made
 		$query  = $myPDO->query("DELETE  
                     FROM hd_staff_users
                     WHERE staff_id = '$staff_id'");
-        
-        header("Location: viewEmployees.php");
-        die();
+        //Redirect to employees page
+require_once "inc/functions.php";
+        echo makePageStart("Employees");
+        echo createPageBody();
+    
+        $success = <<<UPLOADED
+    
+        <div class="upload_outer">
+        <div class="upload_inner">
+        <img class="upload_img" src="img/success.png" alt="success tick">
+            <p>Employee successfully removed</p>
+            <a href="viewEmployees.php"><button>Employees</button></a>
+            </div>
+        </div>
+    
+UPLOADED;
+        $success .= "\n";
+        echo $success;
+        echo createPageClose();
 
 ?>
 <?php 

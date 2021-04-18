@@ -13,42 +13,127 @@ session_start();
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }echo makePageStart("Vehicle Logs");
+    }echo makePageStart("");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
 
 <?php
-//using the $_GET the correct values from the selected event can be accessed and they are stored with variables
 $staff_id = filter_has_var(INPUT_GET, 'staff_id') ? $_GET['staff_id'] : null;
 $staff_first_name = filter_has_var(INPUT_GET, 'staff_first_name') ? $_GET['staff_first_name'] : null; 
 $staff_last_name = filter_has_var(INPUT_GET, 'staff_last_name') ? $_GET['staff_last_name'] : null;
 $staff_email = filter_has_var(INPUT_GET, 'staff_email') ? $_GET['staff_email'] : null;
-$staff_password  = filter_has_var(INPUT_GET, 'staff_password') ? $_GET['staff_password'] : null;
 $staff_address = filter_has_var(INPUT_GET, 'staff_address') ? $_GET['staff_address'] : null;
 $staff_postcode = filter_has_var(INPUT_GET, 'staff_postcode') ? $_GET['staff_postcode'] : null;
 $pay_id = filter_has_var(INPUT_GET, 'pay_id') ? $_GET['pay_id'] : null;
 
-//validate inputs
-$staff_first_name = trim($staff_first_name);
-$staff_last_name = trim($staff_last_name);
-$staff_email = trim($staff_email);
-$staff_password = password_hash($staff_password);
-$staff_address = trim($staff_address);
-$staff_postcode = trim($staff_postcode);
+//Variables are sanitizes
+$staff_first_name = sanitizeInput($staff_first_name);
+$staff_first_name = strtolower($staff_first_name);
+$staff_first_name = ucfirst($staff_first_name);
 
+$staff_last_name = sanitizeInput($staff_last_name);
+$staff_last_name = strtolower($staff_last_name);
+$staff_last_name = ucfirst($staff_last_name);
+
+$staff_email = sanitizeInput($staff_email);
+$staff_address = sanitizeInput($staff_address);
+$staff_postcode = sanitizeInput($staff_postcode);
+
+/**Duplicate user check */
+$myPDO  = getDatabase();
+
+$check_users  = $myPDO->query("SELECT date_of_birth,staff_last_name,staff_id
+FROM hd_staff_users
+WHERE staff_last_name ='$staff_last_name' and NOT staff_id = '$staff_id'");
+
+/**Duplicate email check*/
+$check_email  = $myPDO->query("SELECT staff_email,staff_id
+FROM hd_staff_users
+WHERE NOT staff_id = '$staff_id'");
+
+$duplicateUser = false;
+$duplicateEmail = false;
+
+while($row= $check_users->fetch(PDO::FETCH_ASSOC)){
+
+    //get current user date of birth
+    $check_user_dob = $myPDO->query("SELECT date_of_birth
+    FROM hd_staff_users
+    WHERE staff_id = '$staff_id'");
+    
+    while($result= $check_user_dob->fetch(PDO::FETCH_ASSOC)){
+
+        $user_dob = $result['date_of_birth'];
+    
+
+//Checks for users with the same last name and date of birth
+if($row['date_of_birth'] == $user_dob && $row['staff_last_name'] == $staff_last_name ){
+    $duplicateUser = true; 
+
+    header("refresh:2;url=viewEmployees.php"); 
+    echo "               <div class='upload_outer'>
+    <div class='upload_inner'> 
+    <img class='upload_img' src='img/failure.png' alt='failure tick'>
+
+    <p align='center'> <font size='6pt'>Error duplicate user, user has same date of birth and last name as another user</font> </p>
+    </div>
+    </div>";
+    exit;
+
+}
+}
+}
+//duplicate email
+while($row= $check_email->fetch(PDO::FETCH_ASSOC)){
+    if($row['staff_email'] == $staff_email){
+        $duplicateEmail = true;
+
+        header("refresh:2;url=viewEmployees.php"); 
+        echo "               <div class='upload_outer'>
+        <div class='upload_inner'> 
+        <img class='upload_img' src='img/failure.png' alt='failure tick'>
+    
+        <p align='center'> <font size='6pt'>Error duplicate email, email already in use</font> </p>
+        </div>
+        </div>";
+        exit;
+}
+}
+
+//New user
+if($duplicateUser == false && $duplicateEmail == false){
 
         //Connects to database
         $myPDO  = getDatabase();
-        //SQL update statement to update the content of the database with the changes the user just made
+        //employee updated
 		$query  = $myPDO->query("UPDATE hd_staff_users 
-                    SET staff_first_name = '$staff_first_name', staff_last_name = '$staff_last_name',staff_email = '$staff_email',
-                    staff_password = '$staff_password', staff_address = '$staff_address',staff_postcode = '$staff_postcode',pay_id ='$pay_id'
+                    SET staff_first_name = '$staff_first_name', staff_last_name = '$staff_last_name',staff_email = '$staff_email', staff_address = '$staff_address',staff_postcode = '$staff_postcode',pay_id ='$pay_id'
                     WHERE staff_id = '$staff_id'");
-        
-        header("Location: viewEmployees.php");
-        die();
+        //redirect to employee page
+
+        require_once "inc/functions.php";
+        echo makePageStart("Timesheet");
+        echo createPageBody();
+    
+        $success = <<<UPLOADED
+    
+        <div class='upload_outer'>
+        <div class='upload_inner'> 
+        <img class="upload_img" src="img/success.png" alt="success tick">
+            <p>User successfully updated</p>
+            <a href="viewEmployees.php"><button>Employee list</button></a>
+            </div>
+        </div>
+    
+UPLOADED;
+        $success .= "\n";
+        echo $success;
+        echo createPageClose();
+}
+
 
 ?>
 </body>

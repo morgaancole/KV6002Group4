@@ -13,11 +13,12 @@ session_start();
   }else{//Redirecting user if they're not logged in
       header('Location: ../frontend/loginForm.php');
 
-  }echo makePageStart("Vehicle Logs");
+  }echo makePageStart("Deductions");
 echo createPageBody();
 echo adminNav(); 
 ?>
 
+<!--@author Nicholas Coyles -->
 
 <div class="main-content">
 
@@ -37,10 +38,12 @@ echo adminNav();
 
     <div class="box">
             <div class="box-header with-border">
+
+              <!--Create new deduction-->
               <a href="createDeduction.php"><i class="fa fa-plus"></i>Create New Deduction</a>
             </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered">
+              <table id="example1" class="responsive-table">
                 <thead>
                   <th>Deduction Name</th>
                   <th>Amount</th>
@@ -48,6 +51,10 @@ echo adminNav();
                 </thead>
                 <tbody>
                   <?php
+                  
+                  /**Table of all deductions, edit and delete options*/
+
+
                 $myPDO  = getDatabase();  
                 $query = $myPDO->query("SELECT * FROM hd_deductions");
 
@@ -55,12 +62,13 @@ echo adminNav();
 
                       echo "
                         <tr>
-                          <td>".$row['deduction_name']."</td>
-                          <td>".number_format($row['deduction_amount'], 2)."</td>
+                          <td data-label='Deduction Name'>".$row['deduction_name']."</td>
+                          <td data-label='Amount'>".number_format($row['deduction_amount'], 2)."</td>
                         
-                          <td><a href='editDeduction.php?deductionID={$row['deduction_id']}'>Edit</a</td>
-                          <td><a href='deleteDeduction.php?deductionID={$row['deduction_id']}'>Delete</a</td>
-
+                          <td data-label='Tools'><a href='editDeduction.php?deductionID={$row['deduction_id']}'>Edit</a>
+                          <br>
+                          <a href='deleteDeduction.php?deductionID={$row['deduction_id']}'>Delete</a>
+                          </td>
                         </tr>
 
                       ";

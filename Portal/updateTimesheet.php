@@ -13,13 +13,13 @@ session_start();
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }echo makePageStart("Vehicle Logs");
+    }echo makePageStart("");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
 <?php
-//using the $_GET the correct values from the selected event can be accessed and they are stored with variables
 $timesheet_id = filter_has_var(INPUT_GET, 'timesheet_id') ? $_GET['timesheet_id'] : null;
 $id = filter_has_var(INPUT_GET, 'id') ? $_GET['id'] : null;
 $day = filter_has_var(INPUT_GET, 'day') ? $_GET['day'] : null; 
@@ -32,44 +32,73 @@ $desc = filter_has_var(INPUT_GET, 'desc') ? $_GET['desc'] : null;
 $process_id = filter_has_var(INPUT_GET, 'process_id') ? $_GET['process_id'] : null; 
 $payslip_id = filter_has_var(INPUT_GET, 'payslip_id') ? $_GET['payslip_id'] : null; 
 
+//Variables are sanitized
+$location = sanitizeInput($location);
+$desc = sanitizeInput($desc);
+
+
 
 $date = $day . "/" . $month . "/" . $year;
 
 
         //Connects to database
         $myPDO  = getDatabase();
-        //SQL update statement to update the content of the database with the changes the user just made
-		$query  = $myPDO->query("UPDATE hd_timesheet_responses 
+        //updates the timesheet
+        $query  = $myPDO->query("UPDATE hd_timesheet_responses 
         SET Date = '$date', location = '$location', hours_worked = '$hours',jobs_completed_desc = '$desc', overtime_worked = '$hoursOvertime'
         WHERE timesheet_id = '$timesheet_id'");
         
+        //updates the status
         $query2  = $myPDO->query("UPDATE hd_payslips
         SET process_id = '$process_id'
         WHERE payslip_id = '$payslip_id'");
         
-        
+        //updates the payslip
         $query3 = $myPDO->query("UPDATE hd_payslips
         SET hours_worked = '$hours', overtime_worked = '$hoursOvertime'
         WHERE timesheet_id = '$timesheet_id'");
 
-
+//If all successfull
 if($query && $query2 &&  $query3) {
+    //email employee that timesheet was approved
+    if($payslip_id = 1){
+
+    $myPDO  = getDatabase();
+    $query4 = $myPDO->query("SELECT staff_email
+    FROM hd_staff_users
+    WHERE staff_id = '$id'");
+    
+    while($row= $query4->fetch(PDO::FETCH_ASSOC)){
+    $staff_email = $row['staff_email'];
+    $msg = "Your timesheet has been approved";
+    $subject = "Your payslip";
+    $headers = "From Hendersons, check staff portal";
+    mail($staff_email,$subject,$msg, $headers);
+    }
+
+    }
+    //email employee that timesheet was rejected
+    if($payslip_id = 3){
+  
+    $myPDO  = getDatabase();
+    $query5 = $myPDO->query("SELECT staff_email
+    FROM hd_staff_users
+    WHERE staff_id = '$id'");
+    
+    while($row= $query5->fetch(PDO::FETCH_ASSOC)){
+    $staff_email = $row['staff_email'];
+    $msg = "Your timesheet has been rejected";
+    $subject = "Your payslip";
+    $headers = "From Hendersons, check staff portal";
+    mail($staff_email,$subject,$msg, $headers);
+    }
+
+    }
+
+
     require_once "inc/functions.php";
     echo makePageStart("Timesheet");
     echo createPageBody();
-
-    if($payslip_id = 1){
-    
-    $to      = '';
-    $subject = 'Timesheet Approved';
-    $message = 'Hello, your timesheet has been approved';
-    $headers = 'From: webmaster@example.com'       . "\r\n" .
-                 'Reply-To: webmaster@example.com' . "\r\n" .
-                 'X-Mailer: PHP/' . phpversion();
-
-    mail($to, $subject, $message, $headers);
-    }
-
 
     $success = <<<UPLOADED
 
@@ -85,7 +114,24 @@ UPLOADED;
     $success .= "\n";
     echo $success;
     echo createPageClose();
-} 
+} else {
+    require_once "inc/functions.php";
+
+    $success = <<<UPLOADED
+
+    <div class="upload_outer">
+    <div class="upload_inner">
+    <img class="upload_img" src="img/failure.png" alt="failure tick">
+        <p>Sorry, there was an error please try again.</p>
+        <a href="payroll.php"><button>Payroll</a></button>
+        </div>
+    </div>
+
+UPLOADED;
+    $success .= "\n";
+    echo $success;
+    echo createPageClose();
+}
 
 ?>
 <?php 

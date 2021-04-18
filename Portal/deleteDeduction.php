@@ -13,26 +13,23 @@ session_start();
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }echo makePageStart("Vehicle Logs");
+    }echo makePageStart("");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
 <?php
-//using the $_GET the correct values from the selected event can be accessed and they are stored with variables
+/**Removes selected deduction from the database */
+
 $deduction_id = filter_has_var(INPUT_GET, 'deductionID') ? $_GET['deductionID'] : null; 
-
-
-$errors = false;
-
 
         //Connects to database
         $myPDO  = getDatabase();
-        //SQL update statement to update the content of the database with the changes the user just made
 		$query  = $myPDO->query("DELETE  
                     FROM hd_deductions
                     WHERE deduction_id = '$deduction_id'");
-        
+        //Redirect to deductions page
         header("Location: deductions.php");
         die();
 

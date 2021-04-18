@@ -227,9 +227,7 @@ td{
     font-size: .8rem;
 }
 
-tbody tr:nth-child(even){
-    background: #f9fafc;
-}
+
 
 .badge{
     padding: .2rem 1rem;
@@ -273,6 +271,23 @@ tbody tr:nth-child(even){
 
 .table-responsive{
     overflow-x: auto;
+}
+
+.responsive-table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.responsive-table td,.responsive-table th{
+  padding:12px 15px;
+  border:1px solid #ddd;
+  text-align: center;
+  font-size:16px;
+}
+
+.responsive-table th{
+	background-color: rgb(228, 78, 72);
+	color:#ffffff;
 }
 
 
@@ -600,6 +615,36 @@ tbody tr:nth-child(even){
     .dash-cards{
         grid-template-columns: 100%;
     }
+}
+
+@media(max-width: 500px){
+	.responsive-table thead{
+		display: none;
+	}
+
+	.responsive-table, .responsive-table tbody, .responsive-table tr, .responsive-table td{
+		display: block;
+		width: 100%;
+	}
+	.responsive-table tr{
+		margin-bottom:15px;
+	}
+	.responsive-table td{
+		text-align: right;
+		padding-left: 50%;
+		text-align: right;
+		position: relative;
+	}
+	.responsive-table td::before{
+		content: attr(data-label);
+		position: absolute;
+		left:0;
+		width: 50%;
+		padding-left:15px;
+		font-size:15px;
+		font-weight: bold;
+		text-align: left;
+	}
 }
 
 @media only screen and (max-width: 450px){

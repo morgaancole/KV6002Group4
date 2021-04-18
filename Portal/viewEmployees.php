@@ -13,12 +13,13 @@ session_start();
     }else{//Redirecting user if they're not logged in
         header('Location: ../frontend/loginForm.php');
 
-    }echo makePageStart("Vehicle Logs");
+    }echo makePageStart("Employee List");
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
-
+<!--Displays a table of all employees-->
 <div class="main-content">
 
     <header>
@@ -34,12 +35,17 @@ echo adminNav();
             </div>
     </header>
     <main>
+
+    <h2>Employees</h2>
+
     <form method="get" action="createEmployee.php">
 
-    <button><i class="fa fa-plus"></i> New user</button>
+    <div class="box-header with-border">
+        <a href="createEmployee.php"><i class="fa fa-plus"></i>Create New Employee</a>
+     </div>
     </form>
+    <table class="responsive-table">
 
-    <table>
 			<thead>
 				<tr>
 					<th>Staff Id</th>
@@ -47,31 +53,35 @@ echo adminNav();
 					<th>Last Name</th>
                     <th>Date of birth</th>
                     <th>Role</th>
+                    <th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
                 
                 $myPDO  = getDatabase();  
-                $query = $myPDO->query("SELECT staff_id, staff_first_name,staff_last_name, pay_desc, hd_staff_users.pay_id,date_of_birth
+                $query = $myPDO->query("SELECT  *
                 FROM hd_staff_users
-                INNER join hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)
+                left join hd_pay_categories on (hd_staff_users.pay_id = hd_pay_categories.pay_id)
                 order by staff_id ");
 
  					while($row= $query->fetch(PDO::FETCH_ASSOC)){
 				 
                         echo "
                         <tr>
-                          <td>".$row['staff_id']."</td>
-                          <td>".$row['staff_first_name']."</td>
-                          <td>".$row['staff_last_name']."</td>
-                          <td>".$row['date_of_birth']."</td>
-                          <td>".$row['pay_desc']."</td>
+                          <td data-label='Staff Id'>".$row['staff_id']."</td>
+                          <td data-label='First Name'> ".$row['staff_first_name']."</td>
+                          <td data-label='Last Name'> ".$row['staff_last_name']."</td>
+                          <td data-label='Date of birth'>".$row['date_of_birth']."</td>
+                          <td data-label='Role'>".$row['pay_desc']."</td>
 
                         
-                          <td><a href='viewEmployee.php?staffID={$row['staff_id']}&payID={$row['pay_id']}'>Edit</a</td>
-                          <td><a href='deleteEmployee.php?staffID={$row['staff_id']}'>Delete</a</td>
-
+                          <td data-label='Action'><a href='viewEmployee.php?staffID={$row['staff_id']}&payID={$row['pay_id']}'>Edit</a>
+                          <br>
+                          <a href='deleteEmployee.php?staffID={$row['staff_id']}'>Delete</a>
+                          <br>
+                          <a href='ManagePassword.php?staffID={$row['staff_id']}'>New Password</a>
+                          </td>
                         </tr>
 
                       ";

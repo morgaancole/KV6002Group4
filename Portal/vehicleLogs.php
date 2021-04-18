@@ -17,7 +17,9 @@ session_start();
 echo createPageBody();
 echo adminNav(); 
 ?>
+<!--@author Nicholas Coyles -->
 
+<!--Displays a table of all vehicle logs-->
 
 <div class="main-content">
 
@@ -36,12 +38,12 @@ echo adminNav();
     <main>
 
 
-    <table>
+    <table class="responsive-table">
 			<thead>
 				<tr>
 					<th>Log Id</th>
-					<th>Staff Id </th>
-                    <th>current Mileage</th>
+					<th>Staff Id</th>
+                    <th>Current Mileage</th>
                     <th>Issues</th>
                     <th>Response date</th>
                     <th>Vehicle Reg</th>
@@ -59,12 +61,12 @@ echo adminNav();
 				 
                         echo "
                         <tr>
-                          <td>".$row['log_id']."</td>
-                          <td>".$row['staff_id']."</td>
-                          <td>".$row['current_mileage']."</td>
-                          <td>".$row['any_issues']."</td>
-                          <td>".$row['response_date']."</td>
-                          <td>".$row['vehicle_reg']."</td>
+                          <td data-label='Log Id'>".$row['log_id']."</td>
+                          <td data-label='Staff Id'>".$row['staff_id']."</td>
+                          <td data-label='Current Mileage'>".$row['current_mileage']."</td>
+                          <td data-label='Issues'>".$row['any_issues']."</td>
+                          <td data-label='Response date'>".$row['response_date']."</td>
+                          <td data-label='Vehicle Reg'>".$row['vehicle_reg']."</td>
                         </tr>
 
                       ";
